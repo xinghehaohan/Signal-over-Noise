@@ -246,6 +246,11 @@ const styleSheet = `
     border-radius: 2px;
     font-size: 13px;
   }
+  @media (max-width: 600px) {
+    .dgs-nav-label { display: none; }
+    .dgs-btn-ghost  { padding-left: 9px; padding-right: 9px; }
+    .dgs-btn-primary { padding-left: 9px; padding-right: 9px; }
+  }
 `
 
 // ─────────────────────────────────────────────────────────────────────────
@@ -507,21 +512,26 @@ const Header = ({
           Signal <span className="dgs-ital" style={{ fontWeight: 400 }}>over</span> Noise
         </div>
       </button>
-      <nav style={{ display: 'flex', gap: 4 }}>
+      <nav style={{ display: 'flex', gap: 4, flexShrink: 0 }}>
         <button onClick={() => setView('today')} className={`dgs-btn-ghost ${view === 'today' ? 'active' : ''}`}>
-          <Calendar size={13} style={{ display: 'inline', marginRight: 6, verticalAlign: '-2px' }} />Today
+          <Calendar size={13} style={{ display: 'inline', verticalAlign: '-2px' }} />
+          <span className="dgs-nav-label" style={{ marginLeft: 6 }}>Today</span>
         </button>
         <button onClick={() => setView('archive')} className={`dgs-btn-ghost ${view === 'archive' ? 'active' : ''}`}>
-          <Archive size={13} style={{ display: 'inline', marginRight: 6, verticalAlign: '-2px' }} />Archive
+          <Archive size={13} style={{ display: 'inline', verticalAlign: '-2px' }} />
+          <span className="dgs-nav-label" style={{ marginLeft: 6 }}>Archive</span>
         </button>
         <button onClick={() => setView('settings')} className={`dgs-btn-ghost ${view === 'settings' ? 'active' : ''}`}>
-          <Settings size={13} style={{ display: 'inline', marginRight: 6, verticalAlign: '-2px' }} />Focus
+          <Settings size={13} style={{ display: 'inline', verticalAlign: '-2px' }} />
+          <span className="dgs-nav-label" style={{ marginLeft: 6 }}>Focus</span>
         </button>
-        <a href="/ingest" className="dgs-btn-ghost" style={{ display: 'inline-flex', alignItems: 'center', gap: 6, textDecoration: 'none' }}>
-          <Upload size={13} style={{ verticalAlign: '-2px' }} />Batch Ingest
+        <a href="/ingest" className="dgs-btn-ghost" style={{ display: 'inline-flex', alignItems: 'center', textDecoration: 'none' }}>
+          <Upload size={13} style={{ verticalAlign: '-2px' }} />
+          <span className="dgs-nav-label" style={{ marginLeft: 6 }}>Batch Ingest</span>
         </a>
         <button onClick={() => setView('add')} className="dgs-btn-primary">
-          <Plus size={14} style={{ display: 'inline', marginRight: 6, verticalAlign: '-2px' }} />Add Video
+          <Plus size={14} style={{ display: 'inline', verticalAlign: '-2px' }} />
+          <span className="dgs-nav-label" style={{ marginLeft: 6 }}>Add Video</span>
         </button>
       </nav>
     </div>
