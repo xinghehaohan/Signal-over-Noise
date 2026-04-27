@@ -1,0 +1,1113 @@
+WEBVTT
+
+1
+00:00:00.190 --> 00:00:04.110
+Meigu AI quantification analysis tool Hello everyone, we are the Meigu
+
+2
+00:00:04.110 --> 00:00:08.490
+Investment Network Use big data to drive your trading decisions In 2026,
+
+3
+00:00:08.910 --> 00:00:12.050
+artificial intelligence entered the second stage New hardware needs to be
+
+4
+00:00:12.050 --> 00:00:16.770
+upgraded Causing the Meigu market to have two revenue shares Recently rose This
+
+5
+00:00:16.770 --> 00:00:22.210
+year, Amazon, Microsoft, Google, Meta, and Argo These five big giants This year
+
+6
+00:00:22.210 --> 00:00:27.530
+'s capital expenditure will reach an astounding $7050 billion If you count Corv
+
+7
+00:00:27.530 --> 00:00:30.590
+air, this number will be close to 740 billion What is the concept of 740
+
+8
+00:00:30.590 --> 00:00:30.890
+billion?
+
+9
+00:00:32.210 --> 00:00:37.390
+About 70% increase compared to 2025 It is two times the expected increase in
+
+10
+00:00:37.390 --> 00:00:40.910
+the market at the end of last year Almost equal to the entire super-sized cloud
+
+11
+00:00:40.910 --> 00:00:44.710
+company A year's cash flow Are these technology giants crazy?
+
+12
+00:00:45.110 --> 00:00:47.570
+Is AI a trillion-bubble that is about to break?
+
+13
+00:00:49.110 --> 00:00:54.650
+But in my opinion This set of numbers is exactly another signal When capital is
+
+14
+00:00:54.650 --> 00:00:58.570
+pushed to the maximum scale The problem is no longer whether to invest But
+
+15
+00:00:58.570 --> 00:01:02.030
+whether the original path can still be supported The greater the computing
+
+16
+00:01:02.030 --> 00:01:06.730
+power, the greater the system pressure Electricity, heat dissipation, Internet,
+
+17
+00:01:07.090 --> 00:01:11.930
+efficiency Every link is pushing into the physical border The old structure is
+
+18
+00:01:11.930 --> 00:01:14.870
+starting to eat A new technical route that has been heavily invested and forced
+
+19
+00:01:14.870 --> 00:01:21.690
+out Is accelerating Today's episode will be very hard I will take my recent
+
+20
+00:01:21.690 --> 00:01:25.830
+research and study AI technical background, business logic and financial
+
+21
+00:01:25.830 --> 00:01:32.650
+changes I'll show you the layers I'll help you figure this out Why is this 740
+
+22
+00:01:32.650 --> 00:01:33.410
+billion a must?
+
+23
+00:01:34.130 --> 00:01:37.450
+Why does capital push computing power to the physical limit step by step?
+
+24
+00:01:38.310 --> 00:01:42.430
+When the traditional structure comes to an end What is the new technical route
+
+25
+00:01:42.430 --> 00:01:42.530
+that was forced to be born?
+
+26
+00:01:43.630 --> 00:01:46.370
+On this new route Who is the first batch of companies to go to the red?
+
+27
+00:01:47.530 --> 00:01:51.270
+In front of AI Is the software integration box still there?
+
+28
+00:01:51.450 --> 00:01:52.370
+Is it a basic collapse?
+
+29
+00:01:52.690 --> 00:01:54.970
+Or is it an organization-led warehouse foot injury?
+
+30
+00:01:55.970 --> 00:01:56.490
+Which force is stronger?
+
+31
+00:01:58.270 --> 00:01:59.450
+Which force is stronger?
+
+32
+00:01:59.510 --> 00:02:04.010
+Let's make it clear This $740 billion in computing power is not a good bet It's
+
+33
+00:02:04.010 --> 00:02:07.729
+a must-have In today's AI competition The winner is no longer determined by
+
+34
+00:02:07.729 --> 00:02:12.170
+model parameters And depends on the cost efficiency of unit computing power In
+
+35
+00:02:12.170 --> 00:02:16.390
+the past, the upgrade server was for a faster, more stable Now that the struct
+
+36
+00:02:16.390 --> 00:02:20.450
+ure is only one generation behind The cost may be two to three times higher Take
+
+37
+00:02:20.450 --> 00:02:23.110
+the mainstream large model retreat as an example Under the same swallowing
+
+38
+00:02:23.110 --> 00:02:26.690
+amount Use the previous generation of GPU to complete the task required power
+
+39
+00:02:26.690 --> 00:02:29.670
+The number of chips and machine space It is often twice as much as the new
+
+40
+00:02:29.670 --> 00:02:33.930
+generation platform This is not a performance difference But the fundamental
+
+41
+00:02:33.930 --> 00:02:37.510
+imbalance of cost structure For cloud providers, this is directly related to
+
+42
+00:02:37.510 --> 00:02:42.070
+survival If the cost is high, you can't stay in the price war Low efficiency If
+
+43
+00:02:42.070 --> 00:02:45.170
+the cost is low, it is difficult to deliver large-scale AI services according
+
+44
+00:02:45.170 --> 00:02:48.370
+to the contract Once the customer delays or over-transfers to the opponent
+
+45
+00:02:48.370 --> 00:02:53.050
+Trust is difficult to restore The same is true Even under financial pressure
+
+46
+00:02:53.050 --> 00:02:57.130
+The giants also have to bite and push for a new generation Because of that H100
+
+47
+00:02:57.130 --> 00:03:02.070
+After becoming an industry standard in 2023 Only two years Blackwell
+
+48
+00:03:02.070 --> 00:03:05.690
+architecture is in the second half of 2025 Enter the large-scale deployment
+
+49
+00:03:05.690 --> 00:03:10.150
+stage The internal consensus is If not in the window period from 2026 to 2027
+
+50
+00:03:10.730 --> 00:03:13.930
+Complete the upgrade of Blackwell In the next three years, it will fall into a
+
+51
+00:03:13.930 --> 00:03:19.190
+structural cost disadvantage More importantly, AI is no longer just a cost But
+
+52
+00:03:19.190 --> 00:03:25.930
+it is pulling the real demand Amazon AWS unconfirmed income has reached $2440
+
+53
+00:03:25.930 --> 00:03:29.630
+billion Average growth of about 40% A large number of them are long-term
+
+54
+00:03:29.630 --> 00:03:33.950
+contracts that clearly require AI algorithmic support If the data center is one
+
+55
+00:03:33.950 --> 00:03:38.070
+step ahead Customers immediately turn to others Google's situation is also
+
+56
+00:03:38.070 --> 00:03:42.490
+obvious More than 30% of the company's code has been generated by AI Almost
+
+57
+00:03:42.490 --> 00:03:47.030
+half of the team With the optimization of the model The operating cost of the
+
+58
+00:03:47.030 --> 00:03:52.730
+same AI service Decreased from 20% to 30% six months ago AI has entered the
+
+59
+00:03:52.730 --> 00:03:56.270
+production process No need to fall behind If you don't plan ahead, it's
+
+60
+00:03:56.270 --> 00:03:59.250
+equivalent to giving up a certain income But when the scale of the algorithm
+
+61
+00:03:59.250 --> 00:04:02.970
+continues to expand The bottleneck begins to shift to the bottom The real
+
+62
+00:04:02.970 --> 00:04:06.990
+constraint has shifted from the chip to the power The data center itself is an
+
+63
+00:04:06.990 --> 00:04:13.030
+industrial system that runs all day No stable power No new chip can run From
+
+64
+00:04:13.030 --> 00:04:17.209
+the capital expenditure split in 2026 To support the expansion of the cycle The
+
+65
+00:04:17.209 --> 00:04:21.730
+new power demand is about 6 to 15 gigawatts The demand for the cooling system
+
+66
+00:04:21.730 --> 00:04:26.190
+has increased by about 200% Network and energy infrastructure Has been clearly
+
+67
+00:04:26.190 --> 00:04:29.590
+included in the core capital spending And so the investment of tech giants
+
+68
+00:04:29.590 --> 00:04:33.990
+Started from buying chips to expanding to a more complete system project Build
+
+69
+00:04:33.990 --> 00:04:37.210
+a data center Lock long-term power supply and deployment of cooling solutions
+
+70
+00:04:37.210 --> 00:04:41.430
+Even promote the optimization of natural chips and whole machines Put these
+
+71
+00:04:41.430 --> 00:04:45.350
+factors together $700 billion is not a digital game But the cost of AI from
+
+72
+00:04:45.350 --> 00:04:50.670
+technical options to basic facilities Under this new paradigm Not investing in
+
+73
+00:04:50.670 --> 00:04:52.870
+algorithms is equivalent to taking the initiative to step out of the future
+
+74
+00:04:52.870 --> 00:04:56.210
+When capital expenditure continues to increase The number of GPUs continues to
+
+75
+00:04:56.210 --> 00:04:59.330
+double A lot of people naturally think that the algorithm doubles and the
+
+76
+00:04:59.330 --> 00:05:03.290
+efficiency doubles But the fact is not so When the scale of the algorithm
+
+77
+00:05:03.290 --> 00:05:06.530
+expands to a certain extent The efficiency of the system begins to have a
+
+78
+00:05:06.530 --> 00:05:10.350
+significant ground effect The number of chips is increasing But the overall
+
+79
+00:05:10.350 --> 00:05:14.970
+speed of the algorithm can not keep up Where is the problem It's not that the
+
+80
+00:05:14.970 --> 00:05:19.030
+chip is not advanced enough But the way data flows between the chips Began to
+
+81
+00:05:19.030 --> 00:05:23.850
+become calm You can also imagine the entire AI system as a giant factory The
+
+82
+00:05:23.850 --> 00:05:26.950
+chip is responsible for processing And the data flows between different chips
+
+83
+00:05:27.570 --> 00:05:33.250
+It's like a part of a car In the traditional IOPO architecture After the chip
+
+84
+00:05:33.250 --> 00:05:36.770
+is completed The data needs to be wired in the form of a telegraph Run a
+
+85
+00:05:36.770 --> 00:05:41.550
+distance along the circuit board It's usually centimeters Go to the light
+
+86
+00:05:41.550 --> 00:05:43.450
+module on the edge of the machine cabinet Then complete the electric light
+
+87
+00:05:43.450 --> 00:05:47.130
+conversion Then it can be transmitted This is like a courier distribution
+
+88
+00:05:47.130 --> 00:05:51.030
+center The distributor has processed the package But you have to put the
+
+89
+00:05:51.030 --> 00:05:56.930
+package on a very long conveyor belt The conveyor belt carries the package to
+
+90
+00:05:56.930 --> 00:06:00.410
+the packaging area After that, the packager can continue to operate When the
+
+91
+00:06:00.410 --> 00:06:03.370
+package is not much, the problem is not obvious But when the order explodes,
+
+92
+00:06:03.570 --> 00:06:08.030
+the number of distributors doubles This conveyor belt begins to be cloudy In
+
+93
+00:06:08.030 --> 00:06:11.810
+the algorithm system This conveyor belt is the telegraphic transmission path
+
+94
+00:06:11.810 --> 00:06:14.490
+The further the telegraphic signal is transmitted, the greater the loss The
+
+95
+00:06:14.490 --> 00:06:17.770
+higher the power consumption, the more serious the heat The more GPUs, the more
+
+96
+00:06:17.770 --> 00:06:20.650
+data cooperation The higher the power consumption in the system used to
+
+97
+00:06:20.650 --> 00:06:26.750
+transport data So there is a key contradiction The chip itself is fast enough
+
+98
+00:06:26.750 --> 00:06:31.410
+But the whole system is slowed down by data transmission This is the origin of
+
+99
+00:06:31.410 --> 00:06:36.290
+the decoupling effect of computing And the appearance of the CPU is for this
+
+100
+00:06:36.290 --> 00:06:42.690
+problem The CPU puts the light engine directly next to the chip Share the same
+
+101
+00:06:42.690 --> 00:06:46.050
+packaging base with ASIC The electric light conversion is completed near the
+
+102
+00:06:46.050 --> 00:06:49.010
+chip The physical distance is compressed from the centimeter to the millimeter
+
+103
+00:06:49.010 --> 00:06:53.210
+Usually less than 5 mm It seems that this is just a change in packaging In
+
+104
+00:06:53.210 --> 00:06:56.590
+essence, the structure is reconstructed When the data is no longer far away,
+
+105
+00:06:56.930 --> 00:06:59.650
+the telegraphic signal path is shortened The unit bandwidth power consumption
+
+106
+00:06:59.650 --> 00:07:03.270
+decreases, the heat pressure is significantly reduced In the same algorithm and
+
+107
+00:07:03.270 --> 00:07:08.070
+space conditions Can support more GPU system work This means that the system's
+
+108
+00:07:08.070 --> 00:07:12.330
+expansion ability is re-opened In the past, it was the Internet cost that
+
+109
+00:07:12.330 --> 00:07:15.150
+limited the scale, not the algorithmic ability The essence of the CPU is to
+
+110
+00:07:15.150 --> 00:07:18.810
+break the physical shackle of telegraphic signal transmission distance For a
+
+111
+00:07:18.810 --> 00:07:22.610
+technology giant This is not just a matter of saving electricity It is the key
+
+112
+00:07:22.610 --> 00:07:25.290
+to whether the algorithmic group can cross the threshold of 100,000 cards, 100,
+
+113
+00:07:25.410 --> 00:07:29.750
+000 cards, and 1 million cards If the transmission bottleneck cannot be solved P
+
+114
+00:07:29.750 --> 00:07:34.970
+iling up new chips again is just making a huge but inefficient system Therefore,
+
+115
+00:07:35.190 --> 00:07:40.150
+2026 will be a watershed Can be the first to land in mass production Light
+
+116
+00:07:40.150 --> 00:07:44.310
+power packaging or similar high-performance Internet solutions Will decide who
+
+117
+00:07:44.310 --> 00:07:48.810
+can build the first A large-scale algorithmic pool of real linear growth And
+
+118
+00:07:48.810 --> 00:07:53.590
+hold on to the next generation of universal artificial intelligence If you
+
+119
+00:07:53.590 --> 00:07:57.210
+think this video is helpful to you As usual, like it first and help at the
+
+120
+00:07:57.210 --> 00:08:02.390
+critical moment US hotline 626-378-3637 The current attitude of several key
+
+121
+00:08:02.390 --> 00:08:05.630
+system players towards CPU Has been significantly transformed from technical st
+
+122
+00:08:05.630 --> 00:08:09.990
+orage to route planning NVIDIA plans in the second half of 2026 Introduced in
+
+123
+00:08:09.990 --> 00:08:13.730
+the Ruby architecture Introduce single-faceted internal light Internet And
+
+124
+00:08:13.730 --> 00:08:17.710
+through external light source and plug-and-pull design Solved the past light
+
+125
+00:08:17.710 --> 00:08:20.990
+power packaging Broke the core pain point of nanoparticle Even if the light
+
+126
+00:08:20.990 --> 00:08:24.430
+source breaks down, it can also be modified and replaced And no need for the
+
+127
+00:08:24.430 --> 00:08:27.590
+entire version After all, the single-card power consumption is 1000W With a
+
+128
+00:08:27.590 --> 00:08:28.190
+bandwidth of more than 1.
+
+129
+00:08:28.330 --> 00:08:32.690
+6T What may be out of control is not computing power But data transmission power
+
+130
+00:08:33.490 --> 00:08:37.250
+If the unit bandwidth power consumption does not fall The larger the group, the
+
+131
+00:08:37.250 --> 00:08:40.490
+more power and heat pressure will be forced into the physical limit For NVIDIA,
+
+132
+00:08:40.890 --> 00:08:43.870
+CPU is not a simple performance upgrade But the underlying conditions that
+
+133
+00:08:43.870 --> 00:08:48.890
+support the continued expansion of the AI factory Qualcomm is using its 51.
+
+134
+00:08:49.250 --> 00:08:52.870
+2T and higher bandwidth exchange platform It is defining the right path for the
+
+135
+00:08:52.870 --> 00:08:56.910
+next generation of Internet Qualcomm's logic is to directly pack silicon chip
+
+136
+00:08:56.910 --> 00:09:01.510
+and exchange ASIC This makes downstream manufacturers If you want to use Qual
+
+137
+00:09:01.510 --> 00:09:05.910
+comm's top exchange ability You have to embrace its defined CPU standards And
+
+138
+00:09:05.910 --> 00:09:11.530
+Intel uses its 10-year technical experience in the field of silicon light Deep
+
+139
+00:09:11.530 --> 00:09:18.710
+ly embedded in its EBIB and Forvirus advanced packaging strategy Attempts to
+
+140
+00:09:18.710 --> 00:09:22.190
+reduce unit bandwidth power consumption in a large-scale computing system When
+
+141
+00:09:22.190 --> 00:09:26.210
+these giants start to write the CPU into the product route map Commercial
+
+142
+00:09:26.210 --> 00:09:29.270
+ization is no longer a matter of whether it happens But a matter of when to
+
+143
+00:09:29.270 --> 00:09:33.510
+release At present, the market generally expects The CPU industry chain will
+
+144
+00:09:33.510 --> 00:09:38.130
+begin to form a substantial income volume before and after 2028 That is to say,
+
+145
+00:09:38.410 --> 00:09:44.090
+2026 to 2027 is the verification period 2028 is the cash-in period When the
+
+146
+00:09:44.090 --> 00:09:46.710
+direction of the battlefield is basically unified The real revenue flow has
+
+147
+00:09:46.710 --> 00:09:49.710
+gradually become clear Mainly concentrated on the following U.
+
+148
+00:09:49.790 --> 00:09:49.890
+S.
+
+149
+00:09:49.890 --> 00:09:56.990
+stocks The first category is the chip seller LITE and COHR In the CPU
+
+150
+00:09:56.990 --> 00:10:01.730
+architecture High-power zero-code continuous wave laser Become a real driver
+
+151
+00:10:01.730 --> 00:10:05.410
+Because the CPU light engine itself does not consist of a laser It must be
+
+152
+00:10:05.410 --> 00:10:09.130
+supplied by external high-power light source This allows the laser chip to rise
+
+153
+00:10:09.130 --> 00:10:13.290
+from the configuration component to the core asset LITE has revealed that it
+
+154
+00:10:13.290 --> 00:10:16.550
+has received hundreds of millions of dollars in CW laser orders It is expected
+
+155
+00:10:16.550 --> 00:10:20.610
+that in 2026, the capacity will be increased to about 20 million And plan to
+
+156
+00:10:20.610 --> 00:10:26.530
+meet about half of the needs of NVIDIA in 2027 A single ASP is about $30 to $35
+
+157
+00:10:26.530 --> 00:10:27.590
+With the 1.
+
+158
+00:10:27.710 --> 00:10:33.510
+6T and CPU approach Its input flexibility is gradually showing COHR is based on
+
+159
+00:10:33.510 --> 00:10:38.090
+the 6-inch zero-code production line In terms of capacity and cost The company
+
+160
+00:10:38.090 --> 00:10:39.390
+management said that the 1.
+
+161
+00:10:39.570 --> 00:10:45.450
+6T and CPU demand has accelerated Order visibility has extended to 2027 But the
+
+162
+00:10:45.450 --> 00:10:48.890
+market value of the two companies is obviously different The core reason is the
+
+163
+00:10:48.890 --> 00:10:53.070
+difference in revenue structure LITE's current right center is more focused on
+
+164
+00:10:53.070 --> 00:10:54.690
+high-speed communication Highly pure in terms of products related to the data
+
+165
+00:10:54.690 --> 00:10:58.890
+center Highly pure in terms of revenue direction Directly linked to the
+
+166
+00:10:58.890 --> 00:11:03.430
+expansion of AS computing power At the same time, its EML and other high-end
+
+167
+00:11:03.430 --> 00:11:06.090
+laser products have a higher market value The technical barriers are deeper,
+
+168
+00:11:06.170 --> 00:11:11.490
+and the market is willing to raise the market price COHR business structure is
+
+169
+00:11:11.490 --> 00:11:14.730
+more scattered In addition to the transparency of the data center The company
+
+170
+00:11:14.730 --> 00:11:17.830
+still covers traditional telecommunications and industrial laser and other
+
+171
+00:11:17.830 --> 00:11:21.490
+fields These blocks are relatively mild in increase The cycle property is
+
+172
+00:11:21.490 --> 00:11:26.210
+stronger Even if the demand for the data center improves The overall
+
+173
+00:11:26.210 --> 00:11:29.030
+performance flexibility is also diluted The second category is the definition
+
+174
+00:11:29.030 --> 00:11:32.810
+of the standard monopolist Botong and Marvel The popularity of CPU is not only
+
+175
+00:11:32.810 --> 00:11:36.810
+good for parts, but also good for people who define the rules Botong as the
+
+176
+00:11:36.810 --> 00:11:39.770
+general translator of the computing network Decided how to build the system And
+
+177
+00:11:39.770 --> 00:11:45.070
+Marvel through the acquisition of the core technology company Has locked many
+
+178
+00:11:45.070 --> 00:11:48.270
+top cloud providers in the customized AI Internet field The third category is
+
+179
+00:11:48.270 --> 00:11:53.890
+the green gatekeeper The most painful thing for the manufacturer is the package
+
+180
+00:11:53.890 --> 00:11:59.510
+It provides a gold-plated test It is an unavoidable link before mass production
+
+181
+00:11:59.510 --> 00:12:04.290
+As the light module shipments exceed tens of millions of levels in 2026 As the
+
+182
+00:12:04.290 --> 00:12:06.790
+absolute dragon head of the test equipment Will enjoy extremely high income
+
+183
+00:12:06.790 --> 00:12:13.930
+flexibility In short, we will see laser chips explode in 2026 2027-2028 is a
+
+184
+00:12:13.930 --> 00:12:17.030
+comprehensive release of system-level profits This is no longer a simple hype
+
+185
+00:12:17.030 --> 00:12:20.950
+But already written into the hard logic of orders and production limits After
+
+186
+00:12:20.950 --> 00:12:24.530
+talking about computing and CPO, we pull the lens back to software stocks From
+
+187
+00:12:24.530 --> 00:12:27.970
+mid-January to mid-February, BiaoPu's North American software index has fallen
+
+188
+00:12:27.970 --> 00:12:32.570
+by more than 15% Since the 2008 financial crisis The most tragic single-month
+
+189
+00:12:32.570 --> 00:12:35.430
+decline During this period, the software platform market value has evaporated
+
+190
+00:12:35.430 --> 00:12:39.810
+Once entered the trillion-dollar level And the sell-off in February still has
+
+191
+00:12:39.810 --> 00:12:44.090
+no obvious stop This is obviously not a simple emotional adjustment But more
+
+192
+00:12:44.090 --> 00:12:48.030
+like a systematic re-evaluation after the financial structure has changed Using
+
+193
+00:12:48.030 --> 00:12:51.590
+AI panic to explain the hard-to-explain so concentrated and continuous sell-off
+
+194
+00:12:51.590 --> 00:12:55.830
+The market is in a clear multi-space game Let's look at the institution,
+
+195
+00:12:56.290 --> 00:12:59.610
+Goldman Sachs data shows As of early February 2026 The interest rate of hedge
+
+196
+00:12:59.610 --> 00:13:05.910
+funds in the software industry has fallen by 2% At the same time, funds are
+
+197
+00:13:05.910 --> 00:13:09.070
+flowing to semiconductor and equipment blocks on a large scale Subsequent
+
+198
+00:13:09.070 --> 00:13:11.790
+interest rates have risen to a five-year high This kind of operation that sells
+
+199
+00:13:11.790 --> 00:13:14.790
+out the application layer and buys into the infrastructure layer Reflects the
+
+200
+00:13:14.790 --> 00:13:16.470
+deep pessimism of the institution towards the software application end in the
+
+201
+00:13:16.470 --> 00:13:21.770
+era of AI The strength of the shortfall is also unprecedented S3 partner
+
+202
+00:13:21.770 --> 00:13:24.630
+statistics In the first quarter of 2026, the share price of software hedge
+
+203
+00:13:24.630 --> 00:13:26.010
+funds was about $2.
+
+204
+00:13:26.070 --> 00:13:30.490
+4 billion Especially at the peak of sales on January 30th to February 5th The
+
+205
+00:13:30.490 --> 00:13:33.250
+share price of hedge funds is twice as much as that of multi-head buy-in Hedge
+
+206
+00:13:33.250 --> 00:13:35.270
+funds focus on two types of companies One is a small and medium-sized Pansas
+
+207
+00:13:35.270 --> 00:13:37.530
+company that relies heavily on artificial flow automation The second is a small
+
+208
+00:13:37.530 --> 00:13:39.710
+and medium-sized Pansas company that relies heavily on artificial flow
+
+209
+00:13:39.710 --> 00:13:40.990
+automation Although it is large-scale, it lacks the ability to integrate AI
+
+210
+00:13:42.570 --> 00:13:46.490
+Even Microsoft failed to survive On January 28th, after Microsoft announced the
+
+211
+00:13:46.490 --> 00:13:48.430
+financial report Within a week, the institution increased the number of empty-
+
+212
+00:13:48.430 --> 00:13:51.910
+headed hedge funds by 20% Goldman Sachs analyst pointed out Microsoft is
+
+213
+00:13:51.910 --> 00:13:54.650
+shifting from anti-hedge funds to hedge funds The $7.
+
+214
+00:13:54.730 --> 00:13:58.290
+4 billion AI capital expenditure has not yet been converted into profit Instead,
+
+215
+00:13:58.370 --> 00:14:01.450
+it suppressed the free flow of funds It is a clear contrast with the withdrawal
+
+216
+00:14:01.450 --> 00:14:05.170
+of institutions Astonishing courage According to Vanda Research At the
+
+217
+00:14:05.170 --> 00:14:09.170
+beginning of February 2026 Hedge funds' entry into technology and software
+
+218
+00:14:09.170 --> 00:14:14.190
+stocks was a new high Among them, Bellado iShares North America expanded its
+
+219
+00:14:14.190 --> 00:14:18.430
+technology software ETF Within a month until February 9th Hedge funds $1.
+
+220
+00:14:18.590 --> 00:14:24.630
+76 billion More than twice as much as the peak at the end of 2024 On February 6
+
+221
+00:14:24.630 --> 00:14:29.650
+th Amazon launched the largest hedge fund single-day buy-in since August 2024
+
+222
+00:14:29.650 --> 00:14:33.330
+Even more than Microsoft, Palantir, Salesforce, etc.
+
+223
+00:14:35.070 --> 00:14:40.130
+Hedge funds are a valuable asset that has been killed by AI panic Analysts
+
+224
+00:14:40.130 --> 00:14:43.810
+believe that hedge funds are built on three layers of logic First, historical
+
+225
+00:14:43.810 --> 00:14:48.850
+experience strengthens the belief in buy-in On April 3rd, 2025, due to U.
+
+226
+00:14:48.850 --> 00:14:49.070
+S.
+
+227
+00:14:49.130 --> 00:14:54.050
+domestic tariffs Bellpo 500 fell by 5% on the same day Hedge funds invested
+
+228
+00:14:54.050 --> 00:14:58.510
+more than $3 billion on the same day Set the highest record since 2014 After
+
+229
+00:14:58.510 --> 00:15:01.770
+this, the market rebounded quickly Verified the effectiveness of the buy-the-f
+
+230
+00:15:01.770 --> 00:15:06.930
+ucking-deep strategy Now, in the face of AI panic Hedge funds once again see it
+
+231
+00:15:06.930 --> 00:15:12.270
+as another exaggerated selling excuse The second is the extreme signal of
+
+232
+00:15:12.270 --> 00:15:14.830
+technical indicators As of early February, Bellpo's North American software
+
+233
+00:15:14.830 --> 00:15:21.050
+index fell by nearly 20 on the 14th The lowest since 2018 The technical side is
+
+234
+00:15:21.050 --> 00:15:25.450
+a signal that it is about to rebound The third layer is the belief in the
+
+235
+00:15:25.450 --> 00:15:27.970
+ability of giants to transform Hedge funds believe that companies such as
+
+236
+00:15:27.970 --> 00:15:31.370
+Microsoft and Salesforce have the ability to integrate AI into the existing
+
+237
+00:15:31.370 --> 00:15:34.450
+product line But it should also be reminded that hedge funds' consciousness
+
+238
+00:15:34.450 --> 00:15:37.450
+belief is not equal to others' victory A long-term behavioral study by Bellbar
+
+239
+00:15:37.450 --> 00:15:44.450
+shows that Ordinary investors often lag behind Bellpo 500 in long-term returns
+
+240
+00:15:44.450 --> 00:15:45.270
+due to emotional transactions such as catching up and killing The cost of time
+
+241
+00:15:45.270 --> 00:15:48.270
+is the cost that hedge funds are most likely to ignore Put it on a standard
+
+242
+00:15:48.270 --> 00:15:52.810
+level Although the adoption rate of software blocks has fallen by 20 times But
+
+243
+00:15:52.810 --> 00:15:57.270
+relative to Bellpo 500 still exists about 260% of the price If the future pro
+
+244
+00:15:57.270 --> 00:16:00.850
+fit rate cannot return to more than 15% This kind of price is short of
+
+245
+00:16:00.850 --> 00:16:03.930
+sufficient basic support The value of hedge funds is likely to continue to fall
+
+246
+00:16:04.410 --> 00:16:08.630
+But on the other hand, the market may indeed move towards excessive response H
+
+247
+00:16:08.630 --> 00:16:12.550
+uang Renxun publicly stated that this software selling is the most illogical He
+
+248
+00:16:12.550 --> 00:16:16.430
+believes that AI will not destroy software but rebuild the value chain of
+
+249
+00:16:16.430 --> 00:16:19.850
+software In other words, the real core is no longer whether to replace Instead,
+
+250
+00:16:19.950 --> 00:16:23.590
+it is to replace the pace of occurrence and who can integrate AI into a new
+
+251
+00:16:23.590 --> 00:16:27.350
+income model Therefore, the core of this multi-space confrontation is not a
+
+252
+00:16:27.350 --> 00:16:30.430
+short-term rise and fall but a profitable line of rhythm judgment Institutions
+
+253
+00:16:30.430 --> 00:16:34.270
+press on the old business model to suppress, profit release to delay Interact
+
+254
+00:16:34.270 --> 00:16:36.710
+ively press on the giant to be able to complete integration to achieve value
+
+255
+00:16:36.710 --> 00:16:40.170
+upgrade In the current long-term position, the airdrop has not yet hit the
+
+256
+00:16:40.170 --> 00:16:44.130
+background Once the second quarter financial report or guidance appears to
+
+257
+00:16:44.130 --> 00:16:46.990
+change and improve It is possible to trigger an airdrop recovery The rebound
+
+258
+00:16:46.990 --> 00:16:51.210
+force will often be magnified But the risk is not limited to the open market of
+
+259
+00:16:51.210 --> 00:16:53.910
+the airdrop game In the past few years, a large number of software companies
+
+260
+00:16:53.910 --> 00:16:57.210
+have been in a high-value environment SEMU equity fund acquisition in a lever
+
+261
+00:16:57.210 --> 00:17:02.090
+aged way If the IPO window continues to be limited, the merger market will drop
+
+262
+00:17:02.090 --> 00:17:05.869
+Valued adjustments to related assets may be made through a comparable company
+
+263
+00:17:05.869 --> 00:17:10.770
+pricing mechanism Reverse airdrop to the public market At this turning point in
+
+264
+00:17:10.770 --> 00:17:14.010
+2026 Simple full-fledged super-bottom or full-fledged airdrops have little
+
+265
+00:17:14.010 --> 00:17:17.250
+chance of winning What is really worth doing is to choose between divers
+
+266
+00:17:17.250 --> 00:17:18.990
+ification Second-tier SaaS companies that avoid the lack of AI capability and
+
+267
+00:17:18.990 --> 00:17:22.790
+pricing rights At the same time, pay attention to companies with strong
+
+268
+00:17:22.790 --> 00:17:27.109
+computing resources and application scenarios For example, Microsoft and Amazon
+
+269
+00:17:27.109 --> 00:17:31.730
+AI is rebuying the software industry But the rebuy is gradual and not instant
+
+270
+00:17:32.370 --> 00:17:36.370
+Okay, that's it for today's video Which company do you most recognize in CPU
+
+271
+00:17:36.370 --> 00:17:36.470
+logic?
+
+272
+00:17:36.990 --> 00:17:37.730
+What do you think of software stocks?
+
+273
+00:17:38.430 --> 00:17:41.770
+Welcome to leave a comment in the comment area If you think the video is good,
+
+274
+00:17:41.890 --> 00:17:45.170
+remember to like the comment and forward Over 1,000 likes, I will work overtime
+
+275
+00:17:45.170 --> 00:17:49.030
+in China's New Year Don't go to visit relatives to ask for a red envelope 996
+
+276
+00:17:49.030 --> 00:17:52.290
+overtime for everyone to make the previous prediction video of Invida's
+
+277
+00:17:52.290 --> 00:17:56.030
+financial report Because I have a lot of good evidence in my hands Here I wish
+
+278
+00:17:56.030 --> 00:17:56.890
+you a happy new year

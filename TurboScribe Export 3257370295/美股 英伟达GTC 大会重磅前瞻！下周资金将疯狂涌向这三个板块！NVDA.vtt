@@ -1,0 +1,817 @@
+WEBVTT
+
+1
+00:00:00.200 --> 00:00:04.900
+Meigu AI quantification analysis tool Hello everyone, we are Meigu Investment
+
+2
+00:00:04.900 --> 00:00:11.040
+Network Drive your trading decisions with big data Next Monday, the world's
+
+3
+00:00:11.040 --> 00:00:16.300
+most important AI circle A meeting is about to begin March 16th to 19th NVIDIA
+
+4
+00:00:16.300 --> 00:00:22.180
+will hold DTC 2026 in San Jose, California But this time If you are still just
+
+5
+00:00:22.180 --> 00:00:25.780
+staring at Huang Renxun Will you release a stronger GPU?
+
+6
+00:00:26.060 --> 00:00:29.080
+Then you may be looking in the wrong direction Because for the capital market
+
+7
+00:00:29.080 --> 00:00:34.860
+There are not many time windows left for re-pricing In the eyes of the world,
+
+8
+00:00:34.860 --> 00:00:38.160
+the real weight of this conference It's not how much the graphics card
+
+9
+00:00:38.160 --> 00:00:42.260
+parameters have improved The real point is Can NVIDIA take advantage of these
+
+10
+00:00:42.260 --> 00:00:47.060
+four days Complete an identity leap From a hardware company that sells chips
+
+11
+00:00:47.060 --> 00:00:50.200
+Officially transformed into a Platform company that defines AI infrastructure
+
+12
+00:00:50.200 --> 00:00:55.380
+rules From the latest front-end report of major investment banks The focus of
+
+13
+00:00:55.380 --> 00:01:01.400
+the market now is Will NVIDIA strengthen these key things on GTC?
+
+14
+00:01:01.900 --> 00:01:05.860
+Analysis of workload analysis The cost of tokens and ROI The importance of
+
+15
+00:01:05.860 --> 00:01:10.260
+network interconnection And the next generation of private pricing What does
+
+16
+00:01:10.260 --> 00:01:10.760
+this mean?
+
+17
+00:01:11.240 --> 00:01:15.860
+This means from next Monday to next Thursday The market sees it as a technical
+
+18
+00:01:15.860 --> 00:01:19.160
+conference on the surface In fact, the transaction may be The mainstay of the
+
+19
+00:01:19.160 --> 00:01:24.960
+next stage of AI Meigu in 2026 If NVIDIA can figure out this new trend So what
+
+20
+00:01:24.960 --> 00:01:28.760
+'s next to be re-priced It's not just NVIDIA's own stock price The value
+
+21
+00:01:28.760 --> 00:01:32.840
+allocation logic of the entire AI industry order Structural changes may occur
+
+22
+00:01:32.840 --> 00:01:35.140
+Where will the money come from?
+
+23
+00:01:35.360 --> 00:01:36.460
+Which module will be crazily swallowed?
+
+24
+00:01:37.960 --> 00:01:40.300
+Which companies may be abandoned due to logical correctness?
+
+25
+00:01:41.200 --> 00:01:45.920
+If you want to see the real trend of next week's funds You must watch this
+
+26
+00:01:45.920 --> 00:01:48.380
+video patiently until the end What is the core message that NVIDIA wants to
+
+27
+00:01:48.380 --> 00:01:49.440
+convey to GTC this time?
+
+28
+00:01:49.920 --> 00:01:54.480
+In short GTC is not here to show new products But to redefine the game rules of
+
+29
+00:01:54.480 --> 00:01:58.720
+the entire AI technology infrastructure In the past few years The market's
+
+30
+00:01:58.720 --> 00:02:01.520
+understanding of NVIDIA is very simple Who has the strongest chip computing
+
+31
+00:02:01.520 --> 00:02:06.500
+power Who is the king of the AI field But the latest report from Riyin brought
+
+32
+00:02:06.500 --> 00:02:10.240
+an important signal The era of single processor-driven performance is coming to
+
+33
+00:02:10.240 --> 00:02:14.420
+an end Starting with GTC this time What NVIDIA wants to do Is to shift the
+
+34
+00:02:14.420 --> 00:02:18.860
+focus from single chip to system optimization To put it simply In the past,
+
+35
+00:02:18.900 --> 00:02:22.380
+everyone was competing for whose engine was stronger Now NVIDIA wants to tell
+
+36
+00:02:22.380 --> 00:02:25.880
+you The real competitiveness is not just the horsepower of the engine But the
+
+37
+00:02:25.880 --> 00:02:28.960
+system coordination of the entire car The goal of GTC is no longer how fast a
+
+38
+00:02:28.960 --> 00:02:36.100
+single GPU is But how to design the chip, network, memory, software, etc.
+
+39
+00:02:36.100 --> 00:02:38.980
+through the limit system Integrated into a high-efficiency, standardized AI
+
+40
+00:02:38.980 --> 00:02:43.120
+factory This actually reflects a fundamental change Everyone is no longer just
+
+41
+00:02:43.120 --> 00:02:45.060
+concerned about the quality of computing But pay attention to whether the
+
+42
+00:02:45.060 --> 00:02:47.920
+system can land on a large scale Can you calculate the return rate of power
+
+43
+00:02:47.920 --> 00:02:48.600
+consumption and cost?
+
+44
+00:02:48.600 --> 00:02:52.760
+It's like you're no longer just concerned about how powerful the engine is Also
+
+45
+00:02:52.760 --> 00:02:56.660
+look at the fuel consumption, maintenance costs, and the economic benefits it
+
+46
+00:02:56.660 --> 00:03:00.620
+brings NVIDIA is using system-level coordination design Pack the chip, network,
+
+47
+00:03:00.800 --> 00:03:05.840
+memory, and software into a complete solution Make the entire AI system more
+
+48
+00:03:05.840 --> 00:03:10.400
+efficient and sustainable Now that we're in the age of systems The next
+
+49
+00:03:10.400 --> 00:03:14.300
+question is What does NVIDIA rely on to support its system-level control?
+
+50
+00:03:14.580 --> 00:03:19.220
+In Riyin's report, the biggest expected difference is workload division These
+
+51
+00:03:19.220 --> 00:03:22.560
+words mean that the task of the AI system is no longer dependent on a full-fled
+
+52
+00:03:22.560 --> 00:03:26.560
+ged warrior But to carry out workload division according to the needs of
+
+53
+00:03:26.560 --> 00:03:30.300
+different tasks In the past, the understanding of AI hardware was very simple
+
+54
+00:03:30.300 --> 00:03:35.420
+The larger the model, the stronger the GPU But everyone missed a key detail AI
+
+55
+00:03:35.420 --> 00:03:39.380
+has different needs for different tasks For example, training large models
+
+56
+00:03:39.380 --> 00:03:43.220
+requires brute force And reasoning pays more attention to reaction speed Some
+
+57
+00:03:43.220 --> 00:03:48.440
+scenarios require high load And some scenarios require extreme delay If you use
+
+58
+00:03:48.440 --> 00:03:52.880
+the strongest and most expensive GPU to do all the tasks It's like a super car
+
+59
+00:03:52.880 --> 00:03:56.340
+going to the city to deliver takeout Although the speed of the car is fast, the
+
+60
+00:03:56.340 --> 00:04:00.140
+efficiency is not high, and the cost is also high Riyin's report mentions NVID
+
+61
+00:04:00.140 --> 00:04:03.400
+IA is transitioning from single-chip performance to system-level cost-effect
+
+62
+00:04:03.400 --> 00:04:08.920
+iveness Huarenxin re-arranges the calculation, network, and memory by dividing
+
+63
+00:04:08.920 --> 00:04:12.240
+and limiting system design Distribute the most appropriate resources to each
+
+64
+00:04:12.240 --> 00:04:16.399
+task To optimize the entire system Many people may ask If you take apart the
+
+65
+00:04:16.399 --> 00:04:20.440
+original large-unit GPU task Isn't it weakening your own support box?
+
+66
+00:04:20.800 --> 00:04:25.920
+On the contrary This is actually strengthening NVIDIA's absolute control Once
+
+67
+00:04:25.920 --> 00:04:29.520
+the AI system becomes E-compatible The task starts to be divided The structure
+
+68
+00:04:29.520 --> 00:04:33.400
+becomes complicated Who decides the allocation of tasks Who manages how the
+
+69
+00:04:33.400 --> 00:04:38.620
+data flows Who has the right to allocate tasks Who can lead the profits of the
+
+70
+00:04:38.620 --> 00:04:42.200
+AI era NVIDIA's current actions In fact, it is a deep layout towards software
+
+71
+00:04:42.200 --> 00:04:47.920
+war and system stack Release a signal Once Wall Street accepts the logic of
+
+72
+00:04:47.920 --> 00:04:52.840
+work load splitting The solid model that was staring at the GPU output will be
+
+73
+00:04:52.840 --> 00:04:56.720
+overturned If you think this video is helpful to you As usual, like it first
+
+74
+00:04:56.720 --> 00:05:02.000
+and then collect it Can help at critical moments US hotline 626-378-3637 Since
+
+75
+00:05:02.000 --> 00:05:06.680
+the workload has been dismantled The task is no longer a single chip Then the
+
+76
+00:05:06.680 --> 00:05:11.220
+next question is very realistic When the chip is strong enough What's the first
+
+77
+00:05:11.220 --> 00:05:11.880
+thing that gets stuck in your neck?
+
+78
+00:05:13.560 --> 00:05:17.440
+RIM gave the answer in the report Network and Internet The logic is actually
+
+79
+00:05:17.440 --> 00:05:20.300
+very simple In the past, we were staring at the GPU Is this engine fierce?
+
+80
+00:05:20.840 --> 00:05:25.380
+But when the AI entered the era of thousands of thousands of chips The real
+
+81
+00:05:25.380 --> 00:05:28.900
+decision-making efficiency is no longer how fast a single card runs But the
+
+82
+00:05:28.900 --> 00:05:33.520
+speed and delay of data transfer In a word, the GPU decides the top line And
+
+83
+00:05:33.520 --> 00:05:37.820
+the network and the Internet decide Can you reach that top line This is like
+
+84
+00:05:37.820 --> 00:05:42.400
+you built a top factory The equipment is the best in the world But if the
+
+85
+00:05:42.400 --> 00:05:45.860
+transmission belt is too slow The door is too narrow You have no top equipment
+
+86
+00:05:45.860 --> 00:05:49.920
+The output still can't go up Now the AI infrastructure is facing this kind of
+
+87
+00:05:49.920 --> 00:05:53.980
+factory traffic jam In fact, this trend from computing power to the Internet We
+
+88
+00:05:53.980 --> 00:05:56.860
+are not unfamiliar with the old friends of the US stock market We have already
+
+89
+00:05:56.860 --> 00:06:00.760
+reminded When computing power reaches its peak Investment in network
+
+90
+00:06:00.760 --> 00:06:04.200
+infrastructure Is the most likely opportunity for a long-term return From the
+
+91
+00:06:04.200 --> 00:06:07.340
+beginning of the year to the present The light power conversion track we have
+
+92
+00:06:07.340 --> 00:06:12.520
+set up in advance has exploded We are in the early year of 2026 Deep research
+
+93
+00:06:12.520 --> 00:06:16.460
+and promotion of GLW This Tuesday has reached $139.
+
+94
+00:06:16.600 --> 00:06:21.940
+36 64% increase In the video, the core opportunity of the US stock AI is not in
+
+95
+00:06:21.940 --> 00:06:26.460
+the GPU But in the light power industry chain We specifically named LITE and CO
+
+96
+00:06:26.460 --> 00:06:32.440
+HR 23% to 26% increase so far At the end of January We also reminded friends of
+
+97
+00:06:32.440 --> 00:06:38.300
+the VIP community Accurately layout Marvel for $8 billion 22% increase directly
+
+98
+00:06:38.300 --> 00:06:41.580
+after the financial report If you miss GLW The next big company ready to
+
+99
+00:06:41.580 --> 00:06:46.320
+explode AI potential We have invested more than 100 hours in research Only
+
+100
+00:06:46.320 --> 00:06:50.080
+privately share with VIP community There are not so many free lunches on the
+
+101
+00:06:50.080 --> 00:06:53.360
+market The real value behind the information is time Investment of experience
+
+102
+00:06:53.360 --> 00:06:57.380
+and cost Back to the point Huang Renxun is now crazy about strengthening the
+
+103
+00:06:57.380 --> 00:07:01.500
+network trend It's because he saw one thing Control the network is to control
+
+104
+00:07:01.500 --> 00:07:05.380
+the transfer of the entire system Once you use the communication protocol of
+
+105
+00:07:05.380 --> 00:07:09.220
+the US party Your future expansion and migration costs It's all in his ecology
+
+106
+00:07:09.800 --> 00:07:13.260
+This also explains why Wall Street is now looking Has passed through the GPU
+
+107
+00:07:13.260 --> 00:07:16.340
+Directly staring at the lowest level of light-protection and light-return
+
+108
+00:07:16.340 --> 00:07:20.640
+technology The report also specifically mentioned a detail This year's GDG and
+
+109
+00:07:20.640 --> 00:07:24.200
+the Global Light Communication Conference Almost the same time This is not a
+
+110
+00:07:24.200 --> 00:07:26.800
+coincidence The focus of Wall Street now is 1.
+
+111
+00:07:26.940 --> 00:07:32.080
+6T light module can run Whether the light-return technology is mature If the
+
+112
+00:07:32.080 --> 00:07:34.360
+reason for the workload split is to promote the re-purchase of the AI system
+
+113
+00:07:34.360 --> 00:07:39.460
+Then the network and the Internet have decided This re-purchase will first
+
+114
+00:07:39.460 --> 00:07:42.400
+release wealth opportunities in which areas Once the market accepts this logic
+
+115
+00:07:42.400 --> 00:07:46.960
+It's not just the GPU that will be re-priced More attention will be focused on
+
+116
+00:07:46.960 --> 00:07:50.740
+those Decide the speed of data flow Exchanger, light module and Internet
+
+117
+00:07:50.740 --> 00:07:55.240
+technology If the network solves the problem of how the data goes Then the last
+
+118
+00:07:55.240 --> 00:07:58.520
+fortress of AI infrastructure The only thing left is where the data is and how
+
+119
+00:07:58.520 --> 00:08:02.480
+to get it Ryan said Because the party is using a similar block architecture Use
+
+120
+00:08:02.480 --> 00:08:08.020
+a piece of SWAM to achieve ultra-low delay reasoning Does this mean that HBM's
+
+121
+00:08:08.020 --> 00:08:08.660
+end is near?
+
+122
+00:08:09.160 --> 00:08:12.780
+After all, in the public's intuition New technology appears often accompanied
+
+123
+00:08:12.780 --> 00:08:16.760
+by the elimination of old technology When Huang Runxun is equipped with this
+
+124
+00:08:16.760 --> 00:08:19.340
+kind of fast workstation for a specific task Investors are instinctively
+
+125
+00:08:19.340 --> 00:08:22.620
+worried Will this cut away the biggest cake of HBM?
+
+126
+00:08:23.080 --> 00:08:25.820
+However, this is not the case Huang Runxun's worries happened to misread the
+
+127
+00:08:25.820 --> 00:08:29.140
+real intention of the party Using abandonment will find that this is not a
+
+128
+00:08:29.140 --> 00:08:35.320
+battle of death But a detailed work load analysis SWAM is fast, fast to almost
+
+129
+00:08:35.320 --> 00:08:38.900
+zero delay But it is limited to the chip area The capacity of the ceiling board
+
+130
+00:08:38.900 --> 00:08:41.440
+is extremely low It is impossible to carry the training of a simple parameter
+
+131
+00:08:41.440 --> 00:08:46.360
+model And large-scale general reasoning This is like your desk in your hand No
+
+132
+00:08:46.360 --> 00:08:51.180
+matter how smooth it is, it can't fit the entire library And HBM is slightly
+
+133
+00:08:51.180 --> 00:08:54.400
+ahead in terms of delay But it is the only big animal that maintains the scale
+
+134
+00:08:54.400 --> 00:08:59.980
+of the AI system Without it, the big model can't even run Therefore, because
+
+135
+00:08:59.980 --> 00:09:04.580
+its strategy is not two-to-one But an extreme integration of each The most
+
+136
+00:09:04.580 --> 00:09:08.820
+expensive and fastest SWAM Used for extremely sensitive special reasoning of
+
+137
+00:09:08.820 --> 00:09:14.040
+delay Create extreme experience At the same time, the large-scale training of
+
+138
+00:09:14.040 --> 00:09:17.280
+time and energy Continue to upgrade HBM's workstation The ultimate purpose of
+
+139
+00:09:17.280 --> 00:09:22.280
+this structural design Is to solve the biggest pain of AI loading How to
+
+140
+00:09:22.280 --> 00:09:27.360
+maintain performance Lower the cost of computing This naturally led to this GTC
+
+141
+00:09:27.360 --> 00:09:30.820
+The mathematical problem that Huang Renxun most wanted to talk about Debit
+
+142
+00:09:30.820 --> 00:09:35.660
+economics The biggest doubt of Huang Renxun about AI It's always the uncertain
+
+143
+00:09:35.660 --> 00:09:39.800
+return on capital Customers will ask I spent 5 million dollars to buy hardware
+
+144
+00:09:39.800 --> 00:09:45.040
+How much money can I make What Huang Renxun brought this time Not just a hardw
+
+145
+00:09:45.040 --> 00:09:50.600
+are list But a money-making plan that has been carefully calculated He may show
+
+146
+00:09:50.600 --> 00:09:54.480
+through How to use SWAM and HBM's mixed architecture Accurately classify
+
+147
+00:09:54.480 --> 00:09:59.320
+different types of computing tasks To prove that in the Blackwell or RuPing
+
+148
+00:09:59.320 --> 00:10:04.420
+system Every token generated Its overall cost is greatly reduced And the
+
+149
+00:10:04.420 --> 00:10:07.760
+commercial value is significantly improved This set of logic directly points to
+
+150
+00:10:07.760 --> 00:10:12.400
+a Financial facts severely underestimated by the market Ring gave a preliminary
+
+151
+00:10:12.400 --> 00:10:15.940
+report Proud of this system-level efficiency optimization It is estimated that
+
+152
+00:10:15.940 --> 00:10:19.700
+Iwata's 2028 financial year The interest rate will reach $15 per share
+
+153
+00:10:19.700 --> 00:10:23.400
+According to the current stock price calculation This means that Iwata's long-
+
+154
+00:10:23.400 --> 00:10:28.800
+term profitability is only 12 times Think about it In a trillion-scale track The
+
+155
+00:10:28.800 --> 00:10:33.720
+core owner's profitability is only 12 times This is extremely attractive from a
+
+156
+00:10:33.720 --> 00:10:36.880
+financial point of view But it also exposed a huge expectation gap The market
+
+157
+00:10:36.880 --> 00:10:40.260
+is still using the traditional hardware manufacturer's vision Price for Iwata
+
+158
+00:10:40.980 --> 00:10:46.320
+But not fully aware of it As a system definition of profitability When we
+
+159
+00:10:46.320 --> 00:10:48.520
+connect the interconnectedness of the technical structure Connected to the
+
+160
+00:10:48.520 --> 00:10:53.420
+commercial model The final path becomes unusually clear SWIM is the emotional
+
+161
+00:10:53.420 --> 00:10:57.440
+point that makes the market excited Responsible for solving the speed anxiety H
+
+162
+00:10:57.440 --> 00:11:01.380
+BM is the real source of constant profits Responsible for locking the long-term
+
+163
+00:11:01.380 --> 00:11:07.040
+scale And Tokenomics is the bridge that connects the two worlds It uses real R&
+
+164
+00:11:07.040 --> 00:11:11.820
+I data Eliminated Wall Street's concerns about AI bubbles Ring's data proves
+
+165
+00:11:11.820 --> 00:11:15.520
+this Although SWIM's concept is hot But HBM's revenue forecast for U.
+
+166
+00:11:15.540 --> 00:11:15.680
+S.
+
+167
+00:11:15.680 --> 00:11:19.980
+light and other manufacturers It soared to $2.
+
+168
+00:11:20.060 --> 00:11:24.520
+7 billion in 2028 And the short-term expectation lasted for several years This
+
+169
+00:11:24.520 --> 00:11:28.480
+shows that in the mainstream capital world SWIM did not kick HBM out of the
+
+170
+00:11:28.480 --> 00:11:31.840
+profitability model Instead, HBM was further solidified through the layer-by-
+
+171
+00:11:31.840 --> 00:11:36.600
+layer structure As the main core position At the end of the day, this game about
+
+172
+00:11:36.600 --> 00:11:39.340
+memory technology In fact, it is a foreshadowing of Iwata's re-purchase of the
+
+173
+00:11:39.340 --> 00:11:44.920
+AI value chain By introducing SWIM to solve the delay pain point Convince
+
+174
+00:11:44.920 --> 00:11:49.360
+customers to buy through Tokenomics And recalculate the story logic Locked long
+
+175
+00:11:49.360 --> 00:11:53.200
+-term profits through HBM Iwata successfully The original simple hardware trade
+
+176
+00:11:53.200 --> 00:11:58.040
+Evolved into a system where the AI is indispensable No matter how the future
+
+177
+00:11:58.040 --> 00:12:02.980
+reasoning scene changes As long as this set of SWIM proposes HBM expansion T
+
+178
+00:12:02.980 --> 00:12:06.740
+okenomics account The integration structure becomes an industry standard So no
+
+179
+00:12:06.740 --> 00:12:10.400
+matter where the technical wind blows The biggest winner is always the
+
+180
+00:12:10.400 --> 00:12:15.560
+established rules of the banker For investors Now Iwata is no longer a company
+
+181
+00:12:15.560 --> 00:12:18.860
+that sells graphics cards But a company that has the basic set of AI-generated
+
+182
+00:12:19.280 --> 00:12:23.860
+asset rights Since the workload analysis and memory layer-by-layer has been
+
+183
+00:12:23.860 --> 00:12:27.220
+established The last question for investors is What should I do with Iwata's
+
+184
+00:12:27.220 --> 00:12:28.460
+next-generation product route map?
+
+185
+00:12:29.600 --> 00:12:33.560
+Many people are confused by the codenames of Kyber, Rubin Ultra, and Famon They
+
+186
+00:12:33.560 --> 00:12:37.940
+think they are just stronger GPUs But if you only look at the chip You miss the
+
+187
+00:12:37.940 --> 00:12:41.200
+real strategic layout of Iwata In the past, the market valued single-card
+
+188
+00:12:41.200 --> 00:12:45.680
+computing But in the next stage The deciding factor is how much computing
+
+189
+00:12:45.680 --> 00:12:48.800
+bandwidth and memory can a machine hold How to deal with power consumption,
+
+190
+00:12:48.940 --> 00:12:51.820
+heat dissipation, and interconnection at the same time The most important thing
+
+191
+00:12:51.820 --> 00:12:55.080
+about Rubin Ultra is not the word Ultra It represents Iwata's push for the
+
+192
+00:12:55.080 --> 00:12:58.460
+system density to the limit Four major dimensions are increased at the same
+
+193
+00:12:58.460 --> 00:13:02.620
+time Forcing competitors to catch up on systems and capabilities Form a deep
+
+194
+00:13:02.620 --> 00:13:06.100
+support for Iwata In the end, Iwata is no longer simply releasing new products
+
+195
+00:13:06.100 --> 00:13:09.500
+It is pushing for standardization, systemization, and platformization of
+
+196
+00:13:09.500 --> 00:13:13.500
+infrastructure Investors understand Iwata's stubborn logic Turning from buying
+
+197
+00:13:13.500 --> 00:13:17.720
+the best chip to buying the only AI system The investment opportunities of the
+
+198
+00:13:17.720 --> 00:13:20.360
+industry chain will also be exported to Network architecture, light Internet,
+
+199
+00:13:20.740 --> 00:13:25.100
+CPU, and other areas Okay, that's it for today's video What do you think of Iw
+
+200
+00:13:25.100 --> 00:13:25.940
+ata's GTG conference?
+
+201
+00:13:26.880 --> 00:13:29.080
+Which key industry chains and companies do you think will explode?
+
+202
+00:13:29.320 --> 00:13:32.160
+Welcome to leave a comment in the comment section If you think our video is
+
+203
+00:13:32.160 --> 00:13:35.620
+good, remember to like, follow, and forward Thank you for watching and see you
+
+204
+00:13:35.620 --> 00:13:35.720
+next time

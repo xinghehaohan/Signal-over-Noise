@@ -1,0 +1,31 @@
+{
+  "Investment Thesis": "Long-term (5+ year) conviction-driven growth investing in early-to-mid stage secular themes, primarily AI ecosystem (power, compute, hardware, edge, agents, platforms), robotics/autonomy, defense tech, healthcare innovation, and digital infrastructure. Prioritize companies with durable moats, expanding TAMs, and execution momentum that can compound as structural shifts mature. Use PEG ratio as primary valuation filter (target <1 for entry/adds; flag >2 as caution). Initiate/add only when thesis strengthens (new catalysts, competitive advantages, or market dislocations that improve risk/reward). Sell rarely—only on material thesis breakage or extreme overvaluation. Incorporate conservative disciplines: maintain 5-10% cash/dry powder at all times for opportunistic adds; cap any single position at 8-10% and any theme at 35%; rebalance quarterly or on >20% theme drift; require asymmetric upside (minimum 3-5x potential over 5 years); avoid leverage except rare high-conviction options (<5% portfolio). Technicals secondary—fundamentals and secular tailwinds primary. Ignore macro noise; focus on company-specific execution within themes.",
+  "holdings": [
+    "Core Growth (Bonsai/Core bucket ~45-75%): META, MU, ARM, TSLA, ISRG, MDB, CRWD, SNOW, PLTR, MELI, DDOG, NET, TTD, ZS, TEAM",
+    "Mini-Monsters / High-Conviction Emerging (~15-25%): AEHR, CRDO, AAOI, ALAB, PATH, RKLB, TMDX, GLBE, U, DOCN",
+    "Moonshots / Transformative (~5-10%): ASTS, BEAM, NTLA, RXRX, DNA, NNOX (or similar AI/biotech/space names with 10x+ potential)",
+    "Watchlist / Pipeline (for rotation): PL (Planet Labs), OKLO, LMND, OUST, FSLY, HROW, CRML, JOBY, ACHR, LEU",
+    "Note: Portfolio kept tight (16-20 names max). Thematic exposure target: AI Power/Hardware/Edge ~30-40%, Defense ~25-35%, Healthcare/Robotics ~15-25%, Digital Platforms ~10-20%. Cash buffer 5-10%."
+  ],
+  "Topic Interests": [
+    "AI infrastructure & power (data-center energy, space solar, long-duration storage, next-gen chips)",
+    "Semiconductors & compute (CPU/GPU bottlenecks, edge AI, agentic workflows)",
+    "Robotics, autonomy & humanoid tech (Tesla Optimus/FSD, surgical robotics)",
+    "Healthcare innovation (robotic surgery platforms, biotech moonshots, AI-driven drug discovery)",
+    "Defense & national security tech (New Age of Defense plays)",
+    "Digital platforms & ad-tech monetization (AI-driven advertising, enterprise automation)",
+    "Space & satellite infrastructure (constellations, orbital tech with commercial AI tie-ins)",
+    "Emerging AI applications (on-device agents, real-time data/AI databases, vector search)"
+  ],
+  "what to ignore": [
+    "Short-term price action, daily volatility, and technical-only setups (RSI, moving averages, Fibonacci unless confirming thesis)",
+    "Fad/churn narratives without 5+ year secular tailwinds or moats (e.g., pure hype cycles, meme stocks, unproven 2025-2026 'AI' stories lacking revenue traction)",
+    "Extreme overvaluation signals (PEG >2.5 sustained) or companies where risk/reward is no longer asymmetric",
+    "Macro fear-of-the-day FUD, retail sentiment swings, or headline-driven knee-jerk reactions",
+    "Single-stock concentration beyond 10% or theme concentration beyond 35% (auto-flag for derisk)",
+    "High-risk moonshots without explicit 10x+ thesis and <5% portfolio cap",
+    "Any position where thesis has materially broken (eroded moat, failed execution, TAM contraction) — immediate exit signal",
+    "Leverage or options beyond 5% of portfolio and only on existing high-conviction names",
+    "Non-U.S. or low-liquidity names outside core themes unless clear asymmetric edge"
+  ]
+}
