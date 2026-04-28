@@ -81,6 +81,24 @@ const styleSheet = `
   /* Error text (expandable) */
   .ing-err-text { max-width:220px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; font-size:11.5px; color:#8B1A1A; cursor:default; }
   .ing-err-text:hover { white-space:normal; overflow:visible; }
+
+  /* TurboScribe guide */
+  .ts-guide { background:#FFFDF7; border:1px solid #E5DDC8; border-radius:2px; padding:20px 24px; margin-bottom:20px; }
+  .ts-flow { display:flex; align-items:stretch; gap:0; flex-wrap:wrap; margin:16px 0 18px; }
+  .ts-step { display:flex; flex-direction:column; align-items:center; gap:6px; flex:1; min-width:100px; }
+  .ts-step-icon { width:40px; height:40px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:17px; flex-shrink:0; }
+  .ts-step-label { font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:#6B6359; text-align:center; line-height:1.4; }
+  .ts-step-sub { font-size:11px; color:#9B9285; text-align:center; line-height:1.3; }
+  .ts-arrow { display:flex; align-items:center; padding:0 4px; color:#C5BCA8; font-size:18px; flex-shrink:0; margin-top:-20px; }
+  .ts-login { background:#F4EFE3; border:1px solid #D4CCB6; border-radius:2px; padding:10px 14px; display:flex; align-items:center; gap:20px; flex-wrap:wrap; }
+  .ts-login-field { display:flex; align-items:center; gap:8px; }
+  .ts-login-key { font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:#8B6A40; font-weight:600; }
+  .ts-login-val { font-family:'JetBrains Mono',monospace; font-size:12.5px; color:#1A1814; background:#FFFDF7; border:1px solid #D4CCB6; border-radius:2px; padding:3px 8px; user-select:all; }
+  @media(max-width:640px){
+    .ts-arrow { display:none; }
+    .ts-flow { gap:10px; }
+    .ts-step { min-width:80px; }
+  }
 `
 
 // ─────────────────────────────────────────────────────────────────────────
@@ -783,7 +801,72 @@ export default function IngestPage() {
         <p style={{ color: '#3F3A2E', fontSize: 14.5, lineHeight: 1.55, marginBottom: 28, maxWidth: 560 }}>
           Drop your TurboScribe <code style={{ fontFamily: 'JetBrains Mono', fontSize: 12 }}>.vtt</code> exports. Each file is parsed, staged for review, then sent to the model in parallel.
         </p>
+        {/* TurboScribe guide */}
+        <div className="ts-guide" style={{ marginBottom: 24 }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 10, marginBottom: 4 }}>
+            <div>
+              <div className="dgs-eyebrow" style={{ color: '#8B6A40', marginBottom: 3 }}>How it works</div>
+              <div className="dgs-disp" style={{ fontSize: 17, fontWeight: 600 }}>TurboScribe → Batch Ingest</div>
+            </div>
+            <a
+              href="https://turboscribe.ai/dashboard"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="dgs-btn-primary"
+              style={{ display: 'inline-flex', alignItems: 'center', gap: 7, textDecoration: 'none', fontSize: 13 }}
+            >
+              Open TurboScribe ↗
+            </a>
+          </div>
 
+          {/* Flowchart */}
+          <div className="ts-flow">
+            <div className="ts-step">
+              <div className="ts-step-icon" style={{ background: '#EDE8DA' }}>🎙️</div>
+              <div className="ts-step-label">Record or<br />download</div>
+              <div className="ts-step-sub">Any video or<br />audio source</div>
+            </div>
+            <div className="ts-arrow">›</div>
+            <div className="ts-step">
+              <div className="ts-step-icon" style={{ background: '#E8DECA' }}>⬆️</div>
+              <div className="ts-step-label">Upload to<br />TurboScribe</div>
+              <div className="ts-step-sub">turboscribe.ai<br />dashboard</div>
+            </div>
+            <div className="ts-arrow">›</div>
+            <div className="ts-step">
+              <div className="ts-step-icon" style={{ background: '#DDE8DA' }}>🤖</div>
+              <div className="ts-step-label">AI transcribes<br />audio</div>
+              <div className="ts-step-sub">Speaker labels<br />+ timestamps</div>
+            </div>
+            <div className="ts-arrow">›</div>
+            <div className="ts-step">
+              <div className="ts-step-icon" style={{ background: '#DAE0E8' }}>📄</div>
+              <div className="ts-step-label">Export as<br />.vtt file</div>
+              <div className="ts-step-sub">Download →<br />WebVTT format</div>
+            </div>
+            <div className="ts-arrow">›</div>
+            <div className="ts-step">
+              <div className="ts-step-icon" style={{ background: '#E8DAE8' }}>📥</div>
+              <div className="ts-step-label">Drop here<br />to analyze</div>
+              <div className="ts-step-sub">AI scores &amp;<br />summarizes</div>
+            </div>
+          </div>
+
+          {/* Login */}
+          <div style={{ borderTop: '1px solid #E5DDC8', paddingTop: 12, marginTop: 4 }}>
+            <div className="dgs-eyebrow" style={{ color: '#B5AC95', fontSize: 9, marginBottom: 8 }}>Login</div>
+            <div className="ts-login">
+              <div className="ts-login-field">
+                <span className="ts-login-key">Email</span>
+                <span className="ts-login-val">julesluyten@d-b.lol</span>
+              </div>
+              <div className="ts-login-field">
+                <span className="ts-login-key">Password</span>
+                <span className="ts-login-val">bvx3VC4BpL@1</span>
+              </div>
+            </div>
+          </div>
+        </div>
         {!profile && (
           <div className="dgs-error" style={{ marginBottom: 20 }}>
             <AlertCircle size={13} style={{ display: 'inline', verticalAlign: '-2px', marginRight: 6 }} />
