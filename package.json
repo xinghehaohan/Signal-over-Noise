@@ -11,7 +11,6 @@
   "dependencies": {
     "@anthropic-ai/sdk": "^0.39.0",
     "@supabase/supabase-js": "^2.105.1",
-    "@vercel/kv": "^2.0.0",
     "lucide-react": "^0.468.0",
     "next": "^15.3.0",
     "openai": "^4.76.0",
