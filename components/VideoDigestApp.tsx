@@ -525,6 +525,10 @@ const Header = ({
           <Settings size={13} style={{ display: 'inline', verticalAlign: '-2px' }} />
           <span className="dgs-nav-label" style={{ marginLeft: 6 }}>Focus</span>
         </button>
+        <a href="/chatlogs" className="dgs-btn-ghost" style={{ display: 'inline-flex', alignItems: 'center', textDecoration: 'none' }}>
+          <span style={{ fontSize: 13, lineHeight: 1 }}>💬</span>
+          <span className="dgs-nav-label" style={{ marginLeft: 6 }}>Chat Logs</span>
+        </a>
         <a href="/ingest" className="dgs-btn-ghost" style={{ display: 'inline-flex', alignItems: 'center', textDecoration: 'none' }}>
           <Upload size={13} style={{ verticalAlign: '-2px' }} />
           <span className="dgs-nav-label" style={{ marginLeft: 6 }}>Batch Ingest</span>

@@ -1,0 +1,1139 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>:root {
+        color-scheme: light;
+        --bg-canvas: #ffffff;
+        --bg-surface: #f7f8fa;
+        --bg-surface-2: #f2f3f5;
+        --text-primary: #111827;
+        --text-secondary: #6b7280;
+        --text-muted: #9ca3af;
+        --border-soft: #e5e7eb;
+        --border-strong: #d1d5db;
+        --accent: #5865f2;
+        --accent-soft: rgba(88, 101, 242, 0.12);
+        --hover-bg: rgba(17, 24, 39, 0.03);
+        --code-bg: #111827;
+        --code-text: #e5e7eb;
+        --shadow-soft: 0 8px 24px rgba(17, 24, 39, 0.06);
+      }
+
+      @media (prefers-color-scheme: dark) {
+        :root {
+          color-scheme: dark;
+          --bg-canvas: #313338;
+          --bg-surface: #2b2d31;
+          --bg-surface-2: #1f2125;
+          --text-primary: #e5e7eb;
+          --text-secondary: #b5bac1;
+          --text-muted: #8a9099;
+          --border-soft: #3a3d43;
+          --border-strong: #4b5563;
+          --accent: #7c87ff;
+          --accent-soft: rgba(124, 135, 255, 0.2);
+          --hover-bg: rgba(255, 255, 255, 0.04);
+          --code-bg: #111827;
+          --code-text: #e5e7eb;
+          --shadow-soft: 0 12px 30px rgba(0, 0, 0, 0.35);
+        }
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        font-family: 'Inter', 'Geist', system-ui, -apple-system, sans-serif;
+        font-size: 15px;
+        line-height: 1.45;
+        background: var(--bg-canvas);
+        color: var(--text-primary);
+      }
+
+      .container {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        max-width: none;
+        height: 100vh;
+        margin: 0;
+        padding: 0;
+      }
+
+      .top-bar {
+        position: relative;
+        flex-shrink: 0;
+        z-index: 10;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        justify-content: space-between;
+        align-items: center;
+        padding: 16px;
+        margin: 10px;
+        border: 1px solid var(--border-soft);
+        border-radius: 14px;
+        background: color-mix(in srgb, var(--bg-surface) 88%, transparent);
+        backdrop-filter: blur(10px);
+        box-shadow: var(--shadow-soft);
+      }
+
+      .server-info {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        min-width: 280px;
+      }
+
+      .chatlog-manifest {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+
+      .chatlog-manifest h4 {
+        margin: 0;
+        font-size: clamp(16px, 2.2vw, 20px);
+        letter-spacing: 0.01em;
+      }
+
+      #message_count,
+      #date_range {
+        display: inline-flex;
+        align-items: center;
+        width: fit-content;
+        padding: 2px 8px;
+        border-radius: 999px;
+        font-size: 12px;
+        color: var(--text-secondary);
+        border: 1px solid var(--border-soft);
+        background: var(--bg-surface-2);
+      }
+
+      .top-bar-right {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 10px;
+      }
+
+      .search-input {
+        width: clamp(170px, 22vw, 260px);
+        height: 34px;
+        border: 1px solid var(--border-soft);
+        border-radius: 10px;
+        padding: 0 10px;
+        outline: none;
+        font-size: 13px;
+        color: var(--text-primary);
+        background: var(--bg-canvas);
+      }
+
+      .search-input:focus {
+        border-color: color-mix(in srgb, var(--accent) 65%, var(--border-soft));
+      }
+
+      .sort-options {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 12px;
+        color: var(--text-secondary);
+      }
+
+      .sort-radio {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        cursor: pointer;
+        user-select: none;
+      }
+
+      .copy-json-btn {
+        height: 34px;
+        border: 1px solid color-mix(in srgb, var(--accent) 45%, var(--border-soft));
+        border-radius: 10px;
+        padding: 0 12px;
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.01em;
+        color: white;
+        background: linear-gradient(135deg, var(--accent), color-mix(in srgb, var(--accent) 80%, #111827));
+        cursor: pointer;
+        transition: transform 0.15s ease, opacity 0.15s ease;
+      }
+
+      .copy-json-btn:hover {
+        opacity: 0.95;
+        transform: translateY(-1px);
+      }
+
+      .messages-list-container {
+        display: flex;
+        flex-direction: column;
+        border: 1px solid var(--border-soft);
+        border-radius: 14px;
+        background: var(--bg-surface);
+        overflow: hidden;
+      }
+
+      .chat-main {
+        display: flex;
+        align-items: stretch;
+        flex: 1;
+        gap: 0;
+        overflow: hidden;
+        border: 1px solid var(--border-soft);
+        border-radius: 14px;
+        margin: 0 10px 10px;
+        background: var(--bg-canvas);
+      }
+
+      .chat-main .messages-list-container {
+        flex: 1;
+        height: 100%;
+        overflow-y: auto;
+        border: 0;
+        border-radius: 0;
+      }
+
+      .search-sidebar {
+        display: flex;
+        flex-direction: column;
+        width: 0;
+        height: 100%;
+        opacity: 0;
+        overflow: hidden;
+        background: #f9fafb;
+        border-right: 0 solid #e3e5e8;
+        transition: width 0.2s ease, opacity 0.2s ease, border-width 0.2s ease;
+      }
+
+      .search-sidebar.open {
+        width: 320px;
+        opacity: 1;
+        border-right-width: 1px;
+      }
+
+      .search-sidebar-head {
+        position: sticky;
+        top: 0;
+        z-index: 2;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 6px;
+        padding: 10px;
+        border-bottom: 1px solid var(--border-soft);
+        background: #f9fafb;
+      }
+
+      .search-head-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+      }
+
+      .search-sidebar-title {
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--text-secondary);
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+      }
+
+      .search-results-count {
+        font-size: 11px;
+        color: var(--text-muted);
+      }
+
+      .search-input-wrap {
+        position: relative;
+      }
+
+      .search-input {
+        width: 100%;
+        height: 34px;
+        border: 1px solid var(--border-soft);
+        border-radius: 10px;
+        padding: 0 28px 0 10px;
+        outline: none;
+        font-size: 13px;
+        color: var(--text-primary);
+        background: var(--bg-canvas);
+      }
+
+      .search-clear-btn {
+        position: absolute;
+        right: 8px;
+        top: 50%;
+        transform: translateY(-50%);
+        border: 0;
+        background: transparent;
+        color: var(--text-muted);
+        font-size: 14px;
+        line-height: 1;
+        cursor: pointer;
+      }
+
+      .search-open-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        height: 34px;
+        border: 1px solid var(--border-soft);
+        border-radius: 10px;
+        padding: 0 10px;
+        background: var(--bg-canvas);
+        color: var(--text-secondary);
+        font-size: 12px;
+        cursor: pointer;
+      }
+
+      .search-close-btn {
+        border: 1px solid var(--border-soft);
+        border-radius: 8px;
+        background: var(--bg-canvas);
+        color: var(--text-secondary);
+        font-size: 11px;
+        padding: 3px 8px;
+        cursor: pointer;
+      }
+
+      .search-results {
+        flex: 1;
+        overflow-y: auto;
+        padding: 8px;
+      }
+
+      .search-result-item {
+        display: grid;
+        grid-template-columns: 22px 1fr auto;
+        gap: 8px;
+        align-items: start;
+        width: 100%;
+        padding: 9px;
+        border: 1px solid transparent;
+        border-radius: 10px;
+        text-align: left;
+        background: rgba(255, 255, 255, 0.45);
+        cursor: pointer;
+      }
+
+      .search-result-item:hover {
+        border-color: var(--border-soft);
+        background: var(--bg-canvas);
+      }
+
+      .search-result-avatar {
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+      }
+
+      .search-result-name {
+        font-size: 12px;
+        font-weight: 700;
+        color: var(--text-primary);
+      }
+
+      .search-result-snippet {
+        margin-top: 2px;
+        font-size: 12px;
+        color: var(--text-secondary);
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+
+      .search-result-snippet mark {
+        background: color-mix(in srgb, var(--accent) 25%, transparent);
+        color: var(--text-primary);
+        border-radius: 3px;
+        padding: 0 2px;
+      }
+
+      .jump-flash {
+        animation: jumpFlash 2s ease;
+      }
+
+      @keyframes jumpFlash {
+        0% {
+          background: color-mix(in srgb, var(--accent) 25%, transparent);
+          box-shadow: inset 0 0 0 2px color-mix(in srgb, var(--accent) 70%, transparent);
+        }
+        100% {
+          background: transparent;
+          box-shadow: inset 0 0 0 0 transparent;
+        }
+      }
+
+      .search-result-time {
+        font-size: 10px;
+        color: var(--text-muted);
+        margin-top: 1px;
+      }
+
+      .search-sidebar::-webkit-scrollbar,
+      .search-results::-webkit-scrollbar,
+      .messages-list-container::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+      }
+
+      .search-sidebar::-webkit-scrollbar-thumb,
+      .search-results::-webkit-scrollbar-thumb,
+      .messages-list-container::-webkit-scrollbar-thumb {
+        background: color-mix(in srgb, var(--text-muted) 45%, transparent);
+        border-radius: 999px;
+      }
+
+      .search-sidebar::-webkit-scrollbar-track,
+      .search-results::-webkit-scrollbar-track,
+      .messages-list-container::-webkit-scrollbar-track {
+        background: transparent;
+      }
+
+      .search-empty {
+        padding: 16px 10px;
+        text-align: center;
+        color: var(--text-secondary);
+        font-size: 12px;
+      }
+
+      .search-overlay {
+        display: none;
+      }
+
+      .messages-list-container.reverse {
+        flex-direction: column-reverse;
+      }
+
+      .message-box {
+        display: grid;
+        grid-template-columns: 56px 1fr;
+        gap: 10px;
+        padding: 10px 14px;
+        border-top: 1px solid color-mix(in srgb, var(--border-soft) 70%, transparent);
+        transition: background-color 0.15s ease;
+      }
+
+      .message-box:first-child {
+        border-top: 0;
+      }
+
+      .message-box:hover {
+        background: var(--hover-bg);
+      }
+
+      .message-box.compact {
+        grid-template-columns: 56px 1fr;
+        padding-top: 4px;
+      }
+
+      .avatar-slot {
+        display: flex;
+        justify-content: center;
+      }
+
+      .message-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        border: 1px solid var(--border-soft);
+        object-fit: cover;
+      }
+
+      .message-box.compact .message-avatar {
+        visibility: hidden;
+      }
+
+      .message-body {
+        min-width: 0;
+      }
+
+      .message-header {
+        display: flex;
+        align-items: baseline;
+        gap: 8px;
+        margin-bottom: 2px;
+      }
+
+      .message-box.compact .message-header {
+        display: none;
+      }
+
+      .message-author {
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--text-primary);
+      }
+
+      .message-date {
+        font-size: 11px;
+        color: var(--text-muted);
+      }
+
+      .message-content {
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
+        color: var(--text-primary);
+      }
+
+      .mention-inline {
+        display: inline-block;
+        border-radius: 5px;
+        padding: 0 4px;
+        margin: 0 1px;
+        color: var(--accent);
+        background: var(--accent-soft);
+        font-weight: 600;
+      }
+
+      .message-reference {
+        margin: 6px 0 8px;
+        padding: 8px 10px;
+        border-left: 3px solid color-mix(in srgb, var(--accent) 65%, var(--border-soft));
+        border-radius: 8px;
+        background: var(--bg-surface-2);
+        color: var(--text-secondary);
+        font-size: 12px;
+      }
+
+      .message-reference-author {
+        font-weight: 700;
+        color: var(--text-primary);
+      }
+
+      .message-reference-timestamp {
+        margin-left: 8px;
+        color: var(--text-muted);
+      }
+
+      .message-embeded {
+        margin-top: 8px;
+        border-left: 4px solid var(--accent);
+        border-radius: 10px;
+        background: var(--bg-surface-2);
+        padding: 10px;
+      }
+
+      .embed-container {
+        display: flex;
+        flex-direction: column;
+        gap: 7px;
+      }
+
+      .embed-text {
+        font-weight: 700;
+      }
+
+      .embed-description {
+        color: var(--text-secondary);
+      }
+
+      .attach-container,
+      .embed-image-box {
+        margin-top: 8px;
+      }
+
+      img,
+      video {
+        max-width: min(680px, 100%);
+        max-height: 420px;
+        border-radius: 10px;
+      }
+
+      audio {
+        width: min(440px, 100%);
+      }
+
+      .zoomable {
+        cursor: zoom-in;
+        transition: transform 0.15s ease;
+      }
+
+      .zoomable:hover {
+        transform: scale(1.01);
+      }
+
+      pre.code-wrap {
+        position: relative;
+        margin: 8px 0 0;
+        padding: 12px;
+        border-radius: 10px;
+        overflow: auto;
+        background: var(--code-bg);
+        color: var(--code-text);
+        border: 1px solid color-mix(in srgb, var(--code-bg) 75%, white);
+      }
+
+      pre.code-wrap code {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        font-size: 12px;
+        line-height: 1.5;
+      }
+
+      .code-copy-btn {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        border-radius: 7px;
+        padding: 3px 8px;
+        font-size: 11px;
+        color: #fff;
+        background: rgba(255, 255, 255, 0.08);
+        cursor: pointer;
+      }
+
+      .lightbox {
+        position: fixed;
+        inset: 0;
+        z-index: 50;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+        background: rgba(0, 0, 0, 0.78);
+        backdrop-filter: blur(3px);
+      }
+
+      .lightbox.open {
+        display: flex;
+      }
+
+      .lightbox img {
+        max-width: min(92vw, 1400px);
+        max-height: 88vh;
+        border-radius: 12px;
+        box-shadow: 0 14px 50px rgba(0, 0, 0, 0.6);
+      }
+
+      @media (max-width: 768px) {
+        html, body {
+          overflow: auto;
+          height: auto;
+        }
+
+        .container {
+          height: auto;
+          min-height: 100vh;
+        }
+
+        .chat-main {
+          height: auto;
+          min-height: 60vh;
+          overflow: visible;
+        }
+
+        .chat-main .messages-list-container {
+          overflow: visible;
+          height: auto;
+        }
+
+        .top-bar {
+          border-radius: 10px;
+          position: static;
+        }
+
+        .server-info {
+          min-width: 100%;
+        }
+
+        .message-box {
+          grid-template-columns: 44px 1fr;
+          padding: 8px 10px;
+        }
+
+        .message-avatar {
+          width: 32px;
+          height: 32px;
+        }
+
+        .search-open-btn {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .chat-main {
+          position: relative;
+          margin: 0;
+          border-radius: 0;
+          border-left: 0;
+          border-right: 0;
+          border-bottom: 0;
+        }
+
+        .search-sidebar {
+          position: fixed;
+          left: 0;
+          top: 0;
+          z-index: 40;
+          width: min(320px, 90vw);
+          max-width: 90vw;
+          height: 100vh;
+          opacity: 1;
+          border-right: 1px solid #e3e5e8;
+          transform: translateX(-100%);
+          transition: transform 0.2s ease;
+        }
+
+        .search-sidebar.open {
+          width: min(320px, 90vw);
+          transform: translateX(0);
+        }
+
+        .search-overlay {
+          position: fixed;
+          inset: 0;
+          z-index: 30;
+          background: rgba(0, 0, 0, 0.35);
+          display: none;
+        }
+
+        .search-overlay.open {
+          display: block;
+        }
+      }</style></head><body><div class="container"><div><div id="chatlogs-title" class="top-bar"><div class="server-info"><div class="chatlog-manifest"><h4>美股会员网
+邀请至服务器 - 美股会员网:
+六便士-股票中长线-s0</h4><div id="message_count"></div><div id="date_range"></div></div></div><div class="top-bar-right"><button id="search-open-btn" class="search-open-btn" type="button">Search</button><div class="sort-options"><label class="sort-radio"><input type="radio" name="sort" value="asc" checked="checked" onchange="sortMessages('asc')"> <span>Oldest first</span></label> <label class="sort-radio"><input type="radio" name="sort" value="desc" onchange="sortMessages('desc')"> <span>Newest first</span></label></div><button class="copy-json-btn" onclick="copyJsonToClipboard()">Copy JSON</button></div></div></div><div class="chat-main"><aside id="search-sidebar" class="search-sidebar"><div class="search-sidebar-head"><div class="search-head-row"><span class="search-sidebar-title">Search Results</span> <button id="search-close-btn" class="search-close-btn" type="button">Close</button></div><div class="search-input-wrap"><input id="search-input" class="search-input" type="search" placeholder="Search & locate..."> <button id="search-clear-btn" class="search-clear-btn" type="button" aria-label="Clear search">×</button></div><div id="search-results-count" class="search-results-count">0 results</div></div><div id="search-results" class="search-results"></div></aside><div class="messages-list-container" id="chatlogs-message-list-container"></div></div><div id="search-overlay" class="search-overlay"></div></div><script>function getAvatarUrl(authorId, avatar) {
+        const defaultAvatar =
+          'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAMAAABrrFhUAAAAY1BMVEVYZfJib/OMlfahqPeWn/eBi/XLz/vq6/7////19f5tePTq7P22vPnV2Pyrsvirsvl3gvT09f7Axfp3gfRtePNsePPg4v22vPq2u/qCi/WhqPjf4/zf4v2Xn/essvjLzvuXnvdbidFTAAAETElEQVR4AezBgQAAAACAoP2pF6kCAAAAAAAAAAAAAAAAAAAAAIDZudMtV1UlDuCFRKlWIEJ6uOwbzXn/lzzzYc/GWiT6zya/79WrLeYSc5Vq9IFWa3Sr6JehWt0ZZn5RtFJvmHnodPsrPLx1/B9PKx1ziLOPnIRRO84EXaAP/CWnR3pArTWcybpA5G8NsX20pw+cSbpAngEeOQenY+Cf8KIZ4FuDfSV4Ko/7hS7wNjYH7W3MvNeHtn2jvxn+OXcgaP0x8KJo43vgnwqu85EXDfGVULWON9G1BOmDN/M/AnTgDSWC0xve0KAITeSsykFw4qzOQWB4YwNBOfLmPAHpeXsvr5XOgJkjGA3vIlU6A2bvOHvAnXwiCMrwTl5UpUtg5us7BAB2gcg78nXugaC6QORd+bo7AEAXiLwzX+8SANEFNHPdXcAwV90FDgxA037+zwAc7aZlCKnSNTDrADZBdU6DBwbha5wCAabBkWGkSqfAzFa6C8xeADYB9Y2ByEBsbSMAYAy0zHWPActQLPQuKBh3DiwiDRlwzwFOv9JfTpORh5x5rVfQc8CQiLLJiEMaA1oW6XgVq+grVh4yY56JA68x07fm8hCIhXCUPn823zgkG/HK4Rf6kYv8YBt5BQ03BQyv9CMq8M/JQ7IItw+e6cd8QQjKTqCX3OMTtOdCCNZOoCnqkrYgZEFD2/FF/08qDAE4Dji+TtHPKHknVmBboVB2i9HI9zIGahZUhaVqVxCyQEEVQ7rSBMj3QiPUUTCWJkC+8zrQVjzmELBYG2H5jDYUFqAiQDlMtAwKQgjr+nwoq9O2BSEQJQFVWKeNBSEQ6+BYeG3BFIUAHIfasmsLh7IQgLcjDZd0AWXEIZRDMDYCuuj73g95yJGxEuBLPmr6VBSyzMO9Fpzko3kqeA1r8W4GHOWNKQ/JIl4COL4SZf2lPAQhAY4lYrv860rlIVmHlYAsuBhjFwpCwO4LOkb0TMAzAc8EPBPwTMAGngl4JuCZgMig4jMB27AMykJUhCr4ekwzKI10T9hpwzcz6DNSUbRdORzThW/CJSKagd4LjKurof1suFCYVR54MDckpsBXDLk3pliQgxBTHneBrwiaNtOfeUUKCnMQYlKC32x2r7SlmSUpoOQdi5xtoqx1DNP8WW9kKSCVvAu8QnC2USR4/I2bP5vDmhS80pdOjXULw8dc7HSiL6ljYLTmz/ooKvJTdkqTt9G5s/mHczH6qXlV9I32Ehi0+QVfQbn7HryHhvY033V1Tuu3CRncOIj3rL3EV9pf7+53ced0bY+MIZm7ndEt9uNnkxN8OSWhAvjjZ8ktnIoKaMDHF0yH8S416C4Rpv7bU094pWJ9QFv4BJOBvnkFzjWKMvhu4G78IibMIz2EFM3KFUAwCEI+ID9MDia6kd/+enpFj+YE+af+aA8OZAAAAAAG+Vvf46sAAAAAAAAAAAAAAAAAAAAAAFYCeHSjWah9hFcAAAAASUVORK5CYII=';
+        if (!avatar) return defaultAvatar;
+        if (String(avatar).indexOf('a_') === 0) return `https://cdn.discordapp.com/avatars/${authorId}/${avatar}.gif`;
+        return `https://cdn.discordapp.com/avatars/${authorId}/${avatar}.png`;
+      }
+
+      const messages = [{"type":0,"content":"@everyone \n美港a持仓组合更新-20260301","mentions":[],"mention_roles":[],"attachments":[{"id":"1484201997417844806","filename":"a-20260301.png","size":875998,"url":"https://cdn.discordapp.com/attachments/1484200645316710573/1484201997417844806/a-20260301.png?ex=69faac13&is=69f95a93&hm=9c20689e3e7de94ed336cd8dd335e722edfc568a36217fdd4bf4962ac3170376&","proxy_url":"https://media.discordapp.net/attachments/1484200645316710573/1484201997417844806/a-20260301.png?ex=69faac13&is=69f95a93&hm=9c20689e3e7de94ed336cd8dd335e722edfc568a36217fdd4bf4962ac3170376&","width":1766,"height":1716,"content_type":"image/png","original_content_type":"image/png","content_scan_version":4,"placeholder":"NvgFH4B3d5d2d3d0hwh4KIeFeAdXdnAG","placeholder_version":1,"title":"美港a持仓组合更新-20260301"}],"embeds":[],"timestamp":"2026-03-19T14:48:51.377000+00:00","edited_timestamp":null,"flags":0,"components":[],"id":"1484201997640011826","channel_id":"1484200645316710573","author":{"id":"1098937850168365176","username":"us_stock_vip","avatar":"6929839c3db522eb3fbc833af4659aaa","discriminator":"0","public_flags":0,"flags":0,"banner":null,"accent_color":null,"global_name":"美股会员网-群主","avatar_decoration_data":{"asset":"a_d3da36040163ee0f9176dfe7ced45cdc","sku_id":"1144058522808614923","expires_at":null},"collectibles":null,"display_name_styles":{"font_id":3,"effect_id":4,"colors":[11080677]},"banner_color":null,"clan":null,"primary_guild":null},"pinned":false,"mention_everyone":true,"tts":false},{"type":0,"content":"@everyone \n美港a持仓组合更新-20260308","mentions":[],"mention_roles":[],"attachments":[{"id":"1484202156381831208","filename":"A.jpg","size":617507,"url":"https://cdn.discordapp.com/attachments/1484200645316710573/1484202156381831208/A.jpg?ex=69faac39&is=69f95ab9&hm=34b7ef55a13053e42e01969033ee7fbf35414d8a2f07ebecc6bc04edf2f505cd&","proxy_url":"https://media.discordapp.net/attachments/1484200645316710573/1484202156381831208/A.jpg?ex=69faac39&is=69f95ab9&hm=34b7ef55a13053e42e01969033ee7fbf35414d8a2f07ebecc6bc04edf2f505cd&","width":1790,"height":1626,"content_type":"image/png","original_content_type":"image/jpeg","content_scan_version":4,"placeholder":"M/gFFoJ1hpd0h3eAeDh4F4eQd3BwB5c=","placeholder_version":1,"title":"美港A组合更新"}],"embeds":[],"timestamp":"2026-03-19T14:49:29.331000+00:00","edited_timestamp":null,"flags":0,"components":[],"id":"1484202156830494971","channel_id":"1484200645316710573","author":{"id":"1098937850168365176","username":"us_stock_vip","avatar":"6929839c3db522eb3fbc833af4659aaa","discriminator":"0","public_flags":0,"flags":0,"banner":null,"accent_color":null,"global_name":"美股会员网-群主","avatar_decoration_data":{"asset":"a_d3da36040163ee0f9176dfe7ced45cdc","sku_id":"1144058522808614923","expires_at":null},"collectibles":null,"display_name_styles":{"font_id":3,"effect_id":4,"colors":[11080677]},"banner_color":null,"clan":null,"primary_guild":null},"pinned":false,"mention_everyone":true,"tts":false},{"type":0,"content":"@everyone \n美港a持仓组合更新-20260315","mentions":[],"mention_roles":[],"attachments":[{"id":"1484202304600146100","filename":"A3.15.png","size":1844702,"url":"https://cdn.discordapp.com/attachments/1484200645316710573/1484202304600146100/A3.15.png?ex=69faac5c&is=69f95adc&hm=2e426c2b0cd2be3ea486f3e3d649e4f6b54021f04d4ecf12603f5b5be842c2c4&","proxy_url":"https://media.discordapp.net/attachments/1484200645316710573/1484202304600146100/A3.15.png?ex=69faac5c&is=69f95adc&hm=2e426c2b0cd2be3ea486f3e3d649e4f6b54021f04d4ecf12603f5b5be842c2c4&","width":1346,"height":1802,"content_type":"image/png","original_content_type":"image/png","content_scan_version":4,"placeholder":"tPcJFQJ3iIGHWHd3d4IHR4iAiAeH","placeholder_version":1,"title":"美港A组合更新3.15"}],"embeds":[],"timestamp":"2026-03-19T14:50:04.629000+00:00","edited_timestamp":null,"flags":0,"components":[],"id":"1484202304881037482","channel_id":"1484200645316710573","author":{"id":"1098937850168365176","username":"us_stock_vip","avatar":"6929839c3db522eb3fbc833af4659aaa","discriminator":"0","public_flags":0,"flags":0,"banner":null,"accent_color":null,"global_name":"美股会员网-群主","avatar_decoration_data":{"asset":"a_d3da36040163ee0f9176dfe7ced45cdc","sku_id":"1144058522808614923","expires_at":null},"collectibles":null,"display_name_styles":{"font_id":3,"effect_id":4,"colors":[11080677]},"banner_color":null,"clan":null,"primary_guild":null},"pinned":false,"mention_everyone":true,"tts":false},{"type":0,"content":"@everyone \n这轮趁着战争大调仓的策略，看来我们是侥幸调对了，大幅减仓ai应用三只票，集中到了老馒头、cohr、sndk上，这些最硬核的票基本无视指数下跌，昨晚老馒头告诉大家什么是真正的龙头，真正的alpha所在，真正的逆着指数上涨。","mentions":[],"mention_roles":[],"attachments":[],"embeds":[],"timestamp":"2026-03-19T23:40:56.222000+00:00","edited_timestamp":null,"flags":0,"components":[],"id":"1484335900145094816","channel_id":"1484200645316710573","author":{"id":"1098937850168365176","username":"us_stock_vip","avatar":"6929839c3db522eb3fbc833af4659aaa","discriminator":"0","public_flags":0,"flags":0,"banner":null,"accent_color":null,"global_name":"美股会员网-群主","avatar_decoration_data":{"asset":"a_d3da36040163ee0f9176dfe7ced45cdc","sku_id":"1144058522808614923","expires_at":null},"collectibles":null,"display_name_styles":{"font_id":3,"effect_id":4,"colors":[11080677]},"banner_color":null,"clan":null,"primary_guild":null},"pinned":false,"mention_everyone":true,"tts":false},{"type":0,"content":"@everyone \n美港a持仓组合更新-20260322\n本周组合更新。另：个人建议，对于风险偏好低的朋友，建议可以减仓，具体减多少，每个人还是要根据自己情况来。至于我个人，即便减仓，幅度应该也不会大，总体我还是维持高仓位。","mentions":[],"mention_roles":[],"attachments":[{"id":"1485163011583770634","filename":"mmexport1774160762085.jpg","size":201822,"url":"https://cdn.discordapp.com/attachments/1484200645316710573/1485163011583770634/mmexport1774160762085.jpg?ex=69fadf56&is=69f98dd6&hm=0869900db43ba9b2b82c84dbee9536349ee8ae680128171de199687edc0f500c&","proxy_url":"https://media.discordapp.net/attachments/1484200645316710573/1485163011583770634/mmexport1774160762085.jpg?ex=69fadf56&is=69f98dd6&hm=0869900db43ba9b2b82c84dbee9536349ee8ae680128171de199687edc0f500c&","width":1000,"height":1426,"content_type":"image/jpeg","content_scan_version":4,"placeholder":"9PcNDQJ3iICHN4hId4IXV3dwdQdX","placeholder_version":1}],"embeds":[],"timestamp":"2026-03-22T06:27:35.020000+00:00","edited_timestamp":"2026-03-22T06:30:28.261000+00:00","flags":0,"components":[],"id":"1485163011852468254","channel_id":"1484200645316710573","author":{"id":"1098937850168365176","username":"us_stock_vip","avatar":"6929839c3db522eb3fbc833af4659aaa","discriminator":"0","public_flags":0,"flags":0,"banner":null,"accent_color":null,"global_name":"美股会员网-群主","avatar_decoration_data":{"asset":"a_d3da36040163ee0f9176dfe7ced45cdc","sku_id":"1144058522808614923","expires_at":null},"collectibles":null,"display_name_styles":{"font_id":3,"effect_id":4,"colors":[11080677]},"banner_color":null,"clan":null,"primary_guild":null},"pinned":false,"mention_everyone":true,"tts":false},{"type":0,"content":"@everyone\n美股交易：nvda的约4%仓位止盈， cohr从17%加仓到19%，观察仓tsem加仓到2%\n（个人调仓，仅供参考）\n@所有人","mentions":[],"mention_roles":[],"attachments":[],"embeds":[],"timestamp":"2026-03-24T15:07:58.579000+00:00","edited_timestamp":null,"flags":0,"components":[],"id":"1486018748681949307","channel_id":"1484200645316710573","author":{"id":"1098937850168365176","username":"us_stock_vip","avatar":"6929839c3db522eb3fbc833af4659aaa","discriminator":"0","public_flags":0,"flags":0,"banner":null,"accent_color":null,"global_name":"美股会员网-群主","avatar_decoration_data":{"asset":"a_d3da36040163ee0f9176dfe7ced45cdc","sku_id":"1144058522808614923","expires_at":null},"collectibles":null,"display_name_styles":{"font_id":3,"effect_id":4,"colors":[11080677]},"banner_color":null,"clan":null,"primary_guild":null},"pinned":false,"mention_everyone":true,"tts":false},{"type":0,"content":"@everyone \na股交易：竞价买入3%汇绿生态(也是此前研究过的公司）@所有人","mentions":[],"mention_roles":[],"attachments":[],"embeds":[],"timestamp":"2026-03-25T01:31:34.069000+00:00","edited_timestamp":null,"flags":0,"components":[],"id":"1486175680621183159","channel_id":"1484200645316710573","author":{"id":"1098937850168365176","username":"us_stock_vip","avatar":"6929839c3db522eb3fbc833af4659aaa","discriminator":"0","public_flags":0,"flags":0,"banner":null,"accent_color":null,"global_name":"美股会员网-群主","avatar_decoration_data":{"asset":"a_d3da36040163ee0f9176dfe7ced45cdc","sku_id":"1144058522808614923","expires_at":null},"collectibles":null,"display_name_styles":{"font_id":3,"effect_id":4,"colors":[11080677]},"banner_color":null,"clan":null,"primary_guild":null},"pinned":false,"mention_everyone":true,"tts":false},{"type":19,"content":"华懋科技继续加仓到17.9%","mentions":[],"mention_roles":[],"attachments":[],"embeds":[],"timestamp":"2026-03-25T01:55:00.761000+00:00","edited_timestamp":null,"flags":0,"components":[],"id":"1486181580715196437","channel_id":"1484200645316710573","author":{"id":"1098937850168365176","username":"us_stock_vip","avatar":"6929839c3db522eb3fbc833af4659aaa","discriminator":"0","public_flags":0,"flags":0,"banner":null,"accent_color":null,"global_name":"美股会员网-群主","avatar_decoration_data":{"asset":"a_d3da36040163ee0f9176dfe7ced45cdc","sku_id":"1144058522808614923","expires_at":null},"collectibles":null,"display_name_styles":{"font_id":3,"effect_id":4,"colors":[11080677]},"banner_color":null,"clan":null,"primary_guild":null},"pinned":false,"mention_everyone":false,"tts":false,"message_reference":{"type":0,"channel_id":"1484200645316710573","message_id":"1486175680621183159","guild_id":"1412445465907167394"},"referenced_message":{"type":0,"content":"@everyone \na股交易：竞价买入3%汇绿生态(也是此前研究过的公司）@所有人","mentions":[],"mention_roles":[],"attachments":[],"embeds":[],"timestamp":"2026-03-25T01:31:34.069000+00:00","edited_timestamp":null,"flags":0,"components":[],"id":"1486175680621183159","channel_id":"1484200645316710573","author":{"id":"1098937850168365176","username":"us_stock_vip","avatar":"6929839c3db522eb3fbc833af4659aaa","discriminator":"0","public_flags":0,"flags":0,"banner":null,"accent_color":null,"global_name":"美股会员网-群主","avatar_decoration_data":{"asset":"a_d3da36040163ee0f9176dfe7ced45cdc","sku_id":"1144058522808614923","expires_at":null},"collectibles":null,"display_name_styles":{"font_id":3,"effect_id":4,"colors":[11080677]},"banner_color":null,"clan":null,"primary_guild":null},"pinned":false,"mention_everyone":true,"tts":false}},{"type":19,"content":"港股交易：07709小幅加仓2%到14%的仓位，07747小幅加仓3%到15%的仓位。\n\n为什么加仓，理由是我觉得二者的估值跌到太便宜了，且我非常看好4月份一季度炸裂的业绩，因此冒着战争地缘风险再次小幅加仓。\n\n但是，还是提醒大家不一定要跟我操作哈，因为每个人的风险偏好不一样，目前美伊战争造成的股市继续下跌的风险还在持续，风险偏好低的朋友，不建议跟我左侧抄底，切记，大家根据自己的风险偏好来，本人交易仅供参考哈。\n\n@everyone","mentions":[],"mention_roles":[],"attachments":[],"embeds":[],"timestamp":"2026-03-27T01:46:09.803000+00:00","edited_timestamp":null,"flags":0,"components":[],"id":"1486904129447133416","channel_id":"1484200645316710573","author":{"id":"1098937850168365176","username":"us_stock_vip","avatar":"6929839c3db522eb3fbc833af4659aaa","discriminator":"0","public_flags":0,"flags":0,"banner":null,"accent_color":null,"global_name":"美股会员网-群主","avatar_decoration_data":{"asset":"a_d3da36040163ee0f9176dfe7ced45cdc","sku_id":"1144058522808614923","expires_at":null},"collectibles":null,"display_name_styles":{"font_id":3,"effect_id":4,"colors":[11080677]},"banner_color":null,"clan":null,"primary_guild":null},"pinned":false,"mention_everyone":true,"tts":false,"message_reference":{"type":0,"channel_id":"1484200645316710573","message_id":"1485163011852468254","guild_id":"1412445465907167394"},"referenced_message":{"type":0,"content":"@everyone \n美港a持仓组合更新-20260322\n本周组合更新。另：个人建议，对于风险偏好低的朋友，建议可以减仓，具体减多少，每个人还是要根据自己情况来。至于我个人，即便减仓，幅度应该也不会大，总体我还是维持高仓位。","mentions":[],"mention_roles":[],"attachments":[{"id":"1485163011583770634","filename":"mmexport1774160762085.jpg","size":201822,"url":"https://cdn.discordapp.com/attachments/1484200645316710573/1485163011583770634/mmexport1774160762085.jpg?ex=69fadf56&is=69f98dd6&hm=0869900db43ba9b2b82c84dbee9536349ee8ae680128171de199687edc0f500c&","proxy_url":"https://media.discordapp.net/attachments/1484200645316710573/1485163011583770634/mmexport1774160762085.jpg?ex=69fadf56&is=69f98dd6&hm=0869900db43ba9b2b82c84dbee9536349ee8ae680128171de199687edc0f500c&","width":1000,"height":1426,"content_type":"image/jpeg","content_scan_version":4,"placeholder":"9PcNDQJ3iICHN4hId4IXV3dwdQdX","placeholder_version":1}],"embeds":[],"timestamp":"2026-03-22T06:27:35.020000+00:00","edited_timestamp":"2026-03-22T06:30:28.261000+00:00","flags":0,"components":[],"id":"1485163011852468254","channel_id":"1484200645316710573","author":{"id":"1098937850168365176","username":"us_stock_vip","avatar":"6929839c3db522eb3fbc833af4659aaa","discriminator":"0","public_flags":0,"flags":0,"banner":null,"accent_color":null,"global_name":"美股会员网-群主","avatar_decoration_data":{"asset":"a_d3da36040163ee0f9176dfe7ced45cdc","sku_id":"1144058522808614923","expires_at":null},"collectibles":null,"display_name_styles":{"font_id":3,"effect_id":4,"colors":[11080677]},"banner_color":null,"clan":null,"primary_guild":null},"pinned":false,"mention_everyone":true,"tts":false}},{"type":0,"content":"@everyone\n注意，场外黄金etf，我已经把定投金额double，现在是好的机会，不要错过","mentions":[],"mention_roles":[],"attachments":[],"embeds":[],"timestamp":"2026-03-27T08:22:15.944000+00:00","edited_timestamp":null,"flags":0,"components":[],"id":"1487003811867529409","channel_id":"1484200645316710573","author":{"id":"1098937850168365176","username":"us_stock_vip","avatar":"6929839c3db522eb3fbc833af4659aaa","discriminator":"0","public_flags":0,"flags":0,"banner":null,"accent_color":null,"global_name":"美股会员网-群主","avatar_decoration_data":{"asset":"a_d3da36040163ee0f9176dfe7ced45cdc","sku_id":"1144058522808614923","expires_at":null},"collectibles":null,"display_name_styles":{"font_id":3,"effect_id":4,"colors":[11080677]},"banner_color":null,"clan":null,"primary_guild":null},"pinned":false,"mention_everyone":true,"tts":false},{"type":19,"content":"","mentions":[],"mention_roles":[],"attachments":[{"id":"1487010244520312852","filename":"mmexport1774601243991.jpg","size":316014,"url":"https://cdn.discordapp.com/attachments/1484200645316710573/1487010244520312852/mmexport1774601243991.jpg?ex=69fb0035&is=69f9aeb5&hm=66bf05934bf91cf2044dc866b12b9e438aea6ca587eede6df7aec25a3204b549&","proxy_url":"https://media.discordapp.net/attachments/1484200645316710573/1487010244520312852/mmexport1774601243991.jpg?ex=69fb0035&is=69f9aeb5&hm=66bf05934bf91cf2044dc866b12b9e438aea6ca587eede6df7aec25a3204b549&","width":1890,"height":1352,"content_type":"image/jpeg","content_scan_version":4,"placeholder":"OQgGBYCzmahtd3hfhkeXiHZxbyf3","placeholder_version":1}],"embeds":[],"timestamp":"2026-03-27T08:47:49.669000+00:00","edited_timestamp":null,"flags":0,"components":[],"id":"1487010244776427550","channel_id":"1484200645316710573","author":{"id":"1098937850168365176","username":"us_stock_vip","avatar":"6929839c3db522eb3fbc833af4659aaa","discriminator":"0","public_flags":0,"flags":0,"banner":null,"accent_color":null,"global_name":"美股会员网-群主","avatar_decoration_data":{"asset":"a_d3da36040163ee0f9176dfe7ced45cdc","sku_id":"1144058522808614923","expires_at":null},"collectibles":null,"display_name_styles":{"font_id":3,"effect_id":4,"colors":[11080677]},"banner_color":null,"clan":null,"primary_guild":null},"pinned":false,"mention_everyone":false,"tts":false,"message_reference":{"type":0,"channel_id":"1484200645316710573","message_id":"1487003811867529409","guild_id":"1412445465907167394"},"referenced_message":{"type":0,"content":"@everyone\n注意，场外黄金etf，我已经把定投金额double，现在是好的机会，不要错过","mentions":[],"mention_roles":[],"attachments":[],"embeds":[],"timestamp":"2026-03-27T08:22:15.944000+00:00","edited_timestamp":null,"flags":0,"components":[],"id":"1487003811867529409","channel_id":"1484200645316710573","author":{"id":"1098937850168365176","username":"us_stock_vip","avatar":"6929839c3db522eb3fbc833af4659aaa","discriminator":"0","public_flags":0,"flags":0,"banner":null,"accent_color":null,"global_name":"美股会员网-群主","avatar_decoration_data":{"asset":"a_d3da36040163ee0f9176dfe7ced45cdc","sku_id":"1144058522808614923","expires_at":null},"collectibles":null,"display_name_styles":{"font_id":3,"effect_id":4,"colors":[11080677]},"banner_color":null,"clan":null,"primary_guild":null},"pinned":false,"mention_everyone":true,"tts":false}},{"type":0,"content":"@everyone \n大概率，4月份来波急跌探底，下半年又是美好的半年时间，类似去年\n原因：1、美伊战争我认为4月到五月基本能达成协议；2、mag7已经便宜了，急跌一波性价比超级高，若5月前结束冲突，则AI产业革命无影响，则对sp500今年的eps不会有什么太大影响。\n结合1和2，4月是今年把仓位加到最大抄底的最佳时机。\n\n个人观点，仅供参考。\n标的上：美港股，存储和光互联；A股，光互联；场外，黄金是罕见的抄底机会（当下要加大定投力度）","mentions":[],"mention_roles":[],"attachments":[{"id":"1487282919251771463","filename":"image.png","size":627476,"url":"https://cdn.discordapp.com/attachments/1484200645316710573/1487282919251771463/image.png?ex=69faaca8&is=69f95b28&hm=233aaa84d7d9c9fb7332d239e80f8c737d5de3d16d2d114bc994652b126059d5&","proxy_url":"https://media.discordapp.net/attachments/1484200645316710573/1487282919251771463/image.png?ex=69faaca8&is=69f95b28&hm=233aaa84d7d9c9fb7332d239e80f8c737d5de3d16d2d114bc994652b126059d5&","width":1200,"height":2070,"content_type":"image/jpeg","original_content_type":"image/png","content_scan_version":4,"placeholder":"PfgBBADDWKYKdIk4WTbEdgBdVQ==","placeholder_version":1}],"embeds":[],"timestamp":"2026-03-28T02:51:20.361000+00:00","edited_timestamp":null,"flags":0,"components":[],"id":"1487282919381799015","channel_id":"1484200645316710573","author":{"id":"1098937850168365176","username":"us_stock_vip","avatar":"6929839c3db522eb3fbc833af4659aaa","discriminator":"0","public_flags":0,"flags":0,"banner":null,"accent_color":null,"global_name":"美股会员网-群主","avatar_decoration_data":{"asset":"a_d3da36040163ee0f9176dfe7ced45cdc","sku_id":"1144058522808614923","expires_at":null},"collectibles":null,"display_name_styles":{"font_id":3,"effect_id":4,"colors":[11080677]},"banner_color":null,"clan":null,"primary_guild":null},"pinned":false,"mention_everyone":true,"tts":false},{"type":0,"content":"@everyone \nSpaceX IPO 更新：\n最新进展：  目标6月底IPO，S-1可能本周或下周提交  \n预计募集 700-750亿美元（史上最大IPO，远超Aramco）  \n估值瞄准 1.5万亿美元 起，甚至可能冲向 1.75万亿美元（Starlink + xAI协同推动）  \n可能预留 30%股份 给长期 Tesla 股东（需持有一定时间并证明）","mentions":[],"mention_roles":[],"attachments":[],"embeds":[],"timestamp":"2026-03-28T09:40:21.093000+00:00","edited_timestamp":null,"flags":0,"components":[],"id":"1487385850672316516","channel_id":"1484200645316710573","author":{"id":"1098937850168365176","username":"us_stock_vip","avatar":"6929839c3db522eb3fbc833af4659aaa","discriminator":"0","public_flags":0,"flags":0,"banner":null,"accent_color":null,"global_name":"美股会员网-群主","avatar_decoration_data":{"asset":"a_d3da36040163ee0f9176dfe7ced45cdc","sku_id":"1144058522808614923","expires_at":null},"collectibles":null,"display_name_styles":{"font_id":3,"effect_id":4,"colors":[11080677]},"banner_color":null,"clan":null,"primary_guild":null},"pinned":false,"mention_everyone":true,"tts":false},{"type":0,"content":"@everyone \n美港a持仓组合更新-20260329\n\n进入4月，市场的走向本质上取决于两个核心变量的博弈：\n一是伊朗战争的走向——4月6日能源打击暂停期到期后，是走向停火还是升级？这直接决定油价、通胀预期、美联储政策空间和市场风险偏好。\n二是Q1财报季的实际表现——4月中旬开始的财报集中披露期，尤其是科技巨头和银行股的业绩指引，将检验市场是否有足够的盈利底座来支撑当前估值。\n如果战争降级+财报超预期，4月份可能直接反转。反之，如果战事升级+油价破110+美联储被迫更鹰，市场可能面临进一步下探的压力。\n这里，必须强调我个人的选择是哦，我不会因为这次战争，而丢掉ai标的筹码（4月继续回撤我是能接受的），但是群里保守的朋友，我建议大家可以适当降仓位。","mentions":[],"mention_roles":[],"attachments":[{"id":"1487755466153922643","filename":"image.png","size":604669,"url":"https://cdn.discordapp.com/attachments/1484200645316710573/1487755466153922643/image.png?ex=69fb1340&is=69f9c1c0&hm=8b1aea915cbb97ccfbd525dae38df5eb75d5ffd3d351c33a462bfe9e9180723d&","proxy_url":"https://media.discordapp.net/attachments/1484200645316710573/1487755466153922643/image.png?ex=69fb1340&is=69f9c1c0&hm=8b1aea915cbb97ccfbd525dae38df5eb75d5ffd3d351c33a462bfe9e9180723d&","width":1378,"height":1668,"content_type":"image/png","original_content_type":"image/png","content_scan_version":4,"placeholder":"9fcJDgJ3hxd4iDiIh4R3gwdnd3CGB2c=","placeholder_version":1}],"embeds":[],"timestamp":"2026-03-29T10:09:04.338000+00:00","edited_timestamp":"2026-03-29T10:10:18.690000+00:00","flags":0,"components":[],"id":"1487755466351050855","channel_id":"1484200645316710573","author":{"id":"1098937850168365176","username":"us_stock_vip","avatar":"6929839c3db522eb3fbc833af4659aaa","discriminator":"0","public_flags":0,"flags":0,"banner":null,"accent_color":null,"global_name":"美股会员网-群主","avatar_decoration_data":{"asset":"a_d3da36040163ee0f9176dfe7ced45cdc","sku_id":"1144058522808614923","expires_at":null},"collectibles":null,"display_name_styles":{"font_id":3,"effect_id":4,"colors":[11080677]},"banner_color":null,"clan":null,"primary_guild":null},"pinned":false,"mention_everyone":true,"tts":false},{"type":0,"content":"@everyone \n港股交易：07709 小幅加仓至13+8% @所有人","mentions":[],"mention_roles":[],"attachments":[],"embeds":[],"timestamp":"2026-03-31T01:36:22.497000+00:00","edited_timestamp":null,"flags":0,"components":[],"id":"1488351217569632257","channel_id":"1484200645316710573","author":{"id":"1098937850168365176","username":"us_stock_vip","avatar":"6929839c3db522eb3fbc833af4659aaa","discriminator":"0","public_flags":0,"flags":0,"banner":null,"accent_color":null,"global_name":"美股会员网-群主","avatar_decoration_data":{"asset":"a_d3da36040163ee0f9176dfe7ced45cdc","sku_id":"1144058522808614923","expires_at":null},"collectibles":null,"display_name_styles":{"font_id":3,"effect_id":4,"colors":[11080677]},"banner_color":null,"clan":null,"primary_guild":null},"pinned":false,"mention_everyone":true,"tts":false},{"type":0,"content":"@everyone \na股交易：太辰光11%仓位清仓，胜宏科技从17%加仓至22%","mentions":[],"mention_roles":[],"attachments":[],"embeds":[],"timestamp":"2026-03-31T01:36:38.785000+00:00","edited_timestamp":null,"flags":0,"components":[],"id":"1488351285886324827","channel_id":"1484200645316710573","author":{"id":"1098937850168365176","username":"us_stock_vip","avatar":"6929839c3db522eb3fbc833af4659aaa","discriminator":"0","public_flags":0,"flags":0,"banner":null,"accent_color":null,"global_name":"美股会员网-群主","avatar_decoration_data":{"asset":"a_d3da36040163ee0f9176dfe7ced45cdc","sku_id":"1144058522808614923","expires_at":null},"collectibles":null,"display_name_styles":{"font_id":3,"effect_id":4,"colors":[11080677]},"banner_color":null,"clan":null,"primary_guild":null},"pinned":false,"mention_everyone":true,"tts":false},{"type":0,"content":"@everyone \n美股交易：goog从6%减仓至3%，mu买入2%@所有人","mentions":[],"mention_roles":[],"attachments":[],"embeds":[],"timestamp":"2026-03-31T23:46:35.325000+00:00","edited_timestamp":null,"flags":0,"components":[],"id":"1488685976833495090","channel_id":"1484200645316710573","author":{"id":"1098937850168365176","username":"us_stock_vip","avatar":"6929839c3db522eb3fbc833af4659aaa","discriminator":"0","public_flags":0,"flags":0,"banner":null,"accent_color":null,"global_name":"美股会员网-群主","avatar_decoration_data":{"asset":"a_d3da36040163ee0f9176dfe7ced45cdc","sku_id":"1144058522808614923","expires_at":null},"collectibles":null,"display_name_styles":{"font_id":3,"effect_id":4,"colors":[11080677]},"banner_color":null,"clan":null,"primary_guild":null},"pinned":false,"mention_everyone":true,"tts":false},{"type":0,"content":"针对07709和07747的条件单继续挂着","mentions":[],"mention_roles":[],"attachments":[{"id":"1489086597193400402","filename":"mmexport1775096274683.jpg","size":92372,"url":"https://cdn.discordapp.com/attachments/1484200645316710573/1489086597193400402/mmexport1775096274683.jpg?ex=69faa4f6&is=69f95376&hm=e8cb511253e7213acc3a253f915cb6b7974ae796b3dcded00e264366a722de8a&","proxy_url":"https://media.discordapp.net/attachments/1484200645316710573/1489086597193400402/mmexport1775096274683.jpg?ex=69faa4f6&is=69f95376&hm=e8cb511253e7213acc3a253f915cb6b7974ae796b3dcded00e264366a722de8a&","width":1007,"height":1497,"content_type":"image/jpeg","content_scan_version":4,"placeholder":"PQgCBQCQnFSIaZZYiIVJec+a+o2I","placeholder_version":1}],"embeds":[],"timestamp":"2026-04-02T02:18:30.708000+00:00","edited_timestamp":null,"flags":0,"components":[],"id":"1489086597386469468","channel_id":"1484200645316710573","author":{"id":"1098937850168365176","username":"us_stock_vip","avatar":"6929839c3db522eb3fbc833af4659aaa","discriminator":"0","public_flags":0,"flags":0,"banner":null,"accent_color":null,"global_name":"美股会员网-群主","avatar_decoration_data":{"asset":"a_d3da36040163ee0f9176dfe7ced45cdc","sku_id":"1144058522808614923","expires_at":null},"collectibles":null,"display_name_styles":{"font_id":3,"effect_id":4,"colors":[11080677]},"banner_color":null,"clan":null,"primary_guild":null},"pinned":false,"mention_everyone":false,"tts":false},{"type":0,"content":"@everyone\n交易：美股场内首只存储etf，建个观察仓1%（代码：dram）@所有人","mentions":[],"mention_roles":[],"attachments":[],"embeds":[],"timestamp":"2026-04-02T14:20:39.245000+00:00","edited_timestamp":null,"flags":0,"components":[],"id":"1489268330442264627","channel_id":"1484200645316710573","author":{"id":"1098937850168365176","username":"us_stock_vip","avatar":"6929839c3db522eb3fbc833af4659aaa","discriminator":"0","public_flags":0,"flags":0,"banner":null,"accent_color":null,"global_name":"美股会员网-群主","avatar_decoration_data":{"asset":"a_d3da36040163ee0f9176dfe7ced45cdc","sku_id":"1144058522808614923","expires_at":null},"collectibles":null,"display_name_styles":{"font_id":3,"effect_id":4,"colors":[11080677]},"banner_color":null,"clan":null,"primary_guild":null},"pinned":false,"mention_everyone":true,"tts":false},{"type":0,"content":"@everyone 周报","mentions":[],"mention_roles":[],"attachments":[{"id":"1490325421605261382","filename":"mmexport1775391625720.jpg","size":165280,"url":"https://cdn.discordapp.com/attachments/1484200645316710573/1490325421605261382/mmexport1775391625720.jpg?ex=69fb3235&is=69f9e0b5&hm=8ccdd1e13b6b7878cdf17bcad526f89d6af64a03529834cd13d3d68088d406e1&","proxy_url":"https://media.discordapp.net/attachments/1484200645316710573/1490325421605261382/mmexport1775391625720.jpg?ex=69fb3235&is=69f9e0b5&hm=8ccdd1e13b6b7878cdf17bcad526f89d6af64a03529834cd13d3d68088d406e1&","width":1000,"height":1266,"content_type":"image/jpeg","content_scan_version":4,"placeholder":"+vcFBQCHmIWImIdniHao95dwawf2","placeholder_version":1}],"embeds":[],"timestamp":"2026-04-05T12:21:09.487000+00:00","edited_timestamp":null,"flags":0,"components":[],"id":"1490325421894402078","channel_id":"1484200645316710573","author":{"id":"1098937850168365176","username":"us_stock_vip","avatar":"6929839c3db522eb3fbc833af4659aaa","discriminator":"0","public_flags":0,"flags":0,"banner":null,"accent_color":null,"global_name":"美股会员网-群主","avatar_decoration_data":{"asset":"a_d3da36040163ee0f9176dfe7ced45cdc","sku_id":"1144058522808614923","expires_at":null},"collectibles":null,"display_name_styles":{"font_id":3,"effect_id":4,"colors":[11080677]},"banner_color":null,"clan":null,"primary_guild":null},"pinned":false,"mention_everyone":true,"tts":false,"reactions":[{"emoji":{"id":null,"name":"👍"},"count":1,"count_details":{"burst":0,"normal":1},"burst_colors":[],"me_burst":false,"burst_me":false,"me":false,"burst_count":0}]},{"type":0,"content":"祝贺群里所有跟住我策略坚守“左存右光”的朋友们[玫瑰][庆祝]@所有人","mentions":[],"mention_roles":[],"attachments":[],"embeds":[],"timestamp":"2026-04-08T02:10:24.863000+00:00","edited_timestamp":null,"flags":0,"components":[],"id":"1491258886798311535","channel_id":"1484200645316710573","author":{"id":"1098937850168365176","username":"us_stock_vip","avatar":"6929839c3db522eb3fbc833af4659aaa","discriminator":"0","public_flags":0,"flags":0,"banner":null,"accent_color":null,"global_name":"美股会员网-群主","avatar_decoration_data":{"asset":"a_d3da36040163ee0f9176dfe7ced45cdc","sku_id":"1144058522808614923","expires_at":null},"collectibles":null,"display_name_styles":{"font_id":3,"effect_id":4,"colors":[11080677]},"banner_color":null,"clan":null,"primary_guild":null},"pinned":false,"mention_everyone":false,"tts":false},{"type":0,"content":"A股港股美股，三个市场联动，全部执行左存右光","mentions":[],"mention_roles":[],"attachments":[],"embeds":[],"timestamp":"2026-04-08T02:10:28.028000+00:00","edited_timestamp":null,"flags":0,"components":[],"id":"1491258900073156748","channel_id":"1484200645316710573","author":{"id":"1098937850168365176","username":"us_stock_vip","avatar":"6929839c3db522eb3fbc833af4659aaa","discriminator":"0","public_flags":0,"flags":0,"banner":null,"accent_color":null,"global_name":"美股会员网-群主","avatar_decoration_data":{"asset":"a_d3da36040163ee0f9176dfe7ced45cdc","sku_id":"1144058522808614923","expires_at":null},"collectibles":null,"display_name_styles":{"font_id":3,"effect_id":4,"colors":[11080677]},"banner_color":null,"clan":null,"primary_guild":null},"pinned":false,"mention_everyone":false,"tts":false},{"type":0,"content":"今晚美股存储板块核心集体新高（sndk wdc stx)，推动明天07709和07747继续走好，正反馈螺旋来了，各位坐稳扶好，目前存强度高于光\n​什么都不需要做：持有看戏","mentions":[],"mention_roles":[],"attachments":[],"embeds":[],"timestamp":"2026-04-08T16:02:38.208000+00:00","edited_timestamp":null,"flags":0,"components":[],"id":"1491468322427109497","channel_id":"1484200645316710573","author":{"id":"1098937850168365176","username":"us_stock_vip","avatar":"6929839c3db522eb3fbc833af4659aaa","discriminator":"0","public_flags":0,"flags":0,"banner":null,"accent_color":null,"global_name":"美股会员网-群主","avatar_decoration_data":{"asset":"a_d3da36040163ee0f9176dfe7ced45cdc","sku_id":"1144058522808614923","expires_at":null},"collectibles":null,"display_name_styles":{"font_id":3,"effect_id":4,"colors":[11080677]},"banner_color":null,"clan":null,"primary_guild":null},"pinned":false,"mention_everyone":false,"tts":false},{"type":0,"content":"A股交易：东山精密和华懋科技各自减仓2%，买入英维克约4%仓位。（理由：思考了一下，英维克目前900亿的市值和目前位置有一定值博率，且后续有催化剂，它作为去年我曾翻倍的幸运标的，今天决定再次买入，建个观察仓）\n@everyone","mentions":[],"mention_roles":[],"attachments":[{"id":"1491618591903322163","filename":"mmexport1775699929871.jpg","size":70418,"url":"https://cdn.discordapp.com/attachments/1484200645316710573/1491618591903322163/mmexport1775699929871.jpg?ex=69faa091&is=69f94f11&hm=179023e0307e3223d0e7f6603b323187d40d3d7d6db850eba8aea639964fcf41&","proxy_url":"https://media.discordapp.net/attachments/1484200645316710573/1491618591903322163/mmexport1775699929871.jpg?ex=69faa091&is=69f94f11&hm=179023e0307e3223d0e7f6603b323187d40d3d7d6db850eba8aea639964fcf41&","width":1200,"height":1125,"content_type":"image/jpeg","content_scan_version":4,"placeholder":"tdgJD4SomIiId3d4h3h3+Gd4Z4Bo+HcJ","placeholder_version":1}],"embeds":[],"timestamp":"2026-04-09T01:59:45.353000+00:00","edited_timestamp":null,"flags":0,"components":[],"id":"1491618592364691488","channel_id":"1484200645316710573","author":{"id":"1098937850168365176","username":"us_stock_vip","avatar":"6929839c3db522eb3fbc833af4659aaa","discriminator":"0","public_flags":0,"flags":0,"banner":null,"accent_color":null,"global_name":"美股会员网-群主","avatar_decoration_data":{"asset":"a_d3da36040163ee0f9176dfe7ced45cdc","sku_id":"1144058522808614923","expires_at":null},"collectibles":null,"display_name_styles":{"font_id":3,"effect_id":4,"colors":[11080677]},"banner_color":null,"clan":null,"primary_guild":null},"pinned":false,"mention_everyone":true,"tts":false},{"type":0,"content":"除了A股组合我们已经持有的的5只标的，这个图里面是我认为备选的其他硬逻辑标的","mentions":[],"mention_roles":[],"attachments":[{"id":"1493064059539423303","filename":"mmexport1776044416802.jpg","size":129926,"url":"https://cdn.discordapp.com/attachments/1484200645316710573/1493064059539423303/mmexport1776044416802.jpg?ex=69fa9cc3&is=69f94b43&hm=ef8b4de309ef975ad76cc3e30d8a164d2f89a638ebe67da15b8eceff0da477cd&","proxy_url":"https://media.discordapp.net/attachments/1484200645316710573/1493064059539423303/mmexport1776044416802.jpg?ex=69fa9cc3&is=69f94b43&hm=ef8b4de309ef975ad76cc3e30d8a164d2f89a638ebe67da15b8eceff0da477cd&","width":1200,"height":1944,"content_type":"image/jpeg","content_scan_version":4,"placeholder":"OfgJDAQMeWeHlXd3hmfgRvKT0w==","placeholder_version":1}],"embeds":[],"timestamp":"2026-04-13T01:43:31.592000+00:00","edited_timestamp":null,"flags":0,"components":[],"id":"1493064059577307157","channel_id":"1484200645316710573","author":{"id":"1098937850168365176","username":"us_stock_vip","avatar":"6929839c3db522eb3fbc833af4659aaa","discriminator":"0","public_flags":0,"flags":0,"banner":null,"accent_color":null,"global_name":"美股会员网-群主","avatar_decoration_data":{"asset":"a_d3da36040163ee0f9176dfe7ced45cdc","sku_id":"1144058522808614923","expires_at":null},"collectibles":null,"display_name_styles":{"font_id":3,"effect_id":4,"colors":[11080677]},"banner_color":null,"clan":null,"primary_guild":null},"pinned":false,"mention_everyone":false,"tts":false},{"type":0,"content":"@everyone \n交易：form vrt各自加仓1%至33","mentions":[],"mention_roles":[],"attachments":[],"embeds":[],"timestamp":"2026-04-13T15:08:38.224000+00:00","edited_timestamp":null,"flags":0,"components":[],"id":"1493266672277127361","channel_id":"1484200645316710573","author":{"id":"1098937850168365176","username":"us_stock_vip","avatar":"6929839c3db522eb3fbc833af4659aaa","discriminator":"0","public_flags":0,"flags":0,"banner":null,"accent_color":null,"global_name":"美股会员网-群主","avatar_decoration_data":{"asset":"a_d3da36040163ee0f9176dfe7ced45cdc","sku_id":"1144058522808614923","expires_at":null},"collectibles":null,"display_name_styles":{"font_id":3,"effect_id":4,"colors":[11080677]},"banner_color":null,"clan":null,"primary_guild":null},"pinned":false,"mention_everyone":true,"tts":false},{"type":0,"content":"yyds，所有跟我在上个月美伊战争炮火中抄底07709和07747的会员朋友都赢麻了，这两个点标的，最终都是要创新高的，现在什么都不需要做，只需要：持股拿住，享受主升浪","mentions":[],"mention_roles":[],"attachments":[],"embeds":[],"timestamp":"2026-04-14T01:58:04.397000+00:00","edited_timestamp":null,"flags":0,"components":[],"id":"1493430108252536893","channel_id":"1484200645316710573","author":{"id":"1098937850168365176","username":"us_stock_vip","avatar":"6929839c3db522eb3fbc833af4659aaa","discriminator":"0","public_flags":0,"flags":0,"banner":null,"accent_color":null,"global_name":"美股会员网-群主","avatar_decoration_data":{"asset":"a_d3da36040163ee0f9176dfe7ced45cdc","sku_id":"1144058522808614923","expires_at":null},"collectibles":null,"display_name_styles":{"font_id":3,"effect_id":4,"colors":[11080677]},"banner_color":null,"clan":null,"primary_guild":null},"pinned":false,"mention_everyone":false,"tts":false},{"type":0,"content":"@everyone \nA股交易：\n\n今天的交易有点特殊，不是因为不看好A股组合的持仓股，是因为我的项目上需要资金周转，因此A股需要往出转一部分钱。因此，东山精密、胜宏科技、华懋科技、罗博特科四只核心票均减仓三分之一到40%不等，而英维克则止盈清仓。（减仓后，仓位大小排序是：东山＞萝卜＞胜宏＞华懋）。腾出的资金本周会取出。\n\n也就是说：今天A股组合集体减仓，跟四只股的基本面无任何关系，大家想要抄作业的朋友，还是继续按照我这四只股组合配置，四只票都是我中长线非常看好的，12个月内均有翻倍目标空间。\n\n@所有人","mentions":[],"mention_roles":[],"attachments":[],"embeds":[],"timestamp":"2026-04-14T02:26:42.297000+00:00","edited_timestamp":null,"flags":0,"components":[],"id":"1493437313647120385","channel_id":"1484200645316710573","author":{"id":"1098937850168365176","username":"us_stock_vip","avatar":"6929839c3db522eb3fbc833af4659aaa","discriminator":"0","public_flags":0,"flags":0,"banner":null,"accent_color":null,"global_name":"美股会员网-群主","avatar_decoration_data":{"asset":"a_d3da36040163ee0f9176dfe7ced45cdc","sku_id":"1144058522808614923","expires_at":null},"collectibles":null,"display_name_styles":{"font_id":3,"effect_id":4,"colors":[11080677]},"banner_color":null,"clan":null,"primary_guild":null},"pinned":false,"mention_everyone":true,"tts":false},{"type":0,"content":"另外，除了A股组合的四只票，目前我认为ccl的生益科技补涨空间大（前瞻估值也是非常低了），生益科技值得考虑","mentions":[],"mention_roles":[],"attachments":[],"embeds":[],"timestamp":"2026-04-14T02:26:52.777000+00:00","edited_timestamp":null,"flags":0,"components":[],"id":"1493437357603422319","channel_id":"1484200645316710573","author":{"id":"1098937850168365176","username":"us_stock_vip","avatar":"6929839c3db522eb3fbc833af4659aaa","discriminator":"0","public_flags":0,"flags":0,"banner":null,"accent_color":null,"global_name":"美股会员网-群主","avatar_decoration_data":{"asset":"a_d3da36040163ee0f9176dfe7ced45cdc","sku_id":"1144058522808614923","expires_at":null},"collectibles":null,"display_name_styles":{"font_id":3,"effect_id":4,"colors":[11080677]},"banner_color":null,"clan":null,"primary_guild":null},"pinned":false,"mention_everyone":false,"tts":false},{"type":0,"content":"说一声，按照我早上复盘讲的逻辑，从资金流的角度：这轮踏空资金因为美伊战争反弹太快，不敢买逻辑最强且股价也在高位的光和存，因此这几天流串到pcb链，液冷，算力租赁等等。今天这几个也补涨了，那么，接下来会流到哪些低位？大概率是此前最热的商业航天。\n\n因此，策略：\n1、从中长线的角度，继续hold组合的四只票（东山 萝卜 华懋 胜宏）不动摇；\n2、对于不敢买最强，且想短线博弈的朋友，商业航天的信维通信，我觉得技术面上到了低位抄底的时点，可以打野玩玩（信维也是我在1月份少数看好的SpaceX链核心票）","mentions":[],"mention_roles":[],"attachments":[],"embeds":[],"timestamp":"2026-04-14T06:06:45.107000+00:00","edited_timestamp":null,"flags":0,"components":[],"id":"1493492690246172672","channel_id":"1484200645316710573","author":{"id":"1098937850168365176","username":"us_stock_vip","avatar":"6929839c3db522eb3fbc833af4659aaa","discriminator":"0","public_flags":0,"flags":0,"banner":null,"accent_color":null,"global_name":"美股会员网-群主","avatar_decoration_data":{"asset":"a_d3da36040163ee0f9176dfe7ced45cdc","sku_id":"1144058522808614923","expires_at":null},"collectibles":null,"display_name_styles":{"font_id":3,"effect_id":4,"colors":[11080677]},"banner_color":null,"clan":null,"primary_guild":null},"pinned":false,"mention_everyone":false,"tts":false},{"type":0,"content":"@everyone \n美港股组合交易：买入1%aehr卫星仓（观察仓）@所有人","mentions":[],"mention_roles":[],"attachments":[],"embeds":[],"timestamp":"2026-04-16T15:39:23.740000+00:00","edited_timestamp":null,"flags":0,"components":[],"id":"1494361576529199115","channel_id":"1484200645316710573","author":{"id":"1098937850168365176","username":"us_stock_vip","avatar":"6929839c3db522eb3fbc833af4659aaa","discriminator":"0","public_flags":0,"flags":0,"banner":null,"accent_color":null,"global_name":"美股会员网-群主","avatar_decoration_data":{"asset":"a_d3da36040163ee0f9176dfe7ced45cdc","sku_id":"1144058522808614923","expires_at":null},"collectibles":null,"display_name_styles":{"font_id":3,"effect_id":4,"colors":[11080677]},"banner_color":null,"clan":null,"primary_guild":null},"pinned":false,"mention_everyone":true,"tts":false},{"type":0,"content":"@everyone 美股交易：aaoi加2%仓位到3%，GFS买入1%观察仓@所有人","mentions":[],"mention_roles":[],"attachments":[],"embeds":[],"timestamp":"2026-04-17T13:40:40.492000+00:00","edited_timestamp":null,"flags":0,"components":[],"id":"1494694087327223859","channel_id":"1484200645316710573","author":{"id":"1098937850168365176","username":"us_stock_vip","avatar":"6929839c3db522eb3fbc833af4659aaa","discriminator":"0","public_flags":0,"flags":0,"banner":null,"accent_color":null,"global_name":"美股会员网-群主","avatar_decoration_data":{"asset":"a_d3da36040163ee0f9176dfe7ced45cdc","sku_id":"1144058522808614923","expires_at":null},"collectibles":null,"display_name_styles":{"font_id":3,"effect_id":4,"colors":[11080677]},"banner_color":null,"clan":null,"primary_guild":null},"pinned":false,"mention_everyone":true,"tts":false},{"type":0,"content":"@everyone \n美股交易：aaoi加仓至5%（理由：最近一个月观察仓反复交易了好几回，但是一直没考虑清楚要不要成为美股组合光互联板块的主仓之一，今天正式成为继liye和cohr之外的板第三只主仓个股，最近一系列事件，我觉得管理层的执行力上来了，5%的仓位博弈未来可能的超额收益，可以接受，万5月份的一季度有瑕疵，毕竟也就5%仓位，跌20-30%我也可承受）@所有人","mentions":[],"mention_roles":[],"attachments":[],"embeds":[],"timestamp":"2026-04-17T14:51:24.253000+00:00","edited_timestamp":null,"flags":0,"components":[],"id":"1494711886950957146","channel_id":"1484200645316710573","author":{"id":"1098937850168365176","username":"us_stock_vip","avatar":"6929839c3db522eb3fbc833af4659aaa","discriminator":"0","public_flags":0,"flags":0,"banner":null,"accent_color":null,"global_name":"美股会员网-群主","avatar_decoration_data":{"asset":"a_d3da36040163ee0f9176dfe7ced45cdc","sku_id":"1144058522808614923","expires_at":null},"collectibles":null,"display_name_styles":{"font_id":3,"effect_id":4,"colors":[11080677]},"banner_color":null,"clan":null,"primary_guild":null},"pinned":false,"mention_everyone":true,"tts":false},{"type":0,"content":"@everyone 本周周报\n关于美港股组合中，为什么aaoi会成为主仓（5%以上），原因是观察到公司的执行力逐步变强，因此，赌一把aaoi公司5月的一季报，首次实现过去2年以来的双beat\n\n一旦本次财报双beat，我则继续加仓aaoi，期待公司后续的业绩爆发，反之，则减仓或者清仓\n情况就是这么个情况","mentions":[],"mention_roles":[],"attachments":[{"id":"1495085353097494638","filename":"mmexport1776526336709.jpg","size":160919,"url":"https://cdn.discordapp.com/attachments/1484200645316710573/1495085353097494638/mmexport1776526336709.jpg?ex=69fab6fd&is=69f9657d&hm=362e37cbe015a2f168b56ad0642b1272718e339af2d36c330093bc0c8623984f&","proxy_url":"https://media.discordapp.net/attachments/1484200645316710573/1495085353097494638/mmexport1776526336709.jpg?ex=69fab6fd&is=69f9657d&hm=362e37cbe015a2f168b56ad0642b1272718e339af2d36c330093bc0c8623984f&","width":1100,"height":1289,"content_type":"image/jpeg","content_scan_version":4,"placeholder":"9fcJBgCXmEiIiJiId4CIeNhn1YBm9vc=","placeholder_version":1},{"id":"1495085353382580444","filename":"mmexport1776526352944.jpg","size":183176,"url":"https://cdn.discordapp.com/attachments/1484200645316710573/1495085353382580444/mmexport1776526352944.jpg?ex=69fab6fd&is=69f9657d&hm=2dd3ace5952a22b1dbaf29da5681fee316733094abdbe7640aaedaf500c30648&","proxy_url":"https://media.discordapp.net/attachments/1484200645316710573/1495085353382580444/mmexport1776526352944.jpg?ex=69fab6fd&is=69f9657d&hm=2dd3ace5952a22b1dbaf29da5681fee316733094abdbe7640aaedaf500c30648&","width":2364,"height":588,"content_type":"image/jpeg","content_scan_version":4,"placeholder":"OwgGAoDkgodkiPdoAAAAAAA=","placeholder_version":1}],"embeds":[],"timestamp":"2026-04-18T15:35:25.654000+00:00","edited_timestamp":null,"flags":0,"components":[],"id":"1495085353655341197","channel_id":"1484200645316710573","author":{"id":"1098937850168365176","username":"us_stock_vip","avatar":"6929839c3db522eb3fbc833af4659aaa","discriminator":"0","public_flags":0,"flags":0,"banner":null,"accent_color":null,"global_name":"美股会员网-群主","avatar_decoration_data":{"asset":"a_d3da36040163ee0f9176dfe7ced45cdc","sku_id":"1144058522808614923","expires_at":null},"collectibles":null,"display_name_styles":{"font_id":3,"effect_id":4,"colors":[11080677]},"banner_color":null,"clan":null,"primary_guild":null},"pinned":false,"mention_everyone":true,"tts":false},{"type":0,"content":"@everyone \n今日策略：A股组合4票，继续hold；港股，继续07709和07747双核驱动；美股预计今晚要调仓，但是看盘前想要调仓的标的，夜盘都疯了（准备清lmnd tsla goog，加仓gfs mrvl dram asx等标的）","mentions":[],"mention_roles":[],"attachments":[],"embeds":[],"timestamp":"2026-04-20T02:44:15.657000+00:00","edited_timestamp":null,"flags":0,"components":[],"id":"1495616058952777800","channel_id":"1484200645316710573","author":{"id":"1098937850168365176","username":"us_stock_vip","avatar":"6929839c3db522eb3fbc833af4659aaa","discriminator":"0","public_flags":0,"flags":0,"banner":null,"accent_color":null,"global_name":"美股会员网-群主","avatar_decoration_data":{"asset":"a_d3da36040163ee0f9176dfe7ced45cdc","sku_id":"1144058522808614923","expires_at":null},"collectibles":null,"display_name_styles":{"font_id":3,"effect_id":4,"colors":[11080677]},"banner_color":null,"clan":null,"primary_guild":null},"pinned":false,"mention_everyone":true,"tts":false},{"type":0,"content":"@everyone \n美股交易：\n1、mu止盈，加仓dram至6%；\n2、tsem止盈，加仓gfs至4%；\n3、lmnd、goog、tsla止盈，买入poet1.8%，买入alab2%，mrvl加仓至2.5%\n@所有人","mentions":[],"mention_roles":[],"attachments":[],"embeds":[],"timestamp":"2026-04-20T13:51:05.720000+00:00","edited_timestamp":null,"flags":0,"components":[],"id":"1495783873320190132","channel_id":"1484200645316710573","author":{"id":"1098937850168365176","username":"us_stock_vip","avatar":"6929839c3db522eb3fbc833af4659aaa","discriminator":"0","public_flags":0,"flags":0,"banner":null,"accent_color":null,"global_name":"美股会员网-群主","avatar_decoration_data":{"asset":"a_d3da36040163ee0f9176dfe7ced45cdc","sku_id":"1144058522808614923","expires_at":null},"collectibles":null,"display_name_styles":{"font_id":3,"effect_id":4,"colors":[11080677]},"banner_color":null,"clan":null,"primary_guild":null},"pinned":false,"mention_everyone":true,"tts":false},{"type":19,"content":"gfs进一步加仓至5%，成为主仓之一\nmrvl加仓至4.5%","mentions":[],"mention_roles":[],"attachments":[],"embeds":[],"timestamp":"2026-04-20T13:51:32.904000+00:00","edited_timestamp":null,"flags":0,"components":[],"id":"1495783987338281030","channel_id":"1484200645316710573","author":{"id":"1098937850168365176","username":"us_stock_vip","avatar":"6929839c3db522eb3fbc833af4659aaa","discriminator":"0","public_flags":0,"flags":0,"banner":null,"accent_color":null,"global_name":"美股会员网-群主","avatar_decoration_data":{"asset":"a_d3da36040163ee0f9176dfe7ced45cdc","sku_id":"1144058522808614923","expires_at":null},"collectibles":null,"display_name_styles":{"font_id":3,"effect_id":4,"colors":[11080677]},"banner_color":null,"clan":null,"primary_guild":null},"pinned":false,"mention_everyone":false,"tts":false,"message_reference":{"type":0,"channel_id":"1484200645316710573","message_id":"1495783873320190132","guild_id":"1412445465907167394"},"referenced_message":{"type":0,"content":"@everyone \n美股交易：\n1、mu止盈，加仓dram至6%；\n2、tsem止盈，加仓gfs至4%；\n3、lmnd、goog、tsla止盈，买入poet1.8%，买入alab2%，mrvl加仓至2.5%\n@所有人","mentions":[],"mention_roles":[],"attachments":[],"embeds":[],"timestamp":"2026-04-20T13:51:05.720000+00:00","edited_timestamp":null,"flags":0,"components":[],"id":"1495783873320190132","channel_id":"1484200645316710573","author":{"id":"1098937850168365176","username":"us_stock_vip","avatar":"6929839c3db522eb3fbc833af4659aaa","discriminator":"0","public_flags":0,"flags":0,"banner":null,"accent_color":null,"global_name":"美股会员网-群主","avatar_decoration_data":{"asset":"a_d3da36040163ee0f9176dfe7ced45cdc","sku_id":"1144058522808614923","expires_at":null},"collectibles":null,"display_name_styles":{"font_id":3,"effect_id":4,"colors":[11080677]},"banner_color":null,"clan":null,"primary_guild":null},"pinned":false,"mention_everyone":true,"tts":false}},{"type":0,"content":"今晚总体思路：全部清仓AI应用，集中向光和存，以及建仓CPU链的arm和alab\n而CPU链未来即将到来的极致供需失衡，除了利好众所周知的AMD和TNTC外，ARM ALAB是两个预期差比较大的标的，发酵程度较小，先建仓后研究","mentions":[],"mention_roles":[],"attachments":[],"embeds":[],"timestamp":"2026-04-20T14:10:21.135000+00:00","edited_timestamp":null,"flags":0,"components":[],"id":"1495788719482077347","channel_id":"1484200645316710573","author":{"id":"1098937850168365176","username":"us_stock_vip","avatar":"6929839c3db522eb3fbc833af4659aaa","discriminator":"0","public_flags":0,"flags":0,"banner":null,"accent_color":null,"global_name":"美股会员网-群主","avatar_decoration_data":{"asset":"a_d3da36040163ee0f9176dfe7ced45cdc","sku_id":"1144058522808614923","expires_at":null},"collectibles":null,"display_name_styles":{"font_id":3,"effect_id":4,"colors":[11080677]},"banner_color":null,"clan":null,"primary_guild":null},"pinned":false,"mention_everyone":false,"tts":false},{"type":0,"content":"@everyone\n美港股组合交易：\n自3月底抄底07709和07747以来，今天进行一次大减仓减仓一半以左右筹码，减仓后最终仓位：\n07709 10.9%\n07747 10.83%\n今天减仓后的仓位，一部分会回补到dram上面，理由是降beta。（意思就是：我依然非常看好存储板块，但是不愿意持有杠杆型etf这么大仓位了，加在dram上更舒服）\n@所有人","mentions":[],"mention_roles":[],"attachments":[],"embeds":[],"timestamp":"2026-04-23T05:45:33.230000+00:00","edited_timestamp":null,"flags":0,"components":[],"id":"1496748846397653082","channel_id":"1484200645316710573","author":{"id":"1098937850168365176","username":"us_stock_vip","avatar":"6929839c3db522eb3fbc833af4659aaa","discriminator":"0","public_flags":0,"flags":0,"banner":null,"accent_color":null,"global_name":"美股会员网-群主","avatar_decoration_data":{"asset":"a_d3da36040163ee0f9176dfe7ced45cdc","sku_id":"1144058522808614923","expires_at":null},"collectibles":null,"display_name_styles":{"font_id":3,"effect_id":4,"colors":[11080677]},"banner_color":null,"clan":null,"primary_guild":null},"pinned":false,"mention_everyone":true,"tts":false},{"type":0,"content":"重大调仓通知：\n\n一、现象观察\n\n自4月1日美伊战事缓和以来,行情迎来大级别反弹——标普500、纳指100连创历史新高,由AI引领的半导体板块更是走出了显著超额收益。A股这边同样如此,以光互连为代表的算力链一路新高。\n\n别人恐惧我贪婪。3月底4月初,大批投资者被美伊战争吓得魂不守舍之时,我坚定看好\"左存右光\",并在07709、07747股价杀到最凶险的时刻喊大家抄底,听劝的朋友如今都已赚得盆满钵满。再比如A股的东山精密,我们组合首次建仓是在2月9日,当时股价才70多块;如今东山精密已经走到光芯片拔估值的阶段,股价即将突破200大关。\n\n一句话总结:无论是美港股组合还是A股组合,凡是没有被这波美伊战争洗出去、坚决拿住筹码的朋友,乃至敢于在战争博弈最凶险的时刻底部加仓的会员朋友,这一波都赚得盆满钵满。在此恭喜大家。\n\n但是,风险也可能随时降临。自4月1日以来这波大反转走到现在,我认为短期已经出现了一点小泡沫的苗头。核心观察是:不论美股还是A股,走到当前位置,真正的核心龙头都已经涨不动了;与此同时,meme股近两周却出现鸡犬升天的局面。以美股光互连板块为例——整个板块近两周已经被投资者/投机者挖了个底朝天,从最下游的测试设备、模块厂、制造与封测代工厂,到最上游的激光器、原材料,一大批距离业绩兑现还很远的meme标的迎来暴涨,比如SOI、IQE、SIVE、LWLG、POET等等。这是典型的板块行情轮动进入尾声的信号。走到这一步,不论美股还是A股,起码都要小心一点。\n\n行情走到这个阶段,我的总体判断如下:\n\n1、中长期看,AI科技革命仍在继续渗透。从需求端看,以A社、OAI为代表的大模型公司——尤其是A社生产力级产品的刚性需求与算力紧缺之间的矛盾——充分说明AI距离泡沫还很远,当前绝对是供不应求。A社爆发性的ARR增长,以及其在整个行业内最快实现自由现金流转正(预计2027年)的节奏,让我觉得所谓\"害怕AI泡沫\"简直是无稽之谈。而对于美股三大云厂而言,市场对ROI的担忧也得到了显著缓解,其中谷歌的投入产出比最高。换句话说,从美股核心大科技公司的现有状态来看,我没有看到任何AI产业革命要破裂的迹象。因此,中长线,我继续坚定看好AI科技革命。\n\n2、但是,正如上文所说,中短期这波反转行情情绪已经过热。根据经验,大批meme股暴涨之后,接下来一段时间的行情往往较难操作。\n\n二、交易策略\n\n基于以上分析:长期继续看好AI科技革命,但短期要开始防守、降beta。翻译成人话就是——无论美港股还是A股,组合中的非AI核心票、meme票等,该止盈就止盈,见好就收;而对于核心龙头票,则继续持有。\n\nA股组合:东山精密、罗博特科、华懋科技、胜宏科技,在我看来均属核心龙头,各有各的优势,尤其展望今年Q2、Q3,都是业绩会加速的标的。因此,A股组合这四只票继续满仓持有,不做调整。\n\n美港股组合：左存方面,SNDK、DRAM、07709、07747是核心。不过既然要降beta,那么07709、07747这类杠杆型ETF,是时候减一部分仓位了——把减下来的仓位腾挪到DRAM上,就是一种降beta的具体做法。至于右光,除了核心持仓LITE和COHR之外,近期会逐步止盈一批观察仓——观察仓里不少meme票涨幅巨大,估值空间已经很难看清楚,该走就走,保持灵活性。","mentions":[],"mention_roles":[],"attachments":[],"embeds":[],"timestamp":"2026-04-23T05:45:39.787000+00:00","edited_timestamp":null,"flags":0,"components":[],"id":"1496748873899839610","channel_id":"1484200645316710573","author":{"id":"1098937850168365176","username":"us_stock_vip","avatar":"6929839c3db522eb3fbc833af4659aaa","discriminator":"0","public_flags":0,"flags":0,"banner":null,"accent_color":null,"global_name":"美股会员网-群主","avatar_decoration_data":{"asset":"a_d3da36040163ee0f9176dfe7ced45cdc","sku_id":"1144058522808614923","expires_at":null},"collectibles":null,"display_name_styles":{"font_id":3,"effect_id":4,"colors":[11080677]},"banner_color":null,"clan":null,"primary_guild":null},"pinned":false,"mention_everyone":false,"tts":false},{"type":0,"content":"@everyone \n美股交易：dram从6%加仓至10%@所有人","mentions":[],"mention_roles":[],"attachments":[],"embeds":[],"timestamp":"2026-04-23T13:47:31.295000+00:00","edited_timestamp":null,"flags":0,"components":[],"id":"1496870137553485845","channel_id":"1484200645316710573","author":{"id":"1098937850168365176","username":"us_stock_vip","avatar":"6929839c3db522eb3fbc833af4659aaa","discriminator":"0","public_flags":0,"flags":0,"banner":null,"accent_color":null,"global_name":"美股会员网-群主","avatar_decoration_data":{"asset":"a_d3da36040163ee0f9176dfe7ced45cdc","sku_id":"1144058522808614923","expires_at":null},"collectibles":null,"display_name_styles":{"font_id":3,"effect_id":4,"colors":[11080677]},"banner_color":null,"clan":null,"primary_guild":null},"pinned":false,"mention_everyone":true,"tts":false},{"type":19,"content":"@everyone poet及vrt合计约5%仓位止盈","mentions":[],"mention_roles":[],"attachments":[],"embeds":[],"timestamp":"2026-04-23T13:54:55.688000+00:00","edited_timestamp":null,"flags":0,"components":[],"id":"1496872001472692505","channel_id":"1484200645316710573","author":{"id":"1098937850168365176","username":"us_stock_vip","avatar":"6929839c3db522eb3fbc833af4659aaa","discriminator":"0","public_flags":0,"flags":0,"banner":null,"accent_color":null,"global_name":"美股会员网-群主","avatar_decoration_data":{"asset":"a_d3da36040163ee0f9176dfe7ced45cdc","sku_id":"1144058522808614923","expires_at":null},"collectibles":null,"display_name_styles":{"font_id":3,"effect_id":4,"colors":[11080677]},"banner_color":null,"clan":null,"primary_guild":null},"pinned":false,"mention_everyone":true,"tts":false,"message_reference":{"type":0,"channel_id":"1484200645316710573","message_id":"1496870137553485845","guild_id":"1412445465907167394"},"referenced_message":{"type":0,"content":"@everyone \n美股交易：dram从6%加仓至10%@所有人","mentions":[],"mention_roles":[],"attachments":[],"embeds":[],"timestamp":"2026-04-23T13:47:31.295000+00:00","edited_timestamp":null,"flags":0,"components":[],"id":"1496870137553485845","channel_id":"1484200645316710573","author":{"id":"1098937850168365176","username":"us_stock_vip","avatar":"6929839c3db522eb3fbc833af4659aaa","discriminator":"0","public_flags":0,"flags":0,"banner":null,"accent_color":null,"global_name":"美股会员网-群主","avatar_decoration_data":{"asset":"a_d3da36040163ee0f9176dfe7ced45cdc","sku_id":"1144058522808614923","expires_at":null},"collectibles":null,"display_name_styles":{"font_id":3,"effect_id":4,"colors":[11080677]},"banner_color":null,"clan":null,"primary_guild":null},"pinned":false,"mention_everyone":true,"tts":false}},{"type":0,"content":"五一假期推荐阅读书籍：\n\n1、《行为投资学手册》 (The Little Book of Behavioral Investing) - 詹姆斯·蒙蒂尔\n\n这本书是极佳的入门读物，它直接点明投资者最大的敌人往往是自己。书中系统地介绍了过度自信、损失厌恶、从众心理等常见行为偏差如何导致投资错误，并提供了实用的纪律和框架来帮助投资者规避这些陷阱。\n\n2、《思考，快与慢》 (Thinking, Fast and Slow) - 丹尼尔·卡尼曼\n\n诺贝尔奖得主卡尼曼在书中提出了著名的“双系统”理论。系统1是快速、直觉且情绪化的；系统2则是缓慢、审慎且符合逻辑的。我们的许多判断和决策，包括投资决策，都深受这两个系统相互作用的影响，而系统1的直觉常常会导致认知偏差。\n\n3、《错误的行为》 (Misbehaving) - 理查德·塞勒\n\n作为行为经济学的奠基之作，这本书生动地记录了行为经济学如何挑战传统“理性人”假设的诞生过程。塞勒通过一系列有趣的实验和案例，展示了人类的非理性行为如何系统性地影响经济决策，为行为金融学奠定了坚实的理论和实证基础。","mentions":[],"mention_roles":[],"attachments":[],"embeds":[],"timestamp":"2026-04-24T03:09:41.713000+00:00","edited_timestamp":null,"flags":0,"components":[],"id":"1497072011158229164","channel_id":"1484200645316710573","author":{"id":"1098937850168365176","username":"us_stock_vip","avatar":"6929839c3db522eb3fbc833af4659aaa","discriminator":"0","public_flags":0,"flags":0,"banner":null,"accent_color":null,"global_name":"美股会员网-群主","avatar_decoration_data":{"asset":"a_d3da36040163ee0f9176dfe7ced45cdc","sku_id":"1144058522808614923","expires_at":null},"collectibles":null,"display_name_styles":{"font_id":3,"effect_id":4,"colors":[11080677]},"banner_color":null,"clan":null,"primary_guild":null},"pinned":false,"mention_everyone":false,"tts":false},{"type":0,"content":"@everyone\n策略: 接着昨天下午发的长帖，再次提醒，美伊战争price in以来这接近一个月的大反转，最好赚钱的时候过去了，接下来a股进入退潮期，节前这几天小心，谨慎去打野，至于组合的中长线持仓，持股不动，少动多看。(守核心，慎打野)","mentions":[],"mention_roles":[],"attachments":[],"embeds":[],"timestamp":"2026-04-24T04:53:09.336000+00:00","edited_timestamp":null,"flags":0,"components":[],"id":"1497098047816073237","channel_id":"1484200645316710573","author":{"id":"1098937850168365176","username":"us_stock_vip","avatar":"6929839c3db522eb3fbc833af4659aaa","discriminator":"0","public_flags":0,"flags":0,"banner":null,"accent_color":null,"global_name":"美股会员网-群主","avatar_decoration_data":{"asset":"a_d3da36040163ee0f9176dfe7ced45cdc","sku_id":"1144058522808614923","expires_at":null},"collectibles":null,"display_name_styles":{"font_id":3,"effect_id":4,"colors":[11080677]},"banner_color":null,"clan":null,"primary_guild":null},"pinned":false,"mention_everyone":true,"tts":false},{"type":0,"content":"@everyone \n@Mention All 本周周报，祝大家五一愉快。另：下周周报就不更新了，因为二级🐶也要休息，下回更新更周报，将是5月9日","mentions":[],"mention_roles":[],"attachments":[{"id":"1497446990743732234","filename":"mmexport1777089418881.jpg","size":176207,"url":"https://cdn.discordapp.com/attachments/1484200645316710573/1497446990743732234/mmexport1777089418881.jpg?ex=69fabcaf&is=69f96b2f&hm=23f77cd8d05dea8bb3c6b1d0e93e6d3055767760fae7a28d1f01ec942b40aa21&","proxy_url":"https://media.discordapp.net/attachments/1484200645316710573/1497446990743732234/mmexport1777089418881.jpg?ex=69fabcaf&is=69f96b2f&hm=23f77cd8d05dea8bb3c6b1d0e93e6d3055767760fae7a28d1f01ec942b40aa21&","width":1200,"height":1139,"content_type":"image/jpeg","content_scan_version":4,"placeholder":"9PcFD4CnmJiCiHh7eAeIZ4d/eGj4d3oP","placeholder_version":1}],"embeds":[],"timestamp":"2026-04-25T03:59:43.875000+00:00","edited_timestamp":null,"flags":0,"components":[],"id":"1497446991003652276","channel_id":"1484200645316710573","author":{"id":"1098937850168365176","username":"us_stock_vip","avatar":"6929839c3db522eb3fbc833af4659aaa","discriminator":"0","public_flags":0,"flags":0,"banner":null,"accent_color":null,"global_name":"美股会员网-群主","avatar_decoration_data":{"asset":"a_d3da36040163ee0f9176dfe7ced45cdc","sku_id":"1144058522808614923","expires_at":null},"collectibles":null,"display_name_styles":{"font_id":3,"effect_id":4,"colors":[11080677]},"banner_color":null,"clan":null,"primary_guild":null},"pinned":false,"mention_everyone":true,"tts":false},{"type":0,"content":"dram很快会超越lite和cohr，成为美港股组合第一重仓。\n四大供需失衡板块逻辑排序（结合业绩爆发性+估值水位）：存储链＞光互联链＞PCB链＞CPU链。","mentions":[],"mention_roles":[],"attachments":[],"embeds":[],"timestamp":"2026-04-27T03:32:38.382000+00:00","edited_timestamp":null,"flags":0,"components":[],"id":"1498164948923060367","channel_id":"1484200645316710573","author":{"id":"1098937850168365176","username":"us_stock_vip","avatar":"6929839c3db522eb3fbc833af4659aaa","discriminator":"0","public_flags":0,"flags":0,"banner":null,"accent_color":null,"global_name":"美股会员网-群主","avatar_decoration_data":{"asset":"a_d3da36040163ee0f9176dfe7ced45cdc","sku_id":"1144058522808614923","expires_at":null},"collectibles":null,"display_name_styles":{"font_id":3,"effect_id":4,"colors":[11080677]},"banner_color":null,"clan":null,"primary_guild":null},"pinned":false,"mention_everyone":false,"tts":false},{"type":0,"content":"A股看清楚了吧：缩量行情。我个人策略：节前这几天不打野，不交易，多研究个股，储备新股，加强逻辑。","mentions":[],"mention_roles":[],"attachments":[],"embeds":[],"timestamp":"2026-04-27T07:01:00.687000+00:00","edited_timestamp":null,"flags":0,"components":[],"id":"1498217387390926849","channel_id":"1484200645316710573","author":{"id":"1098937850168365176","username":"us_stock_vip","avatar":"6929839c3db522eb3fbc833af4659aaa","discriminator":"0","public_flags":0,"flags":0,"banner":null,"accent_color":null,"global_name":"美股会员网-群主","avatar_decoration_data":{"asset":"a_d3da36040163ee0f9176dfe7ced45cdc","sku_id":"1144058522808614923","expires_at":null},"collectibles":null,"display_name_styles":{"font_id":3,"effect_id":4,"colors":[11080677]},"banner_color":null,"clan":null,"primary_guild":null},"pinned":false,"mention_everyone":false,"tts":false},{"type":0,"content":"新手看利润表，高手看现金流量表和资产负债表。\n\n那么，如何看？方法论：\n\n一、先看利润是不是被现金撑住：\n经营现金流 / 归母净利润\n销售收现 / 营收\n应收账款是跟着收入恶化，还是在收入增长时反而下降\n\n二、再看营运资本的位置是不是对：\n应收下降 + 收现增强：需求真实、议价能力强\n存货上升 + 在建工程上升：说明公司在为未来交付做准备\n合同负债 / 预付款上升：说明订单开始变成现金和生产动作\n\n三、接着看产能是不是已经在扩：\n在建工程\n固定资产\n购建固定资产支付的现金\n\n四、最后看扩张是不是危险：\n净债务\n短借/长借变化\n财务费用是否开始明显侵蚀利润\n\n逻辑链如下：\n\n订单真实 -> 现金先回来 -> 应收没恶化 -> 存货和在建工程抬升 -> 资本开支放量 -> 后续继续扩产兑现","mentions":[],"mention_roles":[],"attachments":[{"id":"1498850103299932281","filename":"mmexport1777424058399.jpg","size":312317,"url":"https://cdn.discordapp.com/attachments/1484200645316710573/1498850103299932281/mmexport1777424058399.jpg?ex=69fa916f&is=69f93fef&hm=aebefc4bdc4ef06639863778f36f8bcb84a4f6bca4f80263cd31c2aa5e495878&","proxy_url":"https://media.discordapp.net/attachments/1484200645316710573/1498850103299932281/mmexport1777424058399.jpg?ex=69fa916f&is=69f93fef&hm=aebefc4bdc4ef06639863778f36f8bcb84a4f6bca4f80263cd31c2aa5e495878&","width":2558,"height":1178,"content_type":"image/jpeg","content_scan_version":4,"placeholder":"+wcGA4AKZ5Fah3iU8q3e+c0=","placeholder_version":1},{"id":"1498850103597732030","filename":"2026Q1_.xlsx","size":33852,"url":"https://cdn.discordapp.com/attachments/1484200645316710573/1498850103597732030/2026Q1_.xlsx?ex=69fa916f&is=69f93fef&hm=a6fe0dd1d3adb4bd49b5ac5f762b2e6db4082228697a9ca303051e5e4ce6b717&","proxy_url":"https://media.discordapp.net/attachments/1484200645316710573/1498850103597732030/2026Q1_.xlsx?ex=69fa916f&is=69f93fef&hm=a6fe0dd1d3adb4bd49b5ac5f762b2e6db4082228697a9ca303051e5e4ce6b717&","content_type":"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet","content_scan_version":4,"title":"胜宏科技2026Q1深度分析_高盛预测对比与业绩爆发前瞻"},{"id":"1498850103853842442","filename":"2026Q1v2_GS_March.xlsx","size":35037,"url":"https://cdn.discordapp.com/attachments/1484200645316710573/1498850103853842442/2026Q1v2_GS_March.xlsx?ex=69fa9170&is=69f93ff0&hm=fe454b1a63477348ef0b102ab80c70f8373ab029a414106643414bd2395e7da7&","proxy_url":"https://media.discordapp.net/attachments/1484200645316710573/1498850103853842442/2026Q1v2_GS_March.xlsx?ex=69fa9170&is=69f93ff0&hm=fe454b1a63477348ef0b102ab80c70f8373ab029a414106643414bd2395e7da7&","content_type":"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet","content_scan_version":4,"title":"胜宏科技2026Q1深度分析v2_整合GS March与雪球解读"}],"embeds":[],"timestamp":"2026-04-29T00:55:12.111000+00:00","edited_timestamp":null,"flags":0,"components":[],"id":"1498850104122015856","channel_id":"1484200645316710573","author":{"id":"1098937850168365176","username":"us_stock_vip","avatar":"6929839c3db522eb3fbc833af4659aaa","discriminator":"0","public_flags":0,"flags":0,"banner":null,"accent_color":null,"global_name":"美股会员网-群主","avatar_decoration_data":{"asset":"a_d3da36040163ee0f9176dfe7ced45cdc","sku_id":"1144058522808614923","expires_at":null},"collectibles":null,"display_name_styles":{"font_id":3,"effect_id":4,"colors":[11080677]},"banner_color":null,"clan":null,"primary_guild":null},"pinned":false,"mention_everyone":false,"tts":false},{"type":0,"content":"A股组合四只票，2026Q2 和下半年盯什么？\n1、胜宏科技\n应收账款能否继续控制；\n在建工程能否继续向固定资产和收入转化；\n资本开支高位下，CFO 是否继续覆盖利润。\n2、东山精密\n光模块和 AI PCB 收入占比是否继续提升；\n财务费用是否吞噬利润弹性；\n在建工程能否顺利变成量产收入。\n3、罗博特科\n合同负债、预付款、存货是否继续抬升；\n更关键的是：是否开始出现大批量订单验收确收。\n4、华懋科技\n越南爬坡和折旧摊销压力何时见顶；\n经营现金流改善能否从“少采购”转成“真增长带来的回款”。","mentions":[],"mention_roles":[],"attachments":[],"embeds":[],"timestamp":"2026-04-29T00:55:15.243000+00:00","edited_timestamp":null,"flags":0,"components":[],"id":"1498850117258707114","channel_id":"1484200645316710573","author":{"id":"1098937850168365176","username":"us_stock_vip","avatar":"6929839c3db522eb3fbc833af4659aaa","discriminator":"0","public_flags":0,"flags":0,"banner":null,"accent_color":null,"global_name":"美股会员网-群主","avatar_decoration_data":{"asset":"a_d3da36040163ee0f9176dfe7ced45cdc","sku_id":"1144058522808614923","expires_at":null},"collectibles":null,"display_name_styles":{"font_id":3,"effect_id":4,"colors":[11080677]},"banner_color":null,"clan":null,"primary_guild":null},"pinned":false,"mention_everyone":false,"tts":false},{"type":0,"content":"@everyone \n今晚交易计划：DRAM在20%基础上，继续加仓10%，提升至组合极限仓位30% @所有人","mentions":[],"mention_roles":[],"attachments":[],"embeds":[],"timestamp":"2026-04-29T11:52:06.778000+00:00","edited_timestamp":null,"flags":0,"components":[],"id":"1499015421217472542","channel_id":"1484200645316710573","author":{"id":"1098937850168365176","username":"us_stock_vip","avatar":"6929839c3db522eb3fbc833af4659aaa","discriminator":"0","public_flags":0,"flags":0,"banner":null,"accent_color":null,"global_name":"美股会员网-群主","avatar_decoration_data":{"asset":"a_d3da36040163ee0f9176dfe7ced45cdc","sku_id":"1144058522808614923","expires_at":null},"collectibles":null,"display_name_styles":{"font_id":3,"effect_id":4,"colors":[11080677]},"banner_color":null,"clan":null,"primary_guild":null},"pinned":false,"mention_everyone":true,"tts":false},{"type":19,"content":"@everyone\nDRAN加到30%@所有人","mentions":[],"mention_roles":[],"attachments":[],"embeds":[],"timestamp":"2026-04-29T14:18:50.219000+00:00","edited_timestamp":"2026-04-29T14:19:03.219000+00:00","flags":0,"components":[],"id":"1499052345525534841","channel_id":"1484200645316710573","author":{"id":"1098937850168365176","username":"us_stock_vip","avatar":"6929839c3db522eb3fbc833af4659aaa","discriminator":"0","public_flags":0,"flags":0,"banner":null,"accent_color":null,"global_name":"美股会员网-群主","avatar_decoration_data":{"asset":"a_d3da36040163ee0f9176dfe7ced45cdc","sku_id":"1144058522808614923","expires_at":null},"collectibles":null,"display_name_styles":{"font_id":3,"effect_id":4,"colors":[11080677]},"banner_color":null,"clan":null,"primary_guild":null},"pinned":false,"mention_everyone":true,"tts":false,"message_reference":{"type":0,"channel_id":"1484200645316710573","message_id":"1499015421217472542","guild_id":"1412445465907167394"},"referenced_message":{"type":0,"content":"@everyone \n今晚交易计划：DRAM在20%基础上，继续加仓10%，提升至组合极限仓位30% @所有人","mentions":[],"mention_roles":[],"attachments":[],"embeds":[],"timestamp":"2026-04-29T11:52:06.778000+00:00","edited_timestamp":null,"flags":0,"components":[],"id":"1499015421217472542","channel_id":"1484200645316710573","author":{"id":"1098937850168365176","username":"us_stock_vip","avatar":"6929839c3db522eb3fbc833af4659aaa","discriminator":"0","public_flags":0,"flags":0,"banner":null,"accent_color":null,"global_name":"美股会员网-群主","avatar_decoration_data":{"asset":"a_d3da36040163ee0f9176dfe7ced45cdc","sku_id":"1144058522808614923","expires_at":null},"collectibles":null,"display_name_styles":{"font_id":3,"effect_id":4,"colors":[11080677]},"banner_color":null,"clan":null,"primary_guild":null},"pinned":false,"mention_everyone":true,"tts":false}},{"type":19,"content":"高通建2%观察仓@所有人","mentions":[],"mention_roles":[],"attachments":[],"embeds":[],"timestamp":"2026-05-01T09:08:19.771000+00:00","edited_timestamp":null,"flags":0,"components":[],"id":"1499698979493908490","channel_id":"1484200645316710573","author":{"id":"1098937850168365176","username":"us_stock_vip","avatar":"6929839c3db522eb3fbc833af4659aaa","discriminator":"0","public_flags":0,"flags":0,"banner":null,"accent_color":null,"global_name":"美股会员网-群主","avatar_decoration_data":{"asset":"a_d3da36040163ee0f9176dfe7ced45cdc","sku_id":"1144058522808614923","expires_at":null},"collectibles":null,"display_name_styles":{"font_id":3,"effect_id":4,"colors":[11080677]},"banner_color":null,"clan":null,"primary_guild":null},"pinned":false,"mention_everyone":false,"tts":false,"message_reference":{"type":0,"channel_id":"1484200645316710573","message_id":"1499052345525534841","guild_id":"1412445465907167394"},"referenced_message":{"type":19,"content":"@everyone\nDRAN加到30%@所有人","mentions":[],"mention_roles":[],"attachments":[],"embeds":[],"timestamp":"2026-04-29T14:18:50.219000+00:00","edited_timestamp":"2026-04-29T14:19:03.219000+00:00","flags":0,"components":[],"id":"1499052345525534841","channel_id":"1484200645316710573","author":{"id":"1098937850168365176","username":"us_stock_vip","avatar":"6929839c3db522eb3fbc833af4659aaa","discriminator":"0","public_flags":0,"flags":0,"banner":null,"accent_color":null,"global_name":"美股会员网-群主","avatar_decoration_data":{"asset":"a_d3da36040163ee0f9176dfe7ced45cdc","sku_id":"1144058522808614923","expires_at":null},"collectibles":null,"display_name_styles":{"font_id":3,"effect_id":4,"colors":[11080677]},"banner_color":null,"clan":null,"primary_guild":null},"pinned":false,"mention_everyone":true,"tts":false,"message_reference":{"type":0,"channel_id":"1484200645316710573","message_id":"1499015421217472542","guild_id":"1412445465907167394"}}},{"type":19,"content":"@everyone \n高通，从2%加仓至5%@所有人","mentions":[],"mention_roles":[],"attachments":[],"embeds":[],"timestamp":"2026-05-01T14:27:56.452000+00:00","edited_timestamp":null,"flags":0,"components":[],"id":"1499779412323729570","channel_id":"1484200645316710573","author":{"id":"1098937850168365176","username":"us_stock_vip","avatar":"6929839c3db522eb3fbc833af4659aaa","discriminator":"0","public_flags":0,"flags":0,"banner":null,"accent_color":null,"global_name":"美股会员网-群主","avatar_decoration_data":{"asset":"a_d3da36040163ee0f9176dfe7ced45cdc","sku_id":"1144058522808614923","expires_at":null},"collectibles":null,"display_name_styles":{"font_id":3,"effect_id":4,"colors":[11080677]},"banner_color":null,"clan":null,"primary_guild":null},"pinned":false,"mention_everyone":true,"tts":false,"message_reference":{"type":0,"channel_id":"1484200645316710573","message_id":"1499698979493908490","guild_id":"1412445465907167394"},"referenced_message":{"type":19,"content":"高通建2%观察仓@所有人","mentions":[],"mention_roles":[],"attachments":[],"embeds":[],"timestamp":"2026-05-01T09:08:19.771000+00:00","edited_timestamp":null,"flags":0,"components":[],"id":"1499698979493908490","channel_id":"1484200645316710573","author":{"id":"1098937850168365176","username":"us_stock_vip","avatar":"6929839c3db522eb3fbc833af4659aaa","discriminator":"0","public_flags":0,"flags":0,"banner":null,"accent_color":null,"global_name":"美股会员网-群主","avatar_decoration_data":{"asset":"a_d3da36040163ee0f9176dfe7ced45cdc","sku_id":"1144058522808614923","expires_at":null},"collectibles":null,"display_name_styles":{"font_id":3,"effect_id":4,"colors":[11080677]},"banner_color":null,"clan":null,"primary_guild":null},"pinned":false,"mention_everyone":false,"tts":false,"message_reference":{"type":0,"channel_id":"1484200645316710573","message_id":"1499052345525534841","guild_id":"1412445465907167394"}}},{"type":0,"content":"@everyone\nneo cloud ：iren和crwv排除，我会选择orcl 和nbis 今晚建仓@所有人","mentions":[],"mention_roles":[],"attachments":[],"embeds":[],"timestamp":"2026-05-04T00:33:10.611000+00:00","edited_timestamp":null,"flags":0,"components":[],"id":"1500656500677284011","channel_id":"1484200645316710573","author":{"id":"1098937850168365176","username":"us_stock_vip","avatar":"6929839c3db522eb3fbc833af4659aaa","discriminator":"0","public_flags":0,"flags":0,"banner":null,"accent_color":null,"global_name":"美股会员网-群主","avatar_decoration_data":{"asset":"a_d3da36040163ee0f9176dfe7ced45cdc","sku_id":"1144058522808614923","expires_at":null},"collectibles":null,"display_name_styles":{"font_id":3,"effect_id":4,"colors":[11080677]},"banner_color":null,"clan":null,"primary_guild":null},"pinned":false,"mention_everyone":true,"tts":false},{"type":19,"content":"交易计划: nbis和nebx 各自买入1%，orcx买入2%@所有人","mentions":[],"mention_roles":[],"attachments":[],"embeds":[],"timestamp":"2026-05-04T00:33:15.361000+00:00","edited_timestamp":null,"flags":0,"components":[],"id":"1500656520600358962","channel_id":"1484200645316710573","author":{"id":"1098937850168365176","username":"us_stock_vip","avatar":"6929839c3db522eb3fbc833af4659aaa","discriminator":"0","public_flags":0,"flags":0,"banner":null,"accent_color":null,"global_name":"美股会员网-群主","avatar_decoration_data":{"asset":"a_d3da36040163ee0f9176dfe7ced45cdc","sku_id":"1144058522808614923","expires_at":null},"collectibles":null,"display_name_styles":{"font_id":3,"effect_id":4,"colors":[11080677]},"banner_color":null,"clan":null,"primary_guild":null},"pinned":false,"mention_everyone":false,"tts":false,"message_reference":{"type":0,"channel_id":"1484200645316710573","message_id":"1500656500677284011","guild_id":"1412445465907167394"},"referenced_message":{"type":0,"content":"@everyone\nneo cloud ：iren和crwv排除，我会选择orcl 和nbis 今晚建仓@所有人","mentions":[],"mention_roles":[],"attachments":[],"embeds":[],"timestamp":"2026-05-04T00:33:10.611000+00:00","edited_timestamp":null,"flags":0,"components":[],"id":"1500656500677284011","channel_id":"1484200645316710573","author":{"id":"1098937850168365176","username":"us_stock_vip","avatar":"6929839c3db522eb3fbc833af4659aaa","discriminator":"0","public_flags":0,"flags":0,"banner":null,"accent_color":null,"global_name":"美股会员网-群主","avatar_decoration_data":{"asset":"a_d3da36040163ee0f9176dfe7ced45cdc","sku_id":"1144058522808614923","expires_at":null},"collectibles":null,"display_name_styles":{"font_id":3,"effect_id":4,"colors":[11080677]},"banner_color":null,"clan":null,"primary_guild":null},"pinned":false,"mention_everyone":true,"tts":false}},{"type":19,"content":"不用等我晚上通知，你们自己盘前或者盘中把握即可","mentions":[],"mention_roles":[],"attachments":[],"embeds":[],"timestamp":"2026-05-04T00:38:09.963000+00:00","edited_timestamp":null,"flags":0,"components":[],"id":"1500657756250832896","channel_id":"1484200645316710573","author":{"id":"1098937850168365176","username":"us_stock_vip","avatar":"6929839c3db522eb3fbc833af4659aaa","discriminator":"0","public_flags":0,"flags":0,"banner":null,"accent_color":null,"global_name":"美股会员网-群主","avatar_decoration_data":{"asset":"a_d3da36040163ee0f9176dfe7ced45cdc","sku_id":"1144058522808614923","expires_at":null},"collectibles":null,"display_name_styles":{"font_id":3,"effect_id":4,"colors":[11080677]},"banner_color":null,"clan":null,"primary_guild":null},"pinned":false,"mention_everyone":false,"tts":false,"message_reference":{"type":0,"channel_id":"1484200645316710573","message_id":"1500656520600358962","guild_id":"1412445465907167394"},"referenced_message":{"type":19,"content":"交易计划: nbis和nebx 各自买入1%，orcx买入2%@所有人","mentions":[],"mention_roles":[],"attachments":[],"embeds":[],"timestamp":"2026-05-04T00:33:15.361000+00:00","edited_timestamp":null,"flags":0,"components":[],"id":"1500656520600358962","channel_id":"1484200645316710573","author":{"id":"1098937850168365176","username":"us_stock_vip","avatar":"6929839c3db522eb3fbc833af4659aaa","discriminator":"0","public_flags":0,"flags":0,"banner":null,"accent_color":null,"global_name":"美股会员网-群主","avatar_decoration_data":{"asset":"a_d3da36040163ee0f9176dfe7ced45cdc","sku_id":"1144058522808614923","expires_at":null},"collectibles":null,"display_name_styles":{"font_id":3,"effect_id":4,"colors":[11080677]},"banner_color":null,"clan":null,"primary_guild":null},"pinned":false,"mention_everyone":false,"tts":false,"message_reference":{"type":0,"channel_id":"1484200645316710573","message_id":"1500656500677284011","guild_id":"1412445465907167394"}}}];
+      const state = {
+        allMessages: Array.isArray(messages) ? messages : [],
+        renderedMessages: [],
+        searchTerm: '',
+        sidebarOpen: false,
+        sortOrder: 'asc',
+      };
+
+      const els = {
+        container: document.getElementById('chatlogs-message-list-container'),
+        serverIcon: document.getElementById('server-icon'),
+        messageCount: document.getElementById('message_count'),
+        dateRange: document.getElementById('date_range'),
+        topBarRight: document.querySelector('.top-bar-right'),
+        searchSidebar: document.getElementById('search-sidebar'),
+        searchResults: document.getElementById('search-results'),
+        searchCloseBtn: document.getElementById('search-close-btn'),
+        searchInput: document.getElementById('search-input'),
+        searchClearBtn: document.getElementById('search-clear-btn'),
+        searchResultsCount: document.getElementById('search-results-count'),
+        searchOpenBtn: document.getElementById('search-open-btn'),
+        searchOverlay: document.getElementById('search-overlay'),
+        topBar: document.getElementById('chatlogs-title'),
+      };
+
+      
+
+      function setSidebarOpen(open) {
+        state.sidebarOpen = !!open;
+        els.searchSidebar.classList.toggle('open', state.sidebarOpen);
+        if (els.searchOverlay) {
+          els.searchOverlay.classList.toggle('open', state.sidebarOpen);
+        }
+      }
+
+      function formatDateTime(ts) {
+        const d = new Date(ts);
+        return `${d.toLocaleDateString()} ${d.toLocaleTimeString()}`;
+      }
+
+      function formatRelativeTime(ts) {
+        const diff = Date.now() - new Date(ts).getTime();
+        const min = Math.floor(diff / 60000);
+        if (min < 1) return 'just now';
+        if (min < 60) return `${min} min ago`;
+        const hr = Math.floor(min / 60);
+        if (hr < 24) return `${hr} h ago`;
+        const day = Math.floor(hr / 24);
+        return `${day} day${day > 1 ? 's' : ''} ago`;
+      }
+
+      function escapeHtml(text) {
+        return String(text || '')
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#39;');
+      }
+
+      function createMentionMap(msg) {
+        const map = new Map();
+        (msg.mentions || []).forEach(m => {
+          map.set(`@${m.username}`, `<span class="mention-inline">@${escapeHtml(m.username)}</span>`);
+          map.set(`<@${m.id}>`, `<span class="mention-inline">@${escapeHtml(m.username)}</span>`);
+        });
+        return map;
+      }
+
+      function renderContentWithMentions(content, mentionMap) {
+        let safe = escapeHtml(content);
+        for (const [raw, html] of mentionMap.entries()) {
+          const escapedRaw = raw.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+          safe = safe.replace(new RegExp(escapedRaw, 'g'), html);
+        }
+        return safe;
+      }
+
+      function appendCodeBlocks(container, content) {
+        const codeFence = /```([\w-]*)\n([\s\S]*?)```/g;
+        let matched = false;
+        let m = null;
+        while ((m = codeFence.exec(content)) !== null) {
+          matched = true;
+          const pre = document.createElement('pre');
+          pre.className = 'code-wrap';
+          const code = document.createElement('code');
+          code.textContent = m[2].trim();
+          pre.appendChild(code);
+          const btn = document.createElement('button');
+          btn.className = 'code-copy-btn';
+          btn.textContent = 'Copy';
+          btn.onclick = async () => {
+            try {
+              await navigator.clipboard.writeText(code.textContent);
+              btn.textContent = 'Copied';
+              setTimeout(() => (btn.textContent = 'Copy'), 900);
+            } catch (e) {
+              btn.textContent = 'Error';
+              setTimeout(() => (btn.textContent = 'Copy'), 900);
+            }
+          };
+          pre.appendChild(btn);
+          container.appendChild(pre);
+        }
+        return matched;
+      }
+
+      function createEmbed(embed) {
+        const wrap = document.createElement('div');
+        wrap.className = 'message-embeded';
+        const block = document.createElement('div');
+        block.className = 'embed-container';
+        wrap.appendChild(block);
+
+        if (embed.title) {
+          const t = document.createElement('div');
+          t.className = 'embed-text';
+          t.textContent = embed.title;
+          block.appendChild(t);
+        }
+        if (embed.description) {
+          const d = document.createElement('div');
+          d.className = 'embed-description';
+          d.textContent = embed.description;
+          block.appendChild(d);
+        }
+        if (embed.thumbnail && embed.thumbnail.url) {
+          const img = document.createElement('img');
+          img.src = embed.thumbnail.url;
+          img.className = 'zoomable';
+          img.loading = 'lazy';
+          block.appendChild(img);
+        }
+        if (embed.image && embed.image.url) {
+          const img = document.createElement('img');
+          img.src = embed.image.url;
+          img.className = 'zoomable';
+          img.loading = 'lazy';
+          block.appendChild(img);
+        }
+        return wrap;
+      }
+
+      function createAttachment(att) {
+        const wrap = document.createElement('div');
+        wrap.className = 'attach-container';
+        const t = att.content_type || '';
+        if (t.startsWith('image/')) {
+          const img = document.createElement('img');
+          img.src = att.url;
+          img.className = 'zoomable';
+          img.loading = 'lazy';
+          wrap.appendChild(img);
+        } else if (t.startsWith('video/')) {
+          const v = document.createElement('video');
+          v.controls = true;
+          v.src = att.url;
+          wrap.appendChild(v);
+        } else if (t.startsWith('audio/')) {
+          const a = document.createElement('audio');
+          a.controls = true;
+          a.src = att.url;
+          wrap.appendChild(a);
+        } else {
+          const link = document.createElement('a');
+          link.href = att.url;
+          link.target = '_blank';
+          link.rel = 'noreferrer';
+          link.textContent = att.filename || att.url;
+          link.style.color = 'var(--accent)';
+          wrap.appendChild(link);
+        }
+        return wrap;
+      }
+
+      function withinCompactWindow(prev, curr) {
+        if (!prev || !curr) return false;
+        if (!prev.author || !curr.author) return false;
+        if (prev.author.id !== curr.author.id) return false;
+        const prevTs = new Date(prev.timestamp).getTime();
+        const currTs = new Date(curr.timestamp).getTime();
+        return currTs - prevTs <= 7 * 60 * 1000;
+      }
+
+      function renderMessages() {
+        const list = state.sortOrder === 'asc' ? [...state.allMessages] : [...state.allMessages].reverse();
+        state.renderedMessages = list;
+        els.container.innerHTML = '';
+
+        let prev = null;
+        list.forEach((msg, idx) => {
+          const messageId = String(msg.id || `msg-${idx}`);
+          const box = document.createElement('div');
+          box.className = 'message-box';
+          box.dataset.messageId = messageId;
+          if (withinCompactWindow(prev, msg)) box.classList.add('compact');
+
+          const avatarSlot = document.createElement('div');
+          avatarSlot.className = 'avatar-slot';
+          const avatar = document.createElement('img');
+          avatar.className = 'message-avatar';
+          avatar.src = getAvatarUrl(msg.author.id, msg.author.avatar);
+          avatar.width = 40;
+          avatar.height = 40;
+          avatarSlot.appendChild(avatar);
+          box.appendChild(avatarSlot);
+
+          const body = document.createElement('div');
+          body.className = 'message-body';
+
+          const header = document.createElement('div');
+          header.className = 'message-header';
+          const author = document.createElement('span');
+          author.className = 'message-author';
+          author.textContent = msg.author.username;
+          const date = document.createElement('span');
+          date.className = 'message-date';
+          date.textContent = formatDateTime(msg.timestamp);
+          header.appendChild(author);
+          header.appendChild(date);
+          body.appendChild(header);
+
+          if (msg.referenced_message) {
+            const ref = document.createElement('div');
+            ref.className = 'message-reference';
+            const ra = document.createElement('span');
+            ra.className = 'message-reference-author';
+            ra.textContent = `@${msg.referenced_message.author.username}`;
+            const rt = document.createElement('span');
+            rt.className = 'message-reference-timestamp';
+            rt.textContent = formatDateTime(msg.referenced_message.timestamp);
+            const rc = document.createElement('div');
+            rc.textContent = msg.referenced_message.content || '';
+            ref.appendChild(ra);
+            ref.appendChild(rt);
+            ref.appendChild(rc);
+            body.appendChild(ref);
+          }
+
+          const messageContent = document.createElement('div');
+          messageContent.className = 'message-content';
+          const mentionMap = createMentionMap(msg);
+          const rendered = renderContentWithMentions(msg.content || '', mentionMap);
+          messageContent.innerHTML = rendered;
+          body.appendChild(messageContent);
+
+          appendCodeBlocks(body, msg.content || '');
+
+          (msg.embeds || []).forEach(embed => body.appendChild(createEmbed(embed)));
+          (msg.attachments || []).forEach(att => body.appendChild(createAttachment(att)));
+
+          box.appendChild(body);
+          els.container.appendChild(box);
+          prev = msg;
+        });
+
+        bindLightbox();
+        if (state.searchTerm) {
+          updateSearchResults(state.searchTerm);
+        }
+      }
+
+      function updateMeta(list) {
+        const count = list.length;
+        els.messageCount.textContent = `${count.toLocaleString()} messages`;
+        if (!count) {
+          els.dateRange.textContent = 'No message in current filter';
+          return;
+        }
+        const start = new Date(list[0].timestamp);
+        const end = new Date(list[list.length - 1].timestamp);
+        els.dateRange.textContent = `${formatDateTime(start)} - ${formatDateTime(end)}`;
+      }
+
+      function closeSearchSidebar() {
+        state.searchTerm = '';
+        setSidebarOpen(false);
+        if (els.searchResults) els.searchResults.innerHTML = '';
+        if (els.searchResultsCount) els.searchResultsCount.textContent = '0 results';
+      }
+
+      function makeSnippet(content, q) {
+        const full = String(content || '');
+        if (!q) return escapeHtml(full.slice(0, 120));
+        const lower = full.toLowerCase();
+        const idx = lower.indexOf(q);
+        if (idx < 0) return escapeHtml(full.slice(0, 120));
+        const start = Math.max(0, idx - 24);
+        const end = Math.min(full.length, idx + q.length + 36);
+        const raw = full.slice(start, end);
+        const escaped = escapeHtml(raw);
+        const escapedQ = escapeHtml(full.slice(idx, idx + q.length));
+        return escaped.replace(new RegExp(escapedQ.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i'), `<mark>${escapedQ}</mark>`);
+      }
+
+      function jumpToMessage(messageId) {
+        const target = els.container.querySelector(`[data-message-id="${CSS.escape(messageId)}"]`);
+        if (!target) return;
+        target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        target.classList.remove('jump-flash');
+        void target.offsetWidth;
+        target.classList.add('jump-flash');
+        setTimeout(() => target.classList.remove('jump-flash'), 2100);
+      }
+
+      function updateSearchResults(keyword) {
+        const q = String(keyword || '')
+          .trim()
+          .toLowerCase();
+        state.searchTerm = q;
+        if (!q) {
+          closeSearchSidebar();
+          return;
+        }
+
+        const matches = state.renderedMessages.filter(m => {
+          const base = `${m.content || ''} ${(m.author && m.author.username) || ''}`.toLowerCase();
+          return base.includes(q);
+        });
+
+        setSidebarOpen(true);
+        els.searchResults.innerHTML = '';
+        els.searchResultsCount.textContent = `${matches.length} result${matches.length === 1 ? '' : 's'}`;
+
+        if (!matches.length) {
+          const empty = document.createElement('div');
+          empty.className = 'search-empty';
+          empty.textContent = 'No results found';
+          els.searchResults.appendChild(empty);
+          return;
+        }
+
+        matches.forEach(m => {
+          const renderIdx = state.renderedMessages.indexOf(m);
+          const messageId = String(m.id || `msg-${renderIdx >= 0 ? renderIdx : 0}`);
+          const item = document.createElement('button');
+          item.type = 'button';
+          item.className = 'search-result-item';
+          item.addEventListener('click', () => jumpToMessage(messageId));
+
+          const av = document.createElement('img');
+          av.className = 'search-result-avatar';
+          av.src = getAvatarUrl(m.author.id, m.author.avatar);
+
+          const textWrap = document.createElement('div');
+          const name = document.createElement('div');
+          name.className = 'search-result-name';
+          name.textContent = `${m.author.username}:`;
+          const snippet = document.createElement('div');
+          snippet.className = 'search-result-snippet';
+          snippet.innerHTML = `...${makeSnippet(m.content || '', q)}...`;
+          textWrap.appendChild(name);
+          textWrap.appendChild(snippet);
+          item.appendChild(av);
+          item.appendChild(textWrap);
+          const rel = document.createElement('div');
+          rel.className = 'search-result-time';
+          rel.textContent = formatRelativeTime(m.timestamp);
+          item.appendChild(rel);
+          els.searchResults.appendChild(item);
+        });
+      }
+
+      function ensureLightbox() {
+        let lb = document.getElementById('img-lightbox');
+        if (lb) return lb;
+        lb = document.createElement('div');
+        lb.id = 'img-lightbox';
+        lb.className = 'lightbox';
+        const img = document.createElement('img');
+        lb.appendChild(img);
+        lb.addEventListener('click', () => lb.classList.remove('open'));
+        document.body.appendChild(lb);
+        return lb;
+      }
+
+      function bindLightbox() {
+        const lightbox = ensureLightbox();
+        const target = lightbox.querySelector('img');
+        document.querySelectorAll('.zoomable').forEach(node => {
+          node.addEventListener('click', e => {
+            e.preventDefault();
+            target.src = node.src;
+            lightbox.classList.add('open');
+          });
+        });
+      }
+
+      function copyJsonToClipboard() {
+        navigator.clipboard
+          .writeText(JSON.stringify(state.allMessages, null, 2))
+          .then(() => {
+            const btn = document.querySelector('.copy-json-btn');
+            if (!btn) return;
+            const old = btn.textContent;
+            btn.textContent = 'Copied JSON';
+            setTimeout(() => (btn.textContent = old), 900);
+          })
+          .catch(err => console.error('Failed to copy:', err));
+      }
+
+      function sortMessages(order) {
+        state.sortOrder = order === 'desc' ? 'desc' : 'asc';
+        renderMessages();
+      }
+
+      els.searchInput.addEventListener('input', e => updateSearchResults(e.target.value));
+      els.searchClearBtn.addEventListener('click', () => {
+        els.searchInput.value = '';
+        closeSearchSidebar();
+      });
+      els.searchCloseBtn.addEventListener('click', () => closeSearchSidebar());
+      els.searchOpenBtn.addEventListener('click', () => {
+        const nextOpen = !state.sidebarOpen;
+        setSidebarOpen(nextOpen);
+        if (nextOpen) els.searchInput.focus();
+      });
+      if (els.searchOverlay) {
+        els.searchOverlay.addEventListener('click', () => closeSearchSidebar());
+      }
+
+      updateMeta(state.allMessages);
+      renderMessages();</script></body></html>
