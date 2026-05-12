@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sixpence Portfolio Weekly Report</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #0d1117;
+    color: #c9d1d9;
+    font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+    font-size: 13px;
+    line-height: 1.6;
+    padding: 32px 24px;
+  }
+
+  .report-wrapper {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  /* Header */
+  .report-header {
+    border-bottom: 2px solid #30363d;
+    padding-bottom: 16px;
+    margin-bottom: 28px;
+  }
+
+  .report-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #58a6ff;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+  }
+
+  .report-meta {
+    color: #8b949e;
+    font-size: 12px;
+  }
+
+  /* Section */
+  .section {
+    margin-bottom: 36px;
+  }
+
+  .section-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #e3b341;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+    padding-left: 4px;
+    border-left: 3px solid #e3b341;
+    padding-left: 10px;
+  }
+
+  /* Table */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  thead tr {
+    background: #21262d;
+  }
+
+  th {
+    padding: 10px 12px;
+    text-align: left;
+    color: #8b949e;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    border-bottom: 1px solid #30363d;
+    white-space: nowrap;
+  }
+
+  td {
+    padding: 8px 12px;
+    border-bottom: 1px solid #21262d;
+    white-space: nowrap;
+  }
+
+  tbody tr:last-child td {
+    border-bottom: none;
+  }
+
+  tbody tr:hover {
+    background: #1c2128;
+  }
+
+  /* Category cell */
+  .cat-cell {
+    font-weight: 600;
+    color: #79c0ff;
+    font-size: 11px;
+    letter-spacing: 0.5px;
+  }
+
+  /* P&L */
+  .pnl {
+    color: #f85149;
+    font-weight: 600;
+  }
+
+  /* Ticker */
+  .ticker {
+    color: #d2a8ff;
+    font-weight: 600;
+  }
+
+  /* Currency badge */
+  .currency {
+    display: inline-block;
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-size: 10px;
+    font-weight: 600;
+  }
+  .usd { background: #1f4f2d; color: #3fb950; }
+  .hkd { background: #2d2f1f; color: #e3b341; }
+  .cny { background: #1f2d4f; color: #58a6ff; }
+
+  /* Summary bar */
+  .summary-bar {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+    padding: 10px 14px;
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 6px;
+    font-size: 12px;
+  }
+
+  .summary-bar span { color: #8b949e; }
+  .summary-bar strong { color: #c9d1d9; }
+  .note {
+    margin-top: 6px;
+    font-size: 11px;
+    color: #6e7681;
+    padding-left: 2px;
+  }
+
+  /* Strategy */
+  .strategy-list {
+    list-style: none;
+    counter-reset: strategy;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .strategy-list li {
+    counter-increment: strategy;
+    display: flex;
+    gap: 12px;
+    padding: 10px 14px;
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 6px;
+    line-height: 1.5;
+  }
+
+  .strategy-list li::before {
+    content: counter(strategy);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 22px;
+    height: 22px;
+    background: #1f4f2d;
+    color: #3fb950;
+    border-radius: 50%;
+    font-weight: 700;
+    font-size: 11px;
+    margin-top: 1px;
+  }
+
+  /* Disclaimer */
+  .disclaimer {
+    margin-top: 32px;
+    padding: 12px 16px;
+    border: 1px solid #30363d;
+    border-radius: 6px;
+    background: #161b22;
+    font-size: 11px;
+    color: #6e7681;
+    border-left: 3px solid #30363d;
+  }
+
+  .disclaimer strong { color: #8b949e; }
+</style>
+</head>
+<body>
+<div class="report-wrapper">
+
+  <!-- Header -->
+  <div class="report-header">
+    <div class="report-title">Sixpence US/HK/A-Share Portfolio Holdings Weekly Report</div>
+    <div class="report-meta">As of: 2026/05/08 &nbsp;|&nbsp; WeChat: Investor Sixpence · Shàng Tóu Capital</div>
+  </div>
+
+  <!-- US/HK Equities -->
+  <div class="section">
+    <div class="section-title">US / HK Equities</div>
+    <table>
+      <thead>
+        <tr>
+          <th>Category</th>
+          <th>Business</th>
+          <th>Name</th>
+          <th>Ticker</th>
+          <th>CCY</th>
+          <th>Price</th>
+          <th>Cost</th>
+          <th>P&amp;L %</th>
+          <th>Weight</th>
+          <th>Entry Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="cat-cell">Stor-L</td><td>NAND</td><td>SanDisk</td><td class="ticker">SNDK</td><td><span class="currency usd">USD</span></td><td>1348.33</td><td>122.26</td><td class="pnl">1002.87%</td><td>13.74%</td><td>2025-10-02</td></tr>
+        <tr><td></td><td>Full Coverage</td><td>Memory ETF</td><td class="ticker">DRAM</td><td><span class="currency usd">USD</span></td><td>48.00</td><td>36.40</td><td class="pnl">31.89%</td><td>28.23%</td><td>2026-04-02</td></tr>
+        <tr><td></td><td>Memory/Foundry</td><td>2x Long Samsung Elec</td><td class="ticker">07747</td><td><span class="currency hkd">HKD</span></td><td>132.10</td><td>50.85</td><td class="pnl">159.81%</td><td>11.90%</td><td>2026-01-27</td></tr>
+        <tr><td></td><td>HBM/FRAM/NAND</td><td>2x Long SK Hynix</td><td class="ticker">07709</td><td><span class="currency hkd">HKD</span></td><td>78.44</td><td>8.20</td><td class="pnl">856.12%</td><td>15.33%</td><td>2026-01-27</td></tr>
+        <tr><td></td><td>Testing</td><td>FormFactor</td><td class="ticker">FORM</td><td><span class="currency usd">USD</span></td><td>146.79</td><td>125.11</td><td class="pnl">17.33%</td><td>2.25%</td><td>2026-04-13</td></tr>
+        <tr><td class="cat-cell">Opt-R</td><td>Optical Modules</td><td>Lumentum</td><td class="ticker">LITE</td><td><span class="currency usd">USD</span></td><td>904.98</td><td>259.93</td><td class="pnl">248.16%</td><td>13.86%</td><td>2025-08-11</td></tr>
+        <tr><td></td><td>Optical Modules</td><td>Coherent</td><td class="ticker">COHR</td><td><span class="currency usd">USD</span></td><td>323.60</td><td>239.34</td><td class="pnl">35.20%</td><td>13.18%</td><td>2026-02-09</td></tr>
+        <tr><td></td><td>Optical Modules</td><td>Applied Opto</td><td class="ticker">AAOI</td><td><span class="currency usd">USD</span></td><td>156.99</td><td>152.26</td><td class="pnl">3.11%</td><td>4.23%</td><td>2026-04-16</td></tr>
+        <tr><td></td><td>Foundry</td><td>GlobalFoundries</td><td class="ticker">GFS</td><td><span class="currency usd">USD</span></td><td>71.62</td><td>55.51</td><td class="pnl">29.01%</td><td>4.63%</td><td>2026-04-17</td></tr>
+        <tr><td class="cat-cell">Chip-D</td><td>Optical Modules</td><td>Marvell Technology</td><td class="ticker">MRVL</td><td><span class="currency usd">USD</span></td><td>162.49</td><td>140.29</td><td class="pnl">15.83%</td><td>3.59%</td><td>2026-04-13</td></tr>
+        <tr><td></td><td>GPU/CPU</td><td>AMD</td><td class="ticker">AMD</td><td><span class="currency usd">USD</span></td><td>412.70</td><td>335.00</td><td class="pnl">23.20%</td><td>1.40%</td><td>2026-04-15</td></tr>
+        <tr><td></td><td>SoC/Modem</td><td>Qualcomm</td><td class="ticker">QCOM</td><td><span class="currency usd">USD</span></td><td>209.14</td><td>171.72</td><td class="pnl">21.79%</td><td>4.95%</td><td>2026-04-29</td></tr>
+        <tr><td></td><td>AI Cloud</td><td>NEBIUS</td><td class="ticker">NBIS</td><td><span class="currency usd">USD</span></td><td>182.23</td><td>158.13</td><td class="pnl">15.24%</td><td>2.48%</td><td>2026-05-04</td></tr>
+        <tr><td class="cat-cell">Others</td><td>Long NBIS ETF</td><td>NEBX</td><td class="ticker">NEBX</td><td><span class="currency usd">USD</span></td><td>90.82</td><td>70.36</td><td class="pnl">29.09%</td><td>1.69%</td><td>2026-05-04</td></tr>
+        <tr><td></td><td>FOX-P / Testing</td><td>Aehr Test Sys</td><td class="ticker">AEHR</td><td><span class="currency usd">USD</span></td><td>91.50</td><td>84.49</td><td class="pnl">8.29%</td><td>1.56%</td><td>2026-04-16</td></tr>
+        <tr><td></td><td>Long ORCL ETF</td><td>ORCX</td><td class="ticker">ORCX</td><td><span class="currency usd">USD</span></td><td>42.99</td><td>42.28</td><td class="pnl">1.69%</td><td>4.76%</td><td>2026-05-04</td></tr>
+      </tbody>
+    </table>
+    <div class="summary-bar">
+      <div><span>Total Position: </span><strong>134%</strong> <span>(past 2 wks </span><strong>+14%</strong><span>)</span></div>
+      <div><span>YTD: </span><strong>92.19%</strong> <span>(past 2 wks </span><strong>+30.58%</strong><span>)</span></div>
+    </div>
+    <div class="note">Note: IPO allocation positions &lt;1%, not listed.</div>
+  </div>
+
+  <!-- A-Share Equities -->
+  <div class="section">
+    <div class="section-title">A-Share Equities</div>
+    <table>
+      <thead>
+        <tr>
+          <th>Category</th>
+          <th>Business</th>
+          <th>Name</th>
+          <th>Ticker</th>
+          <th>CCY</th>
+          <th>Price</th>
+          <th>Cost</th>
+          <th>P&amp;L %</th>
+          <th>Weight</th>
+          <th>Entry Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="cat-cell">Opt-R</td><td>Optical Chips/Modules/PCB</td><td>Dongshan Precision</td><td class="ticker">002384</td><td><span class="currency cny">CNY</span></td><td>211.39</td><td>33.68</td><td class="pnl">527.64%</td><td>34.27%</td><td>2026-02-25</td></tr>
+        <tr><td></td><td>Silicon Photonics / CPO Equip</td><td>Robtek</td><td class="ticker">300757</td><td><span class="currency cny">CNY</span></td><td>519.20</td><td>149.98</td><td class="pnl">246.18%</td><td>21.04%</td><td>2025-08-22</td></tr>
+        <tr><td></td><td>Module / PCB Contract Mfg</td><td>Huamao Technology</td><td class="ticker">603306</td><td><span class="currency cny">CNY</span></td><td>107.52</td><td>72.52</td><td class="pnl">48.25%</td><td>21.79%</td><td>2026-03-12</td></tr>
+        <tr><td class="cat-cell">PCB-U</td><td>PCB/HDI</td><td>Shenghong Technology</td><td class="ticker">300476</td><td><span class="currency cny">CNY</span></td><td>358.66</td><td>308.28</td><td class="pnl">16.34%</td><td>21.80%</td><td>2025-09-11</td></tr>
+      </tbody>
+    </table>
+    <div class="summary-bar">
+      <div><span>Total Position: </span><strong>98.90%</strong></div>
+      <div><span>YTD: </span><strong>66.16%</strong> <span>(past 2 wks </span><strong>+4.55%</strong><span>)</span></div>
+    </div>
+    <div class="note">Note: Satellite positions performed well; not fully listed.</div>
+  </div>
+
+  <!-- Strategy Summary -->
+  <div class="section">
+    <div class="section-title">Strategy Summary</div>
+    <ul class="strategy-list">
+      <li>Memory sector drove strong gains across US/HK equities; IC positions were trimmed; A-share holdings, including satellite positions, rose sharply.</li>
+      <li>Core holdings are the "Optical + Memory" strategic positions serving as portfolio ballast; satellite positions are traded solely to enhance flexibility.</li>
+      <li>Near-term: US/HK semiconductor gains have accelerated — a pullback is possible; partial position reduction may follow. A-share focus remains medium-term.</li>
+      <li>Long-term plan: must be fully invested in A-shares; otherwise, this tech revolution cycle will be missed.</li>
+    </ul>
+  </div>
+
+  <!-- Disclaimer -->
+  <div class="disclaimer">
+    <strong>Disclaimer:</strong> The above is a personal portfolio holdings report for reference only. Copying trades is at your own risk; profits and losses are your own responsibility.
+  </div>
+
+</div>
+</body>
+</html>

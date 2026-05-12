@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>US Stock Member Network · AI Assistant Daily — 2026-05-05</title>
+<style>
+:root{
+  --navy-950:#020d1a;--navy-900:#040e1e;--navy-800:#0a1628;
+  --navy-700:#0f2040;--navy-600:#1a2d4a;--navy-500:#253d60;
+  --navy-400:#3a5070;--gold-500:#b8922a;--gold-400:#d4af37;
+  --gold-300:#e8ca5a;--gold-200:#f5de8a;
+  --green:#00c853;--red:#ff3d71;--blue:#4fc3f7;--purple:#b39ddb;
+  --text-100:#f5f7fa;--text-200:#c5d0e0;--text-300:#7a90a8;--text-400:#4a6070;
+  --card:#0d1f35;--border:#1e3050;
+  --header-h:64px;--sidebar-w:300px;
+  --r:10px;--r-sm:6px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{background:var(--navy-950);color:var(--text-100);font-family:"Inter","Segoe UI",-apple-system,system-ui,sans-serif;font-size:14px;line-height:1.6;}
+
+/* ── SCROLLBARS ── */
+::-webkit-scrollbar{width:5px;height:5px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:var(--navy-500);border-radius:3px;}
+
+/* ── HEADER ── */
+#header{
+  position:fixed;top:0;left:0;right:0;height:var(--header-h);
+  background:linear-gradient(135deg,var(--navy-800) 0%,var(--navy-700) 100%);
+  border-bottom:2px solid var(--gold-400);
+  display:flex;align-items:center;padding:0 24px;gap:16px;
+  z-index:9000;box-shadow:0 4px 24px rgba(0,0,0,.6);
+}
+.logo{width:38px;height:38px;background:linear-gradient(135deg,var(--gold-400),var(--gold-200));border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;color:var(--navy-900);flex-shrink:0;}
+.brand h1{font-size:14px;font-weight:700;color:var(--gold-400);letter-spacing:.4px;}
+.brand p{font-size:11px;color:var(--text-300);}
+.h-div{width:1px;height:32px;background:var(--navy-500);}
+.h-title{flex:1;}
+.h-title h2{font-size:13px;font-weight:600;color:var(--text-100);}
+.h-title p{font-size:11px;color:var(--text-300);display:flex;gap:10px;align-items:center;margin-top:2px;}
+.live-badge{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:20px;font-size:10px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;background:rgba(0,200,83,.15);color:var(--green);border:1px solid rgba(0,200,83,.3);}
+.live-badge::before{content:'';width:5px;height:5px;background:var(--green);border-radius:50%;animation:blink 1.5s ease-in-out infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:.3;}}
+.tickers{display:flex;gap:18px;margin-left:auto;flex-shrink:0;}
+.ticker{display:flex;flex-direction:column;align-items:flex-end;}
+.t-sym{font-size:10px;color:var(--text-300);font-weight:600;letter-spacing:.3px;}
+.t-price{font-size:13px;font-weight:700;color:var(--text-100);}
+.t-chg{font-size:10px;font-weight:600;}
+.up{color:var(--green);}.down{color:var(--red);}
+
+/* ── SIDEBAR ── */
+#sidebar{
+  position:fixed;top:var(--header-h);left:0;bottom:0;width:var(--sidebar-w);
+  background:var(--navy-800);border-right:1px solid var(--border);
+  overflow-y:auto;z-index:8000;display:flex;flex-direction:column;
+}
+.sb-section{padding:16px 20px 8px;border-bottom:1px solid var(--border);}
+.sb-section h4{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--text-300);font-weight:600;margin-bottom:10px;}
+.nav-item{display:flex;align-items:center;gap:10px;padding:7px 20px;cursor:pointer;border-left:3px solid transparent;transition:all .15s;text-decoration:none;color:inherit;}
+.nav-item:hover{background:var(--navy-700);border-left-color:var(--gold-400);}
+.nav-item.active{background:var(--navy-700);border-left-color:var(--gold-400);}
+.nav-num{width:24px;height:24px;background:var(--navy-700);border:1px solid var(--navy-500);border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--text-300);flex-shrink:0;}
+.nav-item:hover .nav-num,.nav-item.active .nav-num{background:var(--gold-400);color:var(--navy-900);border-color:var(--gold-400);}
+.nav-label{font-size:12px;color:var(--text-300);flex:1;}
+.nav-item.active .nav-label,.nav-item:hover .nav-label{color:var(--text-100);}
+.nav-badge{font-size:9px;padding:1px 6px;border-radius:10px;font-weight:600;}
+.nb-bull{background:rgba(0,200,83,.15);color:var(--green);}
+.nb-bear{background:rgba(255,61,113,.15);color:var(--red);}
+.nb-neut{background:rgba(79,195,247,.15);color:var(--blue);}
+
+/* ── MAIN CONTENT ── */
+#main{
+  position:fixed;top:var(--header-h);left:var(--sidebar-w);right:0;bottom:0;
+  overflow-y:auto;padding:32px 40px 60px;background:var(--navy-950);
+}
+
+/* ── SECTIONS ── */
+.section{margin-bottom:48px;}
+.section-header{display:flex;align-items:center;gap:14px;margin-bottom:24px;padding-bottom:14px;border-bottom:1px solid var(--border);}
+.section-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+.icon-gold{background:linear-gradient(135deg,rgba(212,175,55,.2),rgba(212,175,55,.05));border:1px solid rgba(212,175,55,.3);}
+.icon-blue{background:linear-gradient(135deg,rgba(79,195,247,.2),rgba(79,195,247,.05));border:1px solid rgba(79,195,247,.3);}
+.icon-green{background:linear-gradient(135deg,rgba(0,200,83,.2),rgba(0,200,83,.05));border:1px solid rgba(0,200,83,.3);}
+.icon-purple{background:linear-gradient(135deg,rgba(179,157,219,.2),rgba(179,157,219,.05));border:1px solid rgba(179,157,219,.3);}
+.section-title h2{font-size:20px;font-weight:700;color:var(--text-100);}
+.section-title p{font-size:12px;color:var(--text-300);margin-top:2px;}
+
+/* ── SUMMARY BANNER ── */
+.summary-banner{background:linear-gradient(135deg,var(--navy-800),var(--navy-700));border:1px solid var(--border);border-left:4px solid var(--gold-400);border-radius:var(--r);padding:20px 24px;margin-bottom:28px;}
+.summary-banner h3{font-size:13px;font-weight:600;color:var(--gold-300);margin-bottom:8px;}
+.summary-banner p{font-size:13px;color:var(--text-200);line-height:1.7;}
+
+/* ── CONSENSUS THEMES ── */
+.themes-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:28px;}
+.theme-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:18px;transition:border-color .2s;}
+.theme-card:hover{border-color:var(--gold-500);}
+.theme-num{font-size:11px;font-weight:700;color:var(--gold-400);margin-bottom:6px;letter-spacing:.5px;text-transform:uppercase;}
+.theme-card h4{font-size:13px;font-weight:600;color:var(--text-100);margin-bottom:8px;line-height:1.4;}
+.theme-card p{font-size:12px;color:var(--text-300);line-height:1.6;}
+
+/* ── LEVELS TABLE ── */
+.levels-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);margin-bottom:24px;overflow:hidden;}
+.levels-card-header{padding:14px 20px;background:linear-gradient(135deg,var(--navy-700),var(--navy-600));border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;}
+.levels-card-header h3{font-size:13px;font-weight:600;color:var(--text-100);}
+.levels-card-header span{font-size:11px;color:var(--text-300);}
+table.levels{width:100%;border-collapse:collapse;}
+table.levels th{padding:10px 16px;font-size:10px;text-transform:uppercase;letter-spacing:.8px;color:var(--text-300);font-weight:600;text-align:left;border-bottom:1px solid var(--border);background:var(--navy-800);}
+table.levels td{padding:11px 16px;font-size:13px;border-bottom:1px solid rgba(30,48,80,.5);}
+table.levels tr:last-child td{border-bottom:none;}
+table.levels tr:hover td{background:var(--navy-800);}
+.sym{font-weight:700;color:var(--text-100);}
+.support{color:var(--green);font-weight:600;}
+.resistance{color:var(--red);font-weight:600;}
+.stop{color:#ff9800;font-weight:600;}
+
+/* ── CHANNEL CARDS ── */
+.channels-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+.channel-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;transition:border-color .2s,box-shadow .2s;}
+.channel-card:hover{border-color:var(--gold-500);box-shadow:0 4px 20px rgba(0,0,0,.4);}
+.channel-card.full-width{grid-column:1/-1;}
+.ch-header{padding:14px 18px;background:linear-gradient(135deg,var(--navy-700),var(--navy-600));border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;}
+.ch-avatar{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;flex-shrink:0;}
+.av-gold{background:linear-gradient(135deg,var(--gold-500),var(--gold-300));color:var(--navy-900);}
+.av-blue{background:linear-gradient(135deg,#0288d1,#4fc3f7);color:white;}
+.av-green{background:linear-gradient(135deg,#1b5e20,#00c853);color:white;}
+.av-purple{background:linear-gradient(135deg,#4a148c,#b39ddb);color:white;}
+.av-red{background:linear-gradient(135deg,#b71c1c,#ff5252);color:white;}
+.av-teal{background:linear-gradient(135deg,#004d40,#4db6ac);color:white;}
+.ch-meta{flex:1;}
+.ch-name{font-size:13px;font-weight:600;color:var(--text-100);}
+.ch-type{font-size:10px;color:var(--text-300);}
+.ch-sentiment{padding:3px 10px;border-radius:20px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.4px;flex-shrink:0;}
+.sent-bull{background:rgba(0,200,83,.15);color:var(--green);border:1px solid rgba(0,200,83,.25);}
+.sent-bear{background:rgba(255,61,113,.15);color:var(--red);border:1px solid rgba(255,61,113,.25);}
+.sent-neut{background:rgba(79,195,247,.15);color:var(--blue);border:1px solid rgba(79,195,247,.25);}
+.sent-caut{background:rgba(255,152,0,.15);color:#ff9800;border:1px solid rgba(255,152,0,.25);}
+.ch-body{padding:16px 18px;}
+.ch-view{font-size:12px;color:var(--text-200);line-height:1.7;margin-bottom:12px;}
+.ch-section-label{font-size:10px;text-transform:uppercase;letter-spacing:.8px;color:var(--text-400);font-weight:600;margin-bottom:6px;}
+.tickers-row{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;}
+.ticker-tag{padding:3px 9px;border-radius:5px;font-size:11px;font-weight:600;letter-spacing:.3px;}
+.tt-bull{background:rgba(0,200,83,.12);color:#4caf50;border:1px solid rgba(0,200,83,.2);}
+.tt-bear{background:rgba(255,61,113,.12);color:#ef5350;border:1px solid rgba(255,61,113,.2);}
+.tt-neut{background:rgba(255,255,255,.06);color:var(--text-300);border:1px solid rgba(255,255,255,.08);}
+.tt-watch{background:rgba(255,152,0,.12);color:#ff9800;border:1px solid rgba(255,152,0,.2);}
+.tt-crypto{background:rgba(179,157,219,.12);color:var(--purple);border:1px solid rgba(179,157,219,.2);}
+.risk-box{background:rgba(255,61,113,.05);border:1px solid rgba(255,61,113,.15);border-radius:var(--r-sm);padding:10px 12px;margin-top:10px;}
+.risk-box p{font-size:11px;color:rgba(255,100,120,.9);line-height:1.6;}
+.risk-box::before{content:"⚠ Risk";display:block;font-size:10px;font-weight:700;color:var(--red);letter-spacing:.5px;margin-bottom:4px;}
+.action-box{background:rgba(0,200,83,.05);border:1px solid rgba(0,200,83,.15);border-radius:var(--r-sm);padding:10px 12px;margin-top:10px;}
+.action-box p{font-size:11px;color:rgba(100,220,150,.9);line-height:1.6;}
+.action-box::before{content:"✓ Action";display:block;font-size:10px;font-weight:700;color:var(--green);letter-spacing:.5px;margin-bottom:4px;}
+
+/* ── OVERALL SUMMARY ── */
+.one-liner{background:linear-gradient(135deg,var(--navy-700),var(--navy-600));border:1px solid var(--border);border-top:3px solid var(--gold-400);border-radius:var(--r);padding:20px 24px;margin-bottom:28px;text-align:center;}
+.one-liner h3{font-size:12px;text-transform:uppercase;letter-spacing:1px;color:var(--gold-300);margin-bottom:8px;}
+.one-liner p{font-size:14px;color:var(--text-100);line-height:1.7;max-width:800px;margin:0 auto;}
+
+/* ── MACRO STATS ── */
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:28px;}
+.stat-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:16px 20px;text-align:center;}
+.stat-card .val{font-size:24px;font-weight:700;margin-bottom:4px;}
+.stat-card .lbl{font-size:10px;text-transform:uppercase;letter-spacing:.8px;color:var(--text-300);}
+.stat-card .chg{font-size:12px;font-weight:600;margin-top:4px;}
+
+/* ── DISCLAIMER ── */
+.disclaimer{text-align:center;padding:32px 20px 16px;border-top:1px solid var(--border);margin-top:24px;}
+.disclaimer p{font-size:11px;color:var(--text-400);max-width:700px;margin:0 auto;line-height:1.7;}
+.disclaimer strong{color:var(--text-300);}
+
+/* ── DIVIDER ── */
+.divider{height:1px;background:var(--border);margin:32px 0;}
+
+/* ── ANCHOR SCROLL ── */
+html{scroll-behavior:smooth;}
+.anchor-target{scroll-margin-top:calc(var(--header-h) + 24px);}
+
+@media(max-width:1100px){
+  :root{--sidebar-w:0px;}
+  #sidebar{display:none;}
+  #main{left:0;padding:20px 16px 40px;}
+  .themes-grid,.channels-grid{grid-template-columns:1fr;}
+  .stats-row{grid-template-columns:1fr 1fr;}
+  .tickers{display:none;}
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════ HEADER ══════════════ -->
+<header id="header">
+  <div class="logo">S</div>
+  <div class="brand">
+    <h1>Signal over Noise</h1>
+    <p>US Stock Member Network · AI Intelligence Platform</p>
+  </div>
+  <div class="h-div"></div>
+  <div class="h-title">
+    <h2>AI Assistant Daily Report</h2>
+    <p>
+      <span>2026-05-05 &nbsp;14:26 BJT</span>
+      <span class="live-badge">AI Analysis</span>
+      <span style="color:var(--text-400)">27 channels &nbsp;·&nbsp; 3 report types</span>
+    </p>
+  </div>
+  <div class="tickers">
+    <div class="ticker"><span class="t-sym">SPY</span><span class="t-price">719.40</span><span class="t-chg up">+0.31%</span></div>
+    <div class="ticker"><span class="t-sym">QQQ</span><span class="t-price">674.20</span><span class="t-chg up">+0.45%</span></div>
+    <div class="ticker"><span class="t-sym">VIX</span><span class="t-price">18.29</span><span class="t-chg down">−2.1%</span></div>
+    <div class="ticker"><span class="t-sym">BTC</span><span class="t-price">$79,800</span><span class="t-chg up">+1.8%</span></div>
+    <div class="ticker"><span class="t-sym">WTI</span><span class="t-price">$102.4</span><span class="t-chg up">+3.2%</span></div>
+    <div class="ticker"><span class="t-sym">GOLD</span><span class="t-price">$3,284</span><span class="t-chg down">−0.4%</span></div>
+  </div>
+</header>
+
+<!-- ══════════════ SIDEBAR ══════════════ -->
+<nav id="sidebar">
+  <div class="sb-section">
+    <h4>Report Sections</h4>
+    <a class="nav-item active" href="#overview"><div class="nav-num">①</div><div class="nav-label">Market Overview</div></a>
+    <a class="nav-item" href="#consensus"><div class="nav-num">②</div><div class="nav-label">Cross-Channel Consensus</div></a>
+    <a class="nav-item" href="#levels"><div class="nav-num">③</div><div class="nav-label">Key Levels & Targets</div></a>
+    <a class="nav-item" href="#daily-pm"><div class="nav-num">④</div><div class="nav-label">Afternoon Daily (14:26)</div></a>
+    <a class="nav-item" href="#daily-am"><div class="nav-num">⑤</div><div class="nav-label">Morning Daily (08:00)</div></a>
+    <a class="nav-item" href="#weekly"><div class="nav-num">⑥</div><div class="nav-label">Weekly Summary</div></a>
+    <a class="nav-item" href="#monthly"><div class="nav-num">⑦</div><div class="nav-label">Monthly Review (April)</div></a>
+  </div>
+  <div class="sb-section">
+    <h4>Channels — Today</h4>
+    <a class="nav-item" href="#ch-shunge"><div class="nav-num">1</div><div class="nav-label">Shun</div><span class="nav-badge nb-bull">Bull</span></a>
+    <a class="nav-item" href="#ch-usstocknet"><div class="nav-num">2</div><div class="nav-label">US Stock Network</div><span class="nav-badge nb-bull">Bull</span></a>
+    <a class="nav-item" href="#ch-zhirun"><div class="nav-num">3</div><div class="nav-label">Macro Zhirun</div><span class="nav-badge nb-bull">Bull</span></a>
+    <a class="nav-item" href="#ch-honghao"><div class="nav-num">5</div><div class="nav-label">Hong Hong</div><span class="nav-badge nb-neut">Macro</span></a>
+    <a class="nav-item" href="#ch-moneylife"><div class="nav-num">6</div><div class="nav-label">moneylife</div><span class="nav-badge nb-bull">Bull</span></a>
+    <a class="nav-item" href="#ch-catsister"><div class="nav-num">7</div><div class="nav-label">xtrader Cat Sister</div><span class="nav-badge nb-neut">Caution</span></a>
+    <a class="nav-item" href="#ch-oliverkell"><div class="nav-num">12</div><div class="nav-label">oliver-kell</div><span class="nav-badge nb-bull">Bull</span></a>
+    <a class="nav-item" href="#ch-elite"><div class="nav-num">15</div><div class="nav-label">Elite Finance</div><span class="nav-badge nb-bear">Bear Semi</span></a>
+    <a class="nav-item" href="#ch-usjun"><div class="nav-num">18</div><div class="nav-label">US Investment Jun</div><span class="nav-badge nb-bull">Strong Buy</span></a>
+    <a class="nav-item" href="#ch-mrkc"><div class="nav-num">19</div><div class="nav-label">mrkc Night Class</div><span class="nav-badge nb-neut">Defensive</span></a>
+    <a class="nav-item" href="#ch-newton"><div class="nav-num">22</div><div class="nav-label">Newton Newton</div><span class="nav-badge nb-bull">Bull</span></a>
+    <a class="nav-item" href="#ch-miji"><div class="nav-num">27</div><div class="nav-label">Miji Miji Investment</div><span class="nav-badge nb-neut">Caution</span></a>
+  </div>
+  <div class="sb-section">
+    <h4>Hot Sectors</h4>
+    <a class="nav-item" href="#sector-ai"><div class="nav-num" style="font-size:9px">AI</div><div class="nav-label">AI / Semiconductors</div><span class="nav-badge nb-bull">🔥 Hot</span></a>
+    <a class="nav-item" href="#sector-cloud"><div class="nav-num" style="font-size:9px">☁</div><div class="nav-label">Cloud / Software</div><span class="nav-badge nb-bull">Bullish</span></a>
+    <a class="nav-item" href="#sector-crypto"><div class="nav-num" style="font-size:9px">₿</div><div class="nav-label">Crypto / Stablecoin</div><span class="nav-badge nb-neut">Watch</span></a>
+    <a class="nav-item" href="#sector-energy"><div class="nav-num" style="font-size:9px">⚡</div><div class="nav-label">Energy / Commodities</div><span class="nav-badge nb-neut">Defensive</span></a>
+  </div>
+</nav>
+
+<!-- ══════════════ MAIN CONTENT ══════════════ -->
+<main id="main">
+
+<!-- ① OVERVIEW -->
+<section class="section anchor-target" id="overview">
+  <div class="section-header">
+    <div class="section-icon icon-gold">📊</div>
+    <div class="section-title">
+      <h2>Market Overview</h2>
+      <p>2026-05-05 · Compiled from X and 27 Discord channels</p>
+    </div>
+  </div>
+
+  <div class="one-liner">
+    <h3>Today's One-Sentence Summary</h3>
+    <p>AI infrastructure, storage, cloud, and crypto assets rebounded strongly today, but most channels advise caution at high levels: market is resilient, yet short-term risk is rising with CTAs, geopolitics (Iran/Hormuz), and earnings season creating volatility catalysts throughout May.</p>
+  </div>
+
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="val up">+0.31%</div>
+      <div class="lbl">S&amp;P 500 (SPY)</div>
+      <div class="chg" style="color:var(--text-300)">Support 717.8</div>
+    </div>
+    <div class="stat-card">
+      <div class="val up">+0.45%</div>
+      <div class="lbl">Nasdaq 100 (QQQ)</div>
+      <div class="chg" style="color:var(--text-300)">Resistance 678.6</div>
+    </div>
+    <div class="stat-card">
+      <div class="val down">18.29</div>
+      <div class="lbl">VIX — Fear Index</div>
+      <div class="chg" style="color:var(--gold-400)">Below 20 — Not Panic</div>
+    </div>
+    <div class="stat-card">
+      <div class="val up">$79,800</div>
+      <div class="lbl">Bitcoin (BTC)</div>
+      <div class="chg up">+1.8% · Testing resistance</div>
+    </div>
+  </div>
+
+  <div class="summary-banner">
+    <h3>AI Market Assistant — Report Notes</h3>
+    <p>This report is auto-compiled from multiple Discord investment channels and represents a diversity of viewpoints. Content includes: (1) daily afternoon summary (14:26 BJT), (2) daily morning summary (08:00 BJT), (3) weekly channel overview, and (4) monthly review for April 2026. Channels range from swing trading to long-term macro. Consensus signals and divergence points are highlighted throughout.</p>
+  </div>
+</section>
+
+<!-- ② CROSS-CHANNEL CONSENSUS -->
+<section class="section anchor-target" id="consensus">
+  <div class="section-header">
+    <div class="section-icon icon-blue">🔗</div>
+    <div class="section-title">
+      <h2>Cross-Channel Consensus</h2>
+      <p>Themes mentioned by 3+ channels independently — highest conviction signals</p>
+    </div>
+  </div>
+
+  <div class="themes-grid">
+    <div class="theme-card" id="sector-ai">
+      <div class="theme-num">🔥 Theme 1 · Strongest Consensus</div>
+      <h4>AI Storage / Semiconductors / Optical Modules</h4>
+      <p>Mentioned by: US Stock Network, xtrader, dan-zanger, oliver-kell, Elite Finance, Quantitative Navigator, Newton, US Research Society.<br><br>High-frequency targets: <strong>MU, SNDK, LITE, NVDA, AMD, INTC, SMH</strong>.<br><br>Divergence: Some remain optimistic on storage supply-demand; others (Elite Finance, Miji) warn of high-level correction risk and institutional selling.</p>
+    </div>
+    <div class="theme-card" id="sector-cloud">
+      <div class="theme-num">☁ Theme 2 · Capital Rotation Target</div>
+      <h4>MSFT / ORCL / Cloud Services / Software AI</h4>
+      <p>Mentioned by: Shun Ge, Macro, Liangtou, US Investment Pro, Lao Li, Newton, jlaw-myt.<br><br>Key logic: AI cloud service monetization, OpenAI-related demand, Azure/Copilot, ORCL cloud &amp; AI cooperation.<br><br>Targets: <strong>MSFT, ORCL, PLTR, APP, TEAM, BABA Cloud</strong>.</p>
+    </div>
+    <div class="theme-card">
+      <div class="theme-num">📈 Theme 3 · Post-Earnings Watch</div>
+      <h4>PLTR — Earnings Reaction Observation</h4>
+      <p>Mentioned by: moneylife, oliver-kell, Miji Investment, Newton, US Investment Pro, xtrader Cat Sister.<br><br>Divergence: moneylife says "key data fine, not selling"; Oliver Kell says needs to rebound to 162.50; Miji warns earnings range 118–162 carries high risk.<br><br>Consensus: <strong>Hold but monitor closely.</strong></p>
+    </div>
+    <div class="theme-card" id="sector-crypto">
+      <div class="theme-num">₿ Theme 4 · Crypto Chain Heating Up</div>
+      <h4>Crypto / Stablecoin / Clarity Act Progress</h4>
+      <p>Mentioned by: Shun Ge, moneylife, oliver-kell, Newton.<br><br>Assets: <strong>BTC, CRCL, COIN, MSTR, IREN</strong>.<br><br>Logic: Clarity Act progress, BTC recovery near $80K, favorable crypto policy. However, multiple channels highlight volatility and recommend position reduction &amp; profit-locking after gains.</p>
+    </div>
+    <div class="theme-card" id="sector-energy">
+      <div class="theme-num">⚡ Theme 5 · Defensive / Rotational Focus</div>
+      <h4>Energy / Commodities / Resources</h4>
+      <p>Mentioned by: Hong, mrkc, US Research Society, nana, Sunshine Finance, Miji, jlaw-myt.<br><br>Topics: Oil prices, Middle East geopolitics, Gold/Silver/Gold-Silver Ratio, Rare earth, key minerals, energy sovereignty.<br><br>Shared risk: <strong>WTI surge to ~$102 could reprice war premium and amplify volatility.</strong></p>
+    </div>
+    <div class="theme-card">
+      <div class="theme-num">⚠ Theme 6 · Macro Risk Cluster</div>
+      <h4>May Volatility — Macro Risk Basket</h4>
+      <p>Mentioned by all channels consistently.<br><br>Risk factors: Middle East / US-Iran conflict, CTA flows (estimated $58B sell if market drops), earnings report surprises, Fed rate path divergence, pension rebalancing, AI capex ROI uncertainty.<br><br><strong>Consensus: Market stable for now, but May brings elevated risk.</strong></p>
+    </div>
+  </div>
+</section>
+
+<!-- ③ KEY LEVELS -->
+<section class="section anchor-target" id="levels">
+  <div class="section-header">
+    <div class="section-icon icon-green">📐</div>
+    <div class="section-title">
+      <h2>Key Levels &amp; Price Targets</h2>
+      <p>Compiled from Miji Investment, moneylife, oliver-kell, Shun Ge — 2026-05-05</p>
+    </div>
+  </div>
+
+  <div class="levels-card">
+    <div class="levels-card-header"><h3>📊 Index &amp; ETF Levels</h3><span>Source: Miji Investment</span></div>
+    <table class="levels">
+      <tr><th>Symbol</th><th>Support</th><th>Resistance</th><th>Stop Loss</th><th>Comment</th></tr>
+      <tr><td class="sym">QQQ</td><td class="support">671.5</td><td class="resistance">678.6</td><td class="stop">670.7</td><td style="color:var(--text-300);font-size:12px">Near system high; reduce risk above 675</td></tr>
+      <tr><td class="sym">SPY</td><td class="support">717.8</td><td class="resistance">723.2</td><td class="stop">716.8</td><td style="color:var(--text-300);font-size:12px">Normal correction within upward channel</td></tr>
+      <tr><td class="sym">SOXL</td><td class="support">127.4</td><td class="resistance">132.5</td><td class="stop">126.6</td><td style="color:var(--text-300);font-size:12px">High-cost holders should reduce risk</td></tr>
+    </table>
+  </div>
+
+  <div class="levels-card">
+    <div class="levels-card-header"><h3>📈 Individual Stock Key Levels</h3><span>Source: Multiple channels</span></div>
+    <table class="levels">
+      <tr><th>Symbol</th><th>Support</th><th>Resistance</th><th>Stop Loss</th><th>Comment</th></tr>
+      <tr><td class="sym">TSLA</td><td class="support">384.0</td><td class="resistance">395.0</td><td class="stop">381.0</td><td style="color:var(--text-300);font-size:12px">384.12 key level for medium-term bottom confirm</td></tr>
+      <tr><td class="sym">PLTR</td><td class="support">142.0</td><td class="resistance">162.5</td><td class="stop">139.0</td><td style="color:var(--text-300);font-size:12px">Earnings range 118–162; high risk zone</td></tr>
+      <tr><td class="sym">NVDA</td><td class="support">170.0</td><td class="resistance">—</td><td class="stop">—</td><td style="color:var(--text-300);font-size:12px">Buy opp around 170; earnings May 20 key date</td></tr>
+      <tr><td class="sym">MSFT</td><td class="support">409–410</td><td class="resistance">460–465</td><td class="stop">—</td><td style="color:var(--text-300);font-size:12px">Post-earnings buy; long-term target $572 (STRONG BUY)</td></tr>
+      <tr><td class="sym">ORCL</td><td class="support">179.81</td><td class="resistance">—</td><td class="stop">—</td><td style="color:var(--text-300);font-size:12px">Zhirun buy at 179.81; long-term bullish</td></tr>
+      <tr><td class="sym">SNDK</td><td class="support">969.55</td><td class="resistance">1100–1200</td><td class="stop">—</td><td style="color:var(--text-300);font-size:12px">Added to "Sell-Off Club" by Cat Sister after +5% surge</td></tr>
+      <tr><td class="sym">MU</td><td class="support">296.75</td><td class="resistance">650–700</td><td class="stop">—</td><td style="color:var(--text-300);font-size:12px">Following 10-day MA; STX strong earnings catalyst</td></tr>
+      <tr><td class="sym">RKLB</td><td class="support">76–77</td><td class="resistance">80+</td><td class="stop">—</td><td style="color:var(--text-300);font-size:12px">Good medium-term target; close above 80 is strongest</td></tr>
+      <tr><td class="sym">META</td><td class="support">600</td><td class="resistance">—</td><td class="stop">—</td><td style="color:var(--text-300);font-size:12px">Holding above 600 key for bullish structure</td></tr>
+      <tr><td class="sym">CRCL</td><td class="support">—</td><td class="resistance">102.24</td><td class="stop">—</td><td style="color:var(--text-300);font-size:12px">Breakout above 102.24 → aggressive right-side move</td></tr>
+      <tr><td class="sym">BTC</td><td class="support">74,675</td><td class="resistance">80,000+</td><td class="stop">—</td><td style="color:var(--text-300);font-size:12px">3 trading days above resistance needed to confirm</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- ④ AFTERNOON DAILY PM -->
+<section class="section anchor-target" id="daily-pm">
+  <div class="section-header">
+    <div class="section-icon icon-gold">🌆</div>
+    <div class="section-title">
+      <h2>Afternoon Daily — 14:26 BJT</h2>
+      <p>Full 27-channel scan · Channels 1–27 · 2026-05-05</p>
+    </div>
+  </div>
+
+  <div class="channels-grid">
+
+    <!-- Shun Ge -->
+    <div class="channel-card anchor-target" id="ch-shunge">
+      <div class="ch-header">
+        <div class="ch-avatar av-gold">SG</div>
+        <div class="ch-meta">
+          <div class="ch-name">Shun</div>
+          <div class="ch-type">Stocks · Medium &amp; Long Term · s0</div>
+        </div>
+        <div class="ch-sentiment sent-caut">Caution High</div>
+      </div>
+      <div class="ch-body">
+        <div class="ch-section-label">Core Viewpoint</div>
+        <div class="ch-view">QQQ is approaching or has reached the 675–680 high range identified by the system. Tech stocks need cooling and position reduction. SQQQ already used for some hedging. Market flexibility is emphasized. Despite overall market strength, internal risks are present; caution advised at high levels.<br><br>Believes Bitcoin rebound after pullback may outperform broader market; return to $100K this year not impossible. META holding above 600 is good news. If market retraces to 6800, a better buying opportunity will form.</div>
+        <div class="ch-section-label">Key Targets</div>
+        <div class="tickers-row">
+          <span class="ticker-tag tt-bull">ORCL</span><span class="ticker-tag tt-bull">MSFT</span><span class="ticker-tag tt-bull">BABA</span><span class="ticker-tag tt-bull">NBIS</span><span class="ticker-tag tt-watch">CRWV</span><span class="ticker-tag tt-bull">TEAM</span><span class="ticker-tag tt-crypto">BTC</span><span class="ticker-tag tt-neut">QQQ</span><span class="ticker-tag tt-watch">META</span>
+        </div>
+        <div class="risk-box"><p>System target range 7360–7400 is the near-term ceiling. Short-term system limit near 7300, short-term risks rising. SQQQ used as hedge. Do not chase highs blindly.</p></div>
+      </div>
+    </div>
+
+    <!-- US Stock Investment Network -->
+    <div class="channel-card anchor-target" id="ch-usstocknet">
+      <div class="ch-header">
+        <div class="ch-avatar av-blue">US</div>
+        <div class="ch-meta">
+          <div class="ch-name">US Stock Investment Network US Stock Network</div>
+          <div class="ch-type">Stocks · Swing Trading · s0</div>
+        </div>
+        <div class="ch-sentiment sent-bull">Bullish</div>
+      </div>
+      <div class="ch-body">
+        <div class="ch-section-label">Core Viewpoint</div>
+        <div class="ch-view">SNDK rose ~5% driven by AI storage demand and data center market boom, with better-than-expected earnings. AI cloud service monetization remains key theme. AMZN open logistics network provides support to UPS and FDX. Funds flow into software, crypto, data centers. Market rebound expected after BTC pullback may outperform broader market. Potential return to $100K this year.</div>
+        <div class="ch-section-label">Key Targets</div>
+        <div class="tickers-row">
+          <span class="ticker-tag tt-bull">SNDK</span><span class="ticker-tag tt-bull">MU</span><span class="ticker-tag tt-bull">LITE</span><span class="ticker-tag tt-crypto">BTC</span><span class="ticker-tag tt-crypto">COIN</span><span class="ticker-tag tt-crypto">CRCL</span><span class="ticker-tag tt-crypto">MSTR</span><span class="ticker-tag tt-neut">AMZN</span><span class="ticker-tag tt-neut">UPS</span><span class="ticker-tag tt-neut">FDX</span>
+        </div>
+        <div class="action-box"><p>SNDK added to buy list on AI storage demand. BTC/crypto rebound viewed as outperforming opportunity vs. broader market.</p></div>
+      </div>
+    </div>
+
+    <!-- Macro -->
+    <div class="channel-card anchor-target" id="ch-zhirun">
+      <div class="ch-header">
+        <div class="ch-avatar av-purple">ZR</div>
+        <div class="ch-meta">
+          <div class="ch-name">Macro Macro</div>
+          <div class="ch-type">Stock Options · Short &amp; Long Term · s0</div>
+        </div>
+        <div class="ch-sentiment sent-bull">Bullish Cloud</div>
+      </div>
+      <div class="ch-body">
+        <div class="ch-section-label">Core Viewpoint</div>
+        <div class="ch-view">Cloud services and AI computing power chain rebounded, suggesting possible rotation of funds from hardware to software/cloud. Bullish on ORCL, MSFT, and BABA cloud services — rebound in software and cloud may have just begun. Middle East macro remains risk. Reduce ONON and PDD (consumer) to reposition in Oracle. Continue focus on AI cloud service computing power companies.</div>
+        <div class="ch-section-label">Confirmed Actions</div>
+        <div class="action-box"><p>Bought $30,000 ORCL at $179.81. Sold all NBIS at $173.60 (profit-taking). Plan to reduce ONON/PDD holdings.</p></div>
+        <div class="ch-section-label">Key Targets</div>
+        <div class="tickers-row">
+          <span class="ticker-tag tt-bull">ORCL</span><span class="ticker-tag tt-bull">MSFT</span><span class="ticker-tag tt-bull">BABA</span><span class="ticker-tag tt-neut">NBIS</span><span class="ticker-tag tt-watch">CRWV</span><span class="ticker-tag tt-bull">TEAM</span><span class="ticker-tag tt-bear">ONON</span><span class="ticker-tag tt-bear">PDD</span>
+        </div>
+        <div class="risk-box"><p>Without macroeconomic risk resolution, the cloud service rebound may only be beginning. Middle East conflict drives oil prices which reprice inflation and suppress rate cut expectations.</p></div>
+      </div>
+    </div>
+
+    <!-- Wang Haibin -->
+    <div class="channel-card anchor-target" id="ch-wanghaibin">
+      <div class="ch-header">
+        <div class="ch-avatar av-teal">WH</div>
+        <div class="ch-meta">
+          <div class="ch-name">Wang Haibin Wang Haibin</div>
+          <div class="ch-type">Commodities · Macro · Medium Term · s0</div>
+        </div>
+        <div class="ch-sentiment sent-neut">Macro Research</div>
+      </div>
+      <div class="ch-body">
+        <div class="ch-section-label">Core Viewpoint</div>
+        <div class="ch-view">Discussion focused on China Economic Observation: "Double Vicious Cycle" — contradiction between rapid development and lagging regulations. Fiscal and tax pressures on SMEs creating negative feedback loop: Tax burden → reduced corporate profits → lower employee income → insufficient consumption → price competition + deflation → further profit decline.<br><br>Global tax burden comparison: EU/US have higher nominal rates but more refunds; Chinese SMEs face front-end tax collection pressure expanding the tax base.</div>
+        <div class="ch-section-label">Key Themes (No Specific Trades)</div>
+        <div class="tickers-row">
+          <span class="ticker-tag tt-neut">China Macro</span><span class="ticker-tag tt-neut">SME Pressure</span><span class="ticker-tag tt-neut">Tax Burden</span><span class="ticker-tag tt-neut">Cash Flow</span><span class="ticker-tag tt-neut">Consumption</span>
+        </div>
+        <div class="risk-box"><p>Content leans towards macroeconomics and policy research — does not directly correspond to specific trading targets. Fiscal, tax, external demand, and consumer pressures converging may negatively impact cyclical/industrial commodity demand.</p></div>
+      </div>
+    </div>
+
+    <!-- Hong -->
+    <div class="channel-card anchor-target" id="ch-honghao">
+      <div class="ch-header">
+        <div class="ch-avatar av-gold">HH</div>
+        <div class="ch-meta">
+          <div class="ch-name">Hong Hong</div>
+          <div class="ch-type">Macro Strategy · Medium &amp; Long Term · s0</div>
+        </div>
+        <div class="ch-sentiment sent-neut">Macro / Gold</div>
+      </div>
+      <div class="ch-body">
+        <div class="ch-section-label">Core Viewpoint</div>
+        <div class="ch-view">More bullish on gold — supported by central bank gold purchases and its role as a sovereign credit hedge. Silver surge at beginning of year driven by AI infrastructure demand; as liquidity declines, silver's high-beta vulnerability becomes apparent. Strategy discussion: Long Gold / Short Silver — bet on gold-silver ratio reverting to historical midpoint. Middle East oil fluctuations exert downward pressure on markets.</div>
+        <div class="ch-section-label">Key Targets</div>
+        <div class="tickers-row">
+          <span class="ticker-tag tt-bull">Gold</span><span class="ticker-tag tt-bear">Silver</span><span class="ticker-tag tt-watch">Gold-Silver Ratio</span><span class="ticker-tag tt-neut">Liquidity</span><span class="ticker-tag tt-neut">Oil / WTI</span>
+        </div>
+        <div class="risk-box"><p>Historical correlations have been rewritten multiple times in recent years. Mean reversion of gold-silver ratio does not guarantee immediate returns. Macroeconomic analysis cannot be directly equated with specific commodity trading strategies.</p></div>
+      </div>
+    </div>
+
+    <!-- moneylife -->
+    <div class="channel-card anchor-target" id="ch-moneylife">
+      <div class="ch-header">
+        <div class="ch-avatar av-green">M</div>
+        <div class="ch-meta">
+          <div class="ch-name">moneylife</div>
+          <div class="ch-type">Stock Options · Mid-Term · s0</div>
+        </div>
+        <div class="ch-sentiment sent-bull">Bullish AI</div>
+      </div>
+      <div class="ch-body">
+        <div class="ch-section-label">Core Viewpoint</div>
+        <div class="ch-view">Continue bullish on AI. Market consolidation relatively good; Nasdaq unlikely to fall significantly, S&P 500 still has downward momentum. PLTR earnings: key data fine, no major issues — not selling based on earnings report. ORCL stock fell after earnings but then reversed and broke out. SNDK mini base broke out. TEAM reminder: good company ≠ good stock. 98% of crypto market has rebounded per CRCL signal. Over 40% long positions overnight — cautious but participating.</div>
+        <div class="ch-section-label">Confirmed Actions</div>
+        <div class="action-box"><p>New ASML position added (cost 93.3, 7% gain). PLTR: cost of selling just over 130. Holding 40%+ long overnight. Closing positions exceeding position-size limit at profit, retaining ~45% long over weekend.</p></div>
+        <div class="ch-section-label">Key Targets</div>
+        <div class="tickers-row">
+          <span class="ticker-tag tt-bull">ORCL</span><span class="ticker-tag tt-bull">SNDK</span><span class="ticker-tag tt-bull">ASML</span><span class="ticker-tag tt-neut">PLTR</span><span class="ticker-tag tt-crypto">CRCL</span><span class="ticker-tag tt-bull">TEAM</span>
+        </div>
+        <div class="risk-box"><p>Chasing high prices in the popular AI sector may result in 20%–30% pullback. CRCL still in transition from left to right side — excessive aggressiveness not advisable before breakout confirmation.</p></div>
+      </div>
+    </div>
+
+    <!-- xtrader Cat Sister -->
+    <div class="channel-card anchor-target" id="ch-catsister">
+      <div class="ch-header">
+        <div class="ch-avatar av-red">CS</div>
+        <div class="ch-meta">
+          <div class="ch-name">xtrader Cat Sister Cat Sister</div>
+          <div class="ch-type">Stocks · Mid-Term · s0</div>
+        </div>
+        <div class="ch-sentiment sent-caut">Risk Control</div>
+      </div>
+      <div class="ch-body">
+        <div class="ch-section-label">Core Viewpoint</div>
+        <div class="ch-view">Cautious at high levels. Added SNDK to "Sell-Off Club" — believes short-term gains have been significant. Sold half of MU base position. Overall position maintained at 40%+ overnight. Market data generally stable and has not met criteria for short-selling, so long positions are recommended — but position control is paramount. Different trading timeframes mean you cannot blindly copy strategies; establish your own entry/exit criteria.</div>
+        <div class="ch-section-label">Actions</div>
+        <div class="action-box"><p>SNDK added to Sell-Off Club (profit-taking). Half MU base sold. 40%+ long positions overnight. Funds from profit-taking temporarily parked — entry point for re-buying not clear.</p></div>
+        <div class="ch-section-label">Key Targets</div>
+        <div class="tickers-row">
+          <span class="ticker-tag tt-bear">SNDK (exit)</span><span class="ticker-tag tt-bear">MU (reduce)</span><span class="ticker-tag tt-watch">TSLA</span><span class="ticker-tag tt-watch">PLTR</span><span class="ticker-tag tt-neut">QQQ</span><span class="ticker-tag tt-neut">SPY</span>
+        </div>
+        <div class="risk-box"><p>Structural highs, declining center of gravity, and changes in domestic market data are signals to reduce positions. Avoid chasing high prices — enter in batches and wait for pullbacks. Position size standard 40% maintained strictly.</p></div>
+      </div>
+    </div>
+
+    <!-- oliver-kell -->
+    <div class="channel-card anchor-target" id="ch-oliverkell">
+      <div class="ch-header">
+        <div class="ch-avatar av-blue">O</div>
+        <div class="ch-meta">
+          <div class="ch-name">oliver-kell</div>
+          <div class="ch-type">Stocks · Mid-Line · s0</div>
+        </div>
+        <div class="ch-sentiment sent-bull">Bullish Select</div>
+      </div>
+      <div class="ch-body">
+        <div class="ch-section-label">Core Viewpoint</div>
+        <div class="ch-view">PLTR needs to rebound to 162.50 before becoming active again. SNDK stop loss moved to Friday's Ignite Bar low, subsequently following the 20EMA upwards. MRVL stop loss raised to 5-day MA to secure small profit. Post-AAOI earnings observation period. CRDO and DOCN: hold some positions after earnings but control size. NBIS: raise stop-loss after strong breakout.</div>
+        <div class="ch-section-label">Key Targets</div>
+        <div class="tickers-row">
+          <span class="ticker-tag tt-watch">PLTR</span><span class="ticker-tag tt-bull">SNDK</span><span class="ticker-tag tt-bull">MRVL</span><span class="ticker-tag tt-watch">AAOI</span><span class="ticker-tag tt-bull">NBIS</span><span class="ticker-tag tt-bull">CRDO</span><span class="ticker-tag tt-neut">DOCN</span><span class="ticker-tag tt-watch">MP</span><span class="ticker-tag tt-bull">RKLB</span>
+        </div>
+        <div class="risk-box"><p>Many stocks nearing earnings release dates; position size should be able to withstand earnings volatility. Some entries are "watches" rather than buys; 25% profit-taking is a phased strategy.</p></div>
+      </div>
+    </div>
+
+    <!-- Elite Finance -->
+    <div class="channel-card anchor-target" id="ch-elite">
+      <div class="ch-header">
+        <div class="ch-avatar av-red">EF</div>
+        <div class="ch-meta">
+          <div class="ch-name">Elite Finance Elite Finance</div>
+          <div class="ch-type">Medium &amp; Long-Term · s0</div>
+        </div>
+        <div class="ch-sentiment sent-bear">Bearish Semi</div>
+      </div>
+      <div class="ch-body">
+        <div class="ch-section-label">Core Viewpoint</div>
+        <div class="ch-view">Semiconductor industry has experienced approximately 2.5 years of overbought conditions. Currently considering the sector to be at the peak of the cycle — facing significant risk of future correction. AI storage, optical modules, edge AI, energy/infrastructure and self-developed chips are the themes. More cautious due to cash flow concerns. Data centers, semiconductor/storage, optical modules considered strong but at peak cycle.</div>
+        <div class="ch-section-label">Key Targets</div>
+        <div class="tickers-row">
+          <span class="ticker-tag tt-watch">AI Storage</span><span class="ticker-tag tt-watch">Optical Modules</span><span class="ticker-tag tt-neut">Edge AI</span><span class="ticker-tag tt-watch">Energy Infra</span><span class="ticker-tag tt-neut">FIX</span><span class="ticker-tag tt-neut">NBIS</span><span class="ticker-tag tt-neut">AMZN</span>
+        </div>
+        <div class="risk-box"><p>Semiconductor sector at peak of cycle — significant correction risk. Diverges from channels bullish on storage/optical modules. Cash flow and Capex ROI concerns.</p></div>
+      </div>
+    </div>
+
+    <!-- US Investment Jun Pro -->
+    <div class="channel-card anchor-target" id="ch-usjun">
+      <div class="ch-header">
+        <div class="ch-avatar av-gold">US</div>
+        <div class="ch-meta">
+          <div class="ch-name">US Investment Jun Pro US Invest Jun Pro</div>
+          <div class="ch-type">Long-Term · s0</div>
+        </div>
+        <div class="ch-sentiment sent-bull">Strong Buy MSFT</div>
+      </div>
+      <div class="ch-body">
+        <div class="ch-section-label">Core Viewpoint — MSFT Deep Dive</div>
+        <div class="ch-view">MSFT rating: <strong>STRONG BUY</strong>. 12-month target price: <strong>$572</strong>. Valuation range: $526–$609. Core logic: Azure + Copilot dual-engine growth. AI annualized revenue approximately $37B, YoY +123%; cloud service growth exceeded expectations. Tracking list includes SNDK, MU, ARM, MRVL, LITE, PLTR, DOCN, AAOI, NBIS.</div>
+        <div class="ch-section-label">Key Targets</div>
+        <div class="tickers-row">
+          <span class="ticker-tag tt-bull">MSFT</span><span class="ticker-tag tt-bull">PLTR</span><span class="ticker-tag tt-bull">NVDA</span><span class="ticker-tag tt-bull">AMZN</span><span class="ticker-tag tt-bull">TSLA</span><span class="ticker-tag tt-bull">META</span><span class="ticker-tag tt-bull">TSM</span><span class="ticker-tag tt-bull">Google</span><span class="ticker-tag tt-neut">Azure</span><span class="ticker-tag tt-neut">Copilot</span>
+        </div>
+        <div class="action-box"><p>MSFT target $572 with 12-month horizon. Risks: MSFT reliance on OpenAI; AI impact on M365 per-capita pricing; funding expense increases. Channel ratings are for long-term tracking, not short-term entry.</p></div>
+      </div>
+    </div>
+
+    <!-- mrkc -->
+    <div class="channel-card anchor-target" id="ch-mrkc">
+      <div class="ch-header">
+        <div class="ch-avatar av-purple">NK</div>
+        <div class="ch-meta">
+          <div class="ch-name">mrkc Late Night Classroom Night Class</div>
+          <div class="ch-type">Investment Research · s0</div>
+        </div>
+        <div class="ch-sentiment sent-caut">Defensive May</div>
+      </div>
+      <div class="ch-body">
+        <div class="ch-section-label">Core Viewpoint</div>
+        <div class="ch-view">Market volatility expected to rise in May. Portfolio primarily defensive, but medium-to-long-term AI supercycle unchanged. Risk factors: pension rebalancing, CTAs may shift from buy to sell (~$58B in declining market), liquidity tightening during tax season, high-level US-China meetings. Hang Seng target: 25609–26132; Hengke target: 4778–4979 as rollover range — buy low, sell high strategy.</div>
+        <div class="ch-section-label">Key Targets</div>
+        <div class="tickers-row">
+          <span class="ticker-tag tt-neut">CTA Flows</span><span class="ticker-tag tt-neut">HK Stocks</span><span class="ticker-tag tt-bull">AI</span><span class="ticker-tag tt-bull">Storage</span><span class="ticker-tag tt-bull">Energy</span><span class="ticker-tag tt-bull">Gold</span><span class="ticker-tag tt-watch">Defensive Assets</span>
+        </div>
+        <div class="risk-box"><p>Channel explicitly recommends reducing positions in crowded AI sectors and keeping cash on hand to cope with May volatility. Sector-wide selling by hedge funds seen in US tech. CTAs estimated to sell $58B in a declining market.</p></div>
+      </div>
+    </div>
+
+    <!-- Newton -->
+    <div class="channel-card anchor-target" id="ch-newton">
+      <div class="ch-header">
+        <div class="ch-avatar av-blue">NB</div>
+        <div class="ch-meta">
+          <div class="ch-name">Newton's Senior Brother Newton Bro</div>
+          <div class="ch-type">Stocks · Medium &amp; Long Term · s1</div>
+        </div>
+        <div class="ch-sentiment sent-bull">Bullish — VIX Watch</div>
+      </div>
+      <div class="ch-body">
+        <div class="ch-section-label">Core Viewpoint</div>
+        <div class="ch-view">Market highly divergent but with positive signs. Iranian conflict caused sharp decline followed by rapid recovery. NVDA/AMD market not yet panicking. VIX rose to 18.29 but remains below 20 — not yet entering the panic zone. Key signal: if VIX breaks above 20/30, increased vigilance needed. "/resources" trend continues; surge in storage prices masked weakness of SMH. HALO to "C Assets" framework: China, Consumer Cyclicals, Chips, Commodities — next phase of AI war may shift towards resource constraints.</div>
+        <div class="ch-section-label">Breakout Watch / Candidates</div>
+        <div class="tickers-row">
+          <span class="ticker-tag tt-watch">APLD</span><span class="ticker-tag tt-watch">PL</span><span class="ticker-tag tt-watch">TWST</span><span class="ticker-tag tt-neut">TSN</span><span class="ticker-tag tt-neut">FDX</span><span class="ticker-tag tt-bull">NVDA</span><span class="ticker-tag tt-bull">AMD</span><span class="ticker-tag tt-bull">ASTS</span><span class="ticker-tag tt-crypto">BTC</span>
+        </div>
+        <div class="risk-box"><p>VIX threshold at 20/30 needs monitoring. Not advisable to increase positions when there's disagreement; avoid positions before earnings to prevent unexpected events.</p></div>
+      </div>
+    </div>
+
+    <!-- Miji Investment -->
+    <div class="channel-card full-width anchor-target" id="ch-miji">
+      <div class="ch-header">
+        <div class="ch-avatar av-teal">MJ</div>
+        <div class="ch-meta">
+          <div class="ch-name">Miji Investment Miji Investment</div>
+          <div class="ch-type">Stocks · Swing Trading &amp; Medium-Term · s0</div>
+        </div>
+        <div class="ch-sentiment sent-caut">Risk — 3 Traps This Week</div>
+      </div>
+      <div class="ch-body">
+        <div class="ch-section-label">Core Viewpoint</div>
+        <div class="ch-view">Market rallied then retreated. Three major risks this week: (1) geopolitical factors, (2) earnings reports, (3) economic data. A short-term pullback of 2–3% is possible. Clear warning: there are potential traps at the beginning of the month — avoid chasing high prices. TSLA is relatively strong intraday. Methodology: emphasizes avoiding a "supermarket" approach (too many positions), focusing on a few familiar targets; no more than 5 stocks in a single day. Holding SOXL overnight carries significant risk.</div>
+        <div class="ch-section-label">Specific Key Levels (Source: Miji)</div>
+        <div class="tickers-row">
+          <span class="ticker-tag tt-watch">QQQ Support 671.5 / R 678.6 / SL 670.7</span>
+          <span class="ticker-tag tt-watch">SPY Support 717.8 / R 723.2 / SL 716.8</span>
+          <span class="ticker-tag tt-watch">SOXL Support 127.4 / R 132.5 / SL 126.6</span>
+          <span class="ticker-tag tt-watch">TSLA Support 384 / R 395 / SL 381</span>
+          <span class="ticker-tag tt-watch">PLTR Support 142 / R 150 / SL 139</span>
+        </div>
+        <div class="ch-section-label">Other Key Targets</div>
+        <div class="tickers-row">
+          <span class="ticker-tag tt-bull">MSFT</span><span class="ticker-tag tt-bull">NVDA</span><span class="ticker-tag tt-neut">AMD</span><span class="ticker-tag tt-watch">Geopolitics</span><span class="ticker-tag tt-watch">Non-Farm Payrolls</span>
+        </div>
+        <div class="risk-box"><p>SOXL overnight positions carry significant risk. Traps at month-start for early buyers. PLTR earnings range 118–162 carries high risk — reduce positions before end of trading day if concerned. Do not chase high prices in current environment.</p></div>
+      </div>
+    </div>
+
+  </div><!-- /channels-grid -->
+</section>
+
+<!-- ⑤ MORNING DAILY -->
+<section class="section anchor-target" id="daily-am">
+  <div class="section-header">
+    <div class="section-icon icon-blue">🌅</div>
+    <div class="section-title">
+      <h2>Morning Daily — 08:00 BJT</h2>
+      <p>Pre-market scan · Key channel views before market open · 2026-05-05</p>
+    </div>
+  </div>
+
+  <div class="summary-banner">
+    <h3>Morning Session Summary</h3>
+    <p>Morning report focused on AI infrastructure, memory, NVDA/MU, and the impact of AI on employment and US reindustrialization. Market is in a "lock-in rally/AA" phase at orange caution level. Semiconductors and memory performing strongly with some divergence. Crypto-related stocks (BTC, COIN, IREN, CRCL, MSTR) performed well but advisable to reduce slightly after profit. Market not panicking — VIX below 20.</p>
+  </div>
+
+  <div class="channels-grid">
+    <div class="channel-card">
+      <div class="ch-header">
+        <div class="ch-avatar av-gold">1</div>
+        <div class="ch-meta">
+          <div class="ch-name">Shun — Morning View</div>
+          <div class="ch-type">Stocks · Medium &amp; Long Term · s0</div>
+        </div>
+        <div class="ch-sentiment sent-bull">Bullish Cloud</div>
+      </div>
+      <div class="ch-body">
+        <div class="ch-view">NVDA/NVDL: Believes NVDA is undervalued vs AMD/INTC. Switching underlying NVDA to 2x long ETF NVDL, position ~X%. AI value starting from infrastructure — citing SemiAnalysis: value may shift from infrastructure layer to model layer. Anthropic ARR growing. Reduced focus on SaaS. Focus shifting from lowering expectations to prioritizing AI infrastructure, model-level value transfer, Neocloud, storage, and inference service providers. Remains optimistic on overall stock market.</div>
+        <div class="tickers-row">
+          <span class="ticker-tag tt-bull">NVDA</span><span class="ticker-tag tt-bull">NVDL</span><span class="ticker-tag tt-bull">MU</span><span class="ticker-tag tt-bull">ASML</span><span class="ticker-tag tt-watch">PLTR</span><span class="ticker-tag tt-watch">Neocloud</span>
+        </div>
+        <div class="risk-box"><p>NVDL uses leverage — amplifies volatility and drawdowns. Optical communication industry chain is complex. AI value chain shifting requires reassessment of infrastructure asset pricing.</p></div>
+      </div>
+    </div>
+
+    <div class="channel-card">
+      <div class="ch-header">
+        <div class="ch-avatar av-blue">2</div>
+        <div class="ch-meta">
+          <div class="ch-name">US Stock Investment Network — Morning</div>
+          <div class="ch-type">Swing Trading · s0</div>
+        </div>
+        <div class="ch-sentiment sent-bull">Bullish Swing</div>
+      </div>
+      <div class="ch-body">
+        <div class="ch-view">Market revolves around big tech earnings, AI capex, inflation and rate expectations. Semiconductors and memory performing strongly. SNDK/MU continue strong performance due to storage shortages. ETF inflows strong but concerns about pension fund rebalancing and CTA overcrowding. SPY key support/momentum levels at ~710, QQQ at ~655. Crypto-related stocks performing well but reduce slightly after profits.</div>
+        <div class="tickers-row">
+          <span class="ticker-tag tt-bull">SNDK</span><span class="ticker-tag tt-bull">MU</span><span class="ticker-tag tt-crypto">COIN</span><span class="ticker-tag tt-crypto">IREN</span><span class="ticker-tag tt-crypto">CRCL</span><span class="ticker-tag tt-crypto">MSTR</span><span class="ticker-tag tt-neut">QQQ</span><span class="ticker-tag tt-neut">SPY</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="channel-card">
+      <div class="ch-header">
+        <div class="ch-avatar av-purple">3</div>
+        <div class="ch-meta">
+          <div class="ch-name">Macro — Morning</div>
+          <div class="ch-type">Stock Options · s0</div>
+        </div>
+        <div class="ch-sentiment sent-bull">Bullish ORCL</div>
+      </div>
+      <div class="ch-body">
+        <div class="ch-view">SNDK up ~5% on AI storage. Crypto: BTC, MSTR, COIN, CRCL performing well. ORCL broken out after initial post-earnings reversal. SNDK mini base broken out. Storage stocks supported by tight AI demand and supply. META: 600 is key level — holding above increases reversal probability; break below targets 583/530; reversal target 760. TSLA and MSFT considered to have room for further gains in H2.</div>
+        <div class="tickers-row">
+          <span class="ticker-tag tt-bull">ORCL</span><span class="ticker-tag tt-bull">SNDK</span><span class="ticker-tag tt-bull">MU</span><span class="ticker-tag tt-watch">META</span><span class="ticker-tag tt-crypto">BTC</span><span class="ticker-tag tt-crypto">MSTR</span><span class="ticker-tag tt-crypto">CRCL</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="channel-card">
+      <div class="ch-header">
+        <div class="ch-avatar av-red">6</div>
+        <div class="ch-meta">
+          <div class="ch-name">moneylife — Morning</div>
+          <div class="ch-type">Stock Options · s0</div>
+        </div>
+        <div class="ch-sentiment sent-bull">Bullish</div>
+      </div>
+      <div class="ch-body">
+        <div class="ch-view">Nasdaq unlikely to fall significantly. S&P 500 still has some downward momentum. Buying/selling momentum indicators remain relatively strong. PLTR: slightly positive earnings interpretation, not selling. CRCL: 98% of market rebounded. Positions 40%+ overnight. Continue bullish on AI. ASML new position added. Market consolidation good overall. Pressure from bagging orders temporarily eased.</div>
+        <div class="tickers-row">
+          <span class="ticker-tag tt-bull">ASML</span><span class="ticker-tag tt-neut">PLTR</span><span class="ticker-tag tt-crypto">CRCL</span><span class="ticker-tag tt-bull">AI Sector</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="channel-card">
+      <div class="ch-header">
+        <div class="ch-avatar av-teal">11</div>
+        <div class="ch-meta">
+          <div class="ch-name">leifsoreide — Swings</div>
+          <div class="ch-type">Champion Team Trading · Scan Alerts</div>
+        </div>
+        <div class="ch-sentiment sent-bull">Active Alerts</div>
+      </div>
+      <div class="ch-body">
+        <div class="ch-view">Multiple scan/trading alerts issued. XBI stop loss at 127.76. LSCC: sold 25% (12% profit on earnings night). MU: sold 25% (37% profit). QQQ technical buy zone highlighted with large chart list. Momentum stocks consolidating amid uncertainty around Iran ceasefire. Market remains relatively strong despite war disruptions.</div>
+        <div class="tickers-row">
+          <span class="ticker-tag tt-bear">XBI SL 127.76</span><span class="ticker-tag tt-bull">LSCC</span><span class="ticker-tag tt-bull">MU</span><span class="ticker-tag tt-watch">QQQ</span><span class="ticker-tag tt-neut">Iran risk</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="channel-card">
+      <div class="ch-header">
+        <div class="ch-avatar av-gold">26</div>
+        <div class="ch-meta">
+          <div class="ch-name">Lao Li Plays with Money Lao Li Finance</div>
+          <div class="ch-type">Stocks · Medium &amp; Long Term · s0</div>
+        </div>
+        <div class="ch-sentiment sent-bull">3 Must-Buy May</div>
+      </div>
+      <div class="ch-body">
+        <div class="ch-view">"3 Must-Buy Stocks in May" — MSFT, NVDA, Rocket Lab. MSFT fell to ~$412 after earnings; better value below $410; strong revenue, net profit, cloud. NVDA: semiconductor leader, forward PE more advantageous than AMD; technical support 190, opportunity area around 170; manage positions before May 20 earnings. Rocket Lab: bullish on space data/sky data center concepts, high growth potential.</div>
+        <div class="tickers-row">
+          <span class="ticker-tag tt-bull">MSFT</span><span class="ticker-tag tt-bull">NVDA</span><span class="ticker-tag tt-bull">RKLB</span><span class="ticker-tag tt-neut">AMD</span>
+        </div>
+        <div class="risk-box"><p>Title leans towards "must-buy" — caution advised. NVDA earnings approaching May 20. RKLB has strong high volatility and growth potential. Entry near $410 MSFT offers better value.</p></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ⑥ WEEKLY SUMMARY -->
+<section class="section anchor-target" id="weekly">
+  <div class="section-header">
+    <div class="section-icon icon-purple">📅</div>
+    <div class="section-title">
+      <h2>Weekly Channel Summary</h2>
+      <p>Past 7 days — Key themes and strategy shifts across all channels</p>
+    </div>
+  </div>
+
+  <div class="one-liner">
+    <h3>Weekly One-Sentence Summary</h3>
+    <p>This week's market trading revolved around AI and earnings season, with many channels shifting from simply being bullish to "profit-taking at high levels, selecting key themes, and strengthening risk control" — the core remains AI infrastructure, storage, cloud, and crypto, but internal divergence and technical signals demand caution at high levels.</p>
+  </div>
+
+  <div class="themes-grid">
+    <div class="theme-card">
+      <div class="theme-num">📈 Weekly Theme 1</div>
+      <h4>AI Remains Absolutely Dominant</h4>
+      <p>All channels agree AI and big technology remain the core engines. However, debate shifted from "simply bullish on hardware" to demanding <strong>proof of monetization</strong>: MSFT earnings (Azure/Copilot), ORCL cloud/AI cooperation, META/AMZN capex ROI. The discussion is maturing from shovel-sellers to ecosystem beneficiaries.</p>
+    </div>
+    <div class="theme-card">
+      <div class="theme-num">🔄 Weekly Theme 2</div>
+      <h4>Semiconductors / Memory Strong — But Overheated</h4>
+      <p>MU, SNDK, LITE seen as key AI storage plays. Stocks like STX, INTC, NXPI, UMC also gained on earnings. Multiple channels flagged overheating risk and potential "end of fifth wave" signals. <strong>Dual characteristic: strong fundamentals + short-term overheating.</strong></p>
+    </div>
+    <div class="theme-card">
+      <div class="theme-num">🛡 Weekly Theme 3</div>
+      <h4>Position Management Over Direction</h4>
+      <p>Most channels converged on a strategy of "holding trend positions but managing size": Shun Ge, Mao Jie, Zhi Run all emphasized caution at high levels. Maintaining 40% long positions overnight became the de facto standard for risk-aware investors this week.</p>
+    </div>
+    <div class="theme-card">
+      <div class="theme-num">⚡ Weekly Theme 4</div>
+      <h4>Oil Prices &amp; Geopolitics as Macro Disruptor</h4>
+      <p>Iran-US tensions, Strait of Hormuz risk, Middle East shipping disruptions. WTI surging to $102+ repricing war premium. Energy stocks benefited; inflation expectations rose; rate cut probability decreased. This remains the #1 external risk variable for May.</p>
+    </div>
+    <div class="theme-card">
+      <div class="theme-num">💻 Weekly Theme 5</div>
+      <h4>Software / Cloud Revaluation Emerging</h4>
+      <p>MSFT, ORCL, CRWV identified as AI computing power beneficiaries. Application-layer commercialization exceeded expectations — software stocks may experience a recovery phase. The shift from "hardware hype" to "software monetization" is a key rotation to watch in H2 2026.</p>
+    </div>
+    <div class="theme-card">
+      <div class="theme-num">🚀 Weekly Theme 6</div>
+      <h4>Space / Aerospace Chain Catalyst</h4>
+      <p>RKLB continues to be viewed as a strong medium-term play. RKLX (2x RKLB) adopted by moneylife after IRDM profit-taking. ASTS viewed pessimistically (satellite deployment target revisions). SATS weekly sell-put strategy initiated. SpaceX IPO narrative gaining attention across multiple channels.</p>
+    </div>
+  </div>
+
+  <div class="channels-grid">
+    <div class="channel-card">
+      <div class="ch-header">
+        <div class="ch-avatar av-gold">SG</div>
+        <div class="ch-meta">
+          <div class="ch-name">Shun Ge — Weekly Core</div>
+          <div class="ch-type">Management + Medium-Term Logic + Options to Enhance Returns</div>
+        </div>
+        <div class="ch-sentiment sent-caut">Flexible High</div>
+      </div>
+      <div class="ch-body">
+        <div class="ch-view">Emphasizes long-term holding and periodic portfolio adjustments. Differentiated view on AI hardware vs. leading tech companies. GOOG and QCOM took profit; will seek new opportunities to invest heavily. May shift focus to ORCL, MSFT, BABA cloud. QQQ nearing system top range 675–680 — warning issued.</div>
+        <div class="tickers-row">
+          <span class="ticker-tag tt-bull">NVDA</span><span class="ticker-tag tt-bull">ORCL</span><span class="ticker-tag tt-bull">MSFT</span><span class="ticker-tag tt-neut">QCOM (profit)</span><span class="ticker-tag tt-neut">GOOG (profit)</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="channel-card">
+      <div class="ch-header">
+        <div class="ch-avatar av-green">M</div>
+        <div class="ch-meta">
+          <div class="ch-name">moneylife — Weekly Options Strategy</div>
+          <div class="ch-type">Medium-Term Holdings + Premium Collection</div>
+        </div>
+        <div class="ch-sentiment sent-bull">Options Premium</div>
+      </div>
+      <div class="ch-body">
+        <div class="ch-view">META sell March 2027 550 put (premium collected). SATS weekly sell-put around strike 115. MSTR dollar-cost averaging in May. Switch IRDM funds → RKLX (2x RKLB). AAPL LEAP call (1–2 year). Position: ~45% long positions over weekend, allowing some pullback. PLTR earnings slightly positive: not selling.</div>
+        <div class="tickers-row">
+          <span class="ticker-tag tt-bull">META</span><span class="ticker-tag tt-bull">SATS</span><span class="ticker-tag tt-crypto">MSTR</span><span class="ticker-tag tt-bull">RKLX</span><span class="ticker-tag tt-bull">AAPL</span><span class="ticker-tag tt-neut">PLTR</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="channel-card">
+      <div class="ch-header">
+        <div class="ch-avatar av-red">CS</div>
+        <div class="ch-meta">
+          <div class="ch-name">xtrader Cat Sister — Weekly View</div>
+          <div class="ch-type">Consolidation Focus · Position Management</div>
+        </div>
+        <div class="ch-sentiment sent-caut">Consolidate</div>
+      </div>
+      <div class="ch-body">
+        <div class="ch-view">This week's core focus: consolidation, key support/resistance, momentum observation. MU/SNDK repeatedly highlighted as key investment areas; MU has reached new highs short-term. Over 40% long positions overnight reflects shift from offensive to "locking in profits + retaining trend positions." Storage still strong but short-term pullback emphasized.</div>
+        <div class="tickers-row">
+          <span class="ticker-tag tt-bull">MU</span><span class="ticker-tag tt-bear">SNDK (reduce)</span><span class="ticker-tag tt-watch">SPY</span><span class="ticker-tag tt-watch">QQQ</span><span class="ticker-tag tt-crypto">BTCUSD</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="channel-card">
+      <div class="ch-header">
+        <div class="ch-avatar av-purple">ZR</div>
+        <div class="ch-meta">
+          <div class="ch-name">Macro — Weekly Focus</div>
+          <div class="ch-type">AI Computing + OpenAI/Codex + Semi Risks</div>
+        </div>
+        <div class="ch-sentiment sent-bull">Bullish Cloud</div>
+      </div>
+      <div class="ch-body">
+        <div class="ch-view">Core focus: AI computing power, OpenAI/Codex, ORCL, MSFT. Short-term semiconductor risks highlighted. Holding SOXS as downside hedge. ORCL with massive OpenAI computing power orders is key. CRWV as pure OpenAI computing power provider (high risk/reward). Codex update significantly enhanced — operates computer applications and handles complex tasks.</div>
+        <div class="tickers-row">
+          <span class="ticker-tag tt-bull">ORCL</span><span class="ticker-tag tt-bull">MSFT</span><span class="ticker-tag tt-watch">CRWV</span><span class="ticker-tag tt-bull">NBIS</span><span class="ticker-tag tt-bear">SOXS (hedge)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ⑦ MONTHLY REVIEW -->
+<section class="section anchor-target" id="monthly">
+  <div class="section-header">
+    <div class="section-icon icon-purple">📆</div>
+    <div class="section-title">
+      <h2>Monthly Review — April 2026</h2>
+      <p>30-day cross-channel comprehensive observation · End-of-month report</p>
+    </div>
+  </div>
+
+  <div class="one-liner">
+    <h3>April Monthly One-Sentence Summary</h3>
+    <p>All channels agree that "AI and big technology remain the core market engines, but high-level differentiation, Capex validation, oil price shocks, and interest rate uncertainty are also key factors" — the overall strategy shifted from strong buying in tech stocks to flexible profit-taking at high levels with localized defensive/hedging approaches.</p>
+  </div>
+
+  <div class="themes-grid">
+    <div class="theme-card">
+      <div class="theme-num">🏆 Monthly Insight 1</div>
+      <h4>AI Value Chain Evolving</h4>
+      <p>Market is starting to demand proof of AI monetization. The trend is spreading from "shovel stocks" to software, cloud platforms, AI applications, and traditional companies improved by AI. SemiAnalysis cited: value may shift from infrastructure layer to model layer. Neocloud, inference service providers, memory manufacturers are the new focus.</p>
+    </div>
+    <div class="theme-card">
+      <div class="theme-num">📊 Monthly Insight 2</div>
+      <h4>Big Tech Earnings Season Catalyst</h4>
+      <p>Major tech earnings showed: MSFT cloud AI annualized revenue $37B (+123% YoY). GOOG cloud constrained by supply bottleneck. META ad monetization strong but capex too high. AMZN AWS AI demand strong but capex under pressure. Market increasingly sensitive to Capex ROI, earnings guidance, and AI commercialization timelines.</p>
+    </div>
+    <div class="theme-card">
+      <div class="theme-num">🔄 Monthly Insight 3</div>
+      <h4>Sector Rotation Patterns</h4>
+      <p>ETF inflows strong in April (record levels). CTA momentum buying created crowded positions. Hedge funds sold US tech stocks aggressively. Funds rotated: AI hardware → software/cloud → energy/defensive. Non-tech sectors (healthcare, consumer, cruise lines) beginning to attract attention as semiconductor valuations stretched.</p>
+    </div>
+    <div class="theme-card">
+      <div class="theme-num">⚖ Monthly Insight 4</div>
+      <h4>Position Management Over Directional Bets</h4>
+      <p>Consensus across Shun Ge, Mao Jie, Zhi Run: caution at high levels is more important than being directionally right. Standard: 40% long position overnight. Data-triggered position management (vs. time-based). Strict stop-losses. Taking profits in stages on high-value performers like GOOG, QCOM, INTC.</p>
+    </div>
+    <div class="theme-card">
+      <div class="theme-num">🚀 Monthly Insight 5</div>
+      <h4>Space / Aerospace Gaining Traction</h4>
+      <p>RKLB consistently mentioned as strong medium-term play. SpaceX IPO narrative creating excitement. ASTS viewed with pessimism due to satellite delays. SATS weekly premium collection emerging as income strategy. RKLX (2x RKLB) adopted as levered expression. Space + AI data centers is the emerging narrative for H2 2026.</p>
+    </div>
+    <div class="theme-card">
+      <div class="theme-num">📉 Monthly Insight 6</div>
+      <h4>Key Risks for May and Beyond</h4>
+      <p>1. Middle East / Iran / Hormuz Strait — oil spike repricing. 2. CTA crowding — estimated $58B forced sell on downturn. 3. AI capex ROI — if monetization disappoints, hardware+software fall together. 4. Fed policy divergence — hawkish votes, rate cuts delayed. 5. China macro — SME cash flow, consumption spiral. 6. Yen appreciation / carry trade unwinding.</p>
+    </div>
+  </div>
+
+  <div class="channels-grid">
+    <div class="channel-card">
+      <div class="ch-header">
+        <div class="ch-avatar av-gold">SG</div>
+        <div class="ch-meta">
+          <div class="ch-name">Shun Ge — April Monthly</div>
+          <div class="ch-type">Core Holdings · AI Infrastructure Focus</div>
+        </div>
+        <div class="ch-sentiment sent-bull">Long-Term Bullish</div>
+      </div>
+      <div class="ch-body">
+        <div class="ch-view">Style: "Caution at high levels, buying on dips, flexible profit-taking." Market is strong but internal risks exist. Highest conviction: NVDA (increased to 7%+ position), ASML, MU. Exited INTC after significant profits. Switched IRDM → RKLX. Took profit on GOOG near 350, will seek new opportunities. BRK.B as safe haven hedge.</div>
+        <div class="tickers-row">
+          <span class="ticker-tag tt-bull">NVDA</span><span class="ticker-tag tt-bull">ASML</span><span class="ticker-tag tt-bull">MU</span><span class="ticker-tag tt-bull">RKLX</span><span class="ticker-tag tt-neut">GOOG (profit)</span><span class="ticker-tag tt-bull">BRK.B</span>
+        </div>
+      </div>
+    </div>
+    <div class="channel-card">
+      <div class="ch-header">
+        <div class="ch-avatar av-purple">ZR</div>
+        <div class="ch-meta">
+          <div class="ch-name">Macro — April Monthly</div>
+          <div class="ch-type">Software / Cloud Revaluation + Semi Hedge</div>
+        </div>
+        <div class="ch-sentiment sent-bull">Cloud Rotation</div>
+      </div>
+      <div class="ch-body">
+        <div class="ch-view">Main theme: "AI Monetization Verification + Big Tech Financial Reports." Core holdings: MSFT, UNH (long-term). Contrarian trading around NBIS, SE, ONON. SE: Southeast Asian e-commerce, fintech, gaming cash flow recovery thesis. SOXS held as semiconductor sector hedge. BLDR sold at $88.90 (stop loss). NBIS top 5 holdings (NVIDIA Exemplar Cloud certification).</div>
+        <div class="tickers-row">
+          <span class="ticker-tag tt-bull">MSFT</span><span class="ticker-tag tt-bull">UNH</span><span class="ticker-tag tt-bull">NBIS</span><span class="ticker-tag tt-bull">SE</span><span class="ticker-tag tt-neut">ONON</span><span class="ticker-tag tt-bear">SOXS</span>
+        </div>
+      </div>
+    </div>
+    <div class="channel-card">
+      <div class="ch-header">
+        <div class="ch-avatar av-green">M</div>
+        <div class="ch-meta">
+          <div class="ch-name">moneylife — April Monthly</div>
+          <div class="ch-type">Core AI + Options Premium + Space</div>
+        </div>
+        <div class="ch-sentiment sent-bull">AI + Space</div>
+      </div>
+      <div class="ch-body">
+        <div class="ch-view">Monthly focus: medium-term holdings + active portfolio adjustments. Core AI, tech hardware, semiconductor equipment, medical technology. Latest operations: liquidated IRDM (cumulative profit ~$11,000), bought RKLX at 32.8 (1000 shares). Added to NVDA near 210 (position now over 7%). Weekly sell-puts on SATS (strike 115). META March 2027 550 put (premium collected). MSTR dollar-cost averaging.</div>
+        <div class="tickers-row">
+          <span class="ticker-tag tt-bull">NVDA</span><span class="ticker-tag tt-bull">RKLX</span><span class="ticker-tag tt-bull">META</span><span class="ticker-tag tt-bull">SATS</span><span class="ticker-tag tt-crypto">MSTR</span><span class="ticker-tag tt-neut">IRDM (exit)</span>
+        </div>
+      </div>
+    </div>
+    <div class="channel-card">
+      <div class="ch-header">
+        <div class="ch-avatar av-red">CS</div>
+        <div class="ch-meta">
+          <div class="ch-name">Cat Sister — April Monthly</div>
+          <div class="ch-type">Consolidation · Risk Control Priority</div>
+        </div>
+        <div class="ch-sentiment sent-caut">Disciplined</div>
+      </div>
+      <div class="ch-body">
+        <div class="ch-view">Core: "Trend remains bullish, but strictly observe data and price action, avoid blindly adding positions." 40% overnight long positions is the norm. Domestic market data, price axis, 15-min chart are the key signals. Any position exceeding target closed for profit. Greater emphasis on software stock recovery. High attention on storage and optical communications with short-term pullback warning.</div>
+        <div class="tickers-row">
+          <span class="ticker-tag tt-bull">MU</span><span class="ticker-tag tt-bull">SNDK</span><span class="ticker-tag tt-bull">VRT</span><span class="ticker-tag tt-bull">MRVL</span><span class="ticker-tag tt-watch">LITE</span><span class="ticker-tag tt-neut">TSLA</span><span class="ticker-tag tt-neut">PLTR</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- KEY FOCUS NEXT MONTH -->
+  <div class="summary-banner">
+    <h3>Key Focus Areas — May 2026</h3>
+    <p>
+      1. MSFT, GOOGL, META, AMZN earnings — can AI capex be justified by revenue?<br>
+      2. NVDA earnings May 20 — semiconductor supply cycle confirmation.<br>
+      3. Will MU/SNDK/Storage Chain continue high volumes or enter profit-taking phase?<br>
+      4. Oil prices, Iran situation, Strait of Hormuz — geopolitical escalation risk.<br>
+      5. Fed subsequent statements + market repricing of rate cut probability.<br>
+      6. Key support levels: SPY ~710, QQQ ~655. Breach triggers position reduction protocol.<br>
+      7. Can software/cloud stocks complete their valuation repair and trend reversal?
+    </p>
+  </div>
+</section>
+
+<!-- DISCLAIMER -->
+<div class="disclaimer">
+  <p><strong>Disclaimer</strong><br>
+  <br><br>
+  This report is auto-compiled from Discord investment channels for informational purposes only and does not constitute investment advice. Market involves significant volatility including options, leveraged products, and crypto assets. Please make independent judgments and manage your own risk.</p>
+</div>
+
+</main>
+
+<script>
+// Sidebar active nav tracking via IntersectionObserver
+(function(){
+  var navItems = document.querySelectorAll('.nav-item');
+  var sections = document.querySelectorAll('.anchor-target');
+  var main = document.getElementById('main');
+
+  function setActive(id) {
+    navItems.forEach(function(el){
+      el.classList.toggle('active', el.getAttribute('href') === '#' + id);
+    });
+  }
+
+  var observer = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting) setActive(e.target.id);
+    });
+  }, { root: main, threshold: 0.2 });
+
+  sections.forEach(function(s){ observer.observe(s); });
+})();
+</script>
+</body>
+</html>

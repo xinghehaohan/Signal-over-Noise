@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Data Center Connectivity Research · Bernstein 2026</title>
+  <style>
+    :root {
+      --bg: #0f1117;
+      --surface: #1a1d27;
+      --surface2: #222637;
+      --border: #2e3347;
+      --accent: #4f8ef7;
+      --accent2: #7c3aed;
+      --accent3: #10b981;
+      --warn: #f59e0b;
+      --text: #e2e8f0;
+      --text-muted: #94a3b8;
+      --text-dim: #64748b;
+      --tag-bg: rgba(79,142,247,0.12);
+      --tag-color: #7bb3ff;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, "PingFang SC", "Microsoft YaHei", "Hiragino Sans GB", sans-serif;
+      line-height: 1.8;
+      font-size: 16px;
+    }
+
+    /* ── Top nav ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(15,17,23,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      height: 52px;
+    }
+    nav .logo {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    nav .sep { color: var(--border); flex: 1; }
+    nav .tag {
+      font-size: 11px;
+      padding: 2px 10px;
+      border-radius: 20px;
+      background: var(--tag-bg);
+      color: var(--tag-color);
+      white-space: nowrap;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      padding: 5rem 2rem 3rem;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+    .hero .kicker {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.2rem;
+    }
+    .hero h1 {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 800;
+      line-height: 1.3;
+      margin-bottom: 1.2rem;
+      background: linear-gradient(135deg, #e2e8f0 0%, #7bb3ff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero .subtitle {
+      color: var(--text-muted);
+      font-size: 1rem;
+      max-width: 600px;
+    }
+    .hero .meta {
+      margin-top: 1.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: .6rem;
+    }
+    .hero .meta span {
+      font-size: 12px;
+      padding: 3px 12px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+    }
+
+    /* ── Layout ── */
+    .page {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 2rem 6rem;
+    }
+
+    /* ── Section headers ── */
+    .part-label {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin: 3.5rem 0 1.5rem;
+    }
+    .part-label .num {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 800;
+      flex-shrink: 0;
+      color: #fff;
+    }
+    .part-label h2 {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--text);
+    }
+
+    /* ── Section dividers ── */
+    .section-block {
+      margin-bottom: 2.2rem;
+    }
+    .section-block h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #a5c4ff;
+      margin-bottom: .9rem;
+      padding-left: 1rem;
+      border-left: 3px solid var(--accent);
+    }
+    .section-block p {
+      color: var(--text);
+      margin-bottom: .8rem;
+      padding-left: 1rem;
+    }
+
+    /* ── Data cards (key numbers) ── */
+    .data-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+      gap: .8rem;
+      margin: 1.2rem 0 1.5rem;
+    }
+    .data-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1rem 1.1rem;
+    }
+    .data-card .label {
+      font-size: 11px;
+      color: var(--text-dim);
+      margin-bottom: .3rem;
+      letter-spacing: .03em;
+    }
+    .data-card .value {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+    .data-card .desc {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: .25rem;
+    }
+
+    /* ── Rating table ── */
+    .rating-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      margin: 1.2rem 0;
+    }
+    .rating-table th {
+      text-align: left;
+      padding: .6rem 1rem;
+      background: var(--surface2);
+      color: var(--text-muted);
+      font-weight: 600;
+      font-size: 12px;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--border);
+    }
+    .rating-table td {
+      padding: .65rem 1rem;
+      border-bottom: 1px solid var(--border);
+      color: var(--text);
+    }
+    .rating-table tr:last-child td { border-bottom: none; }
+    .rating-table tr:hover td { background: rgba(255,255,255,.025); }
+    .badge-op {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 9px;
+      border-radius: 20px;
+      background: rgba(16,185,129,.15);
+      color: #34d399;
+    }
+    .badge-mp {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 9px;
+      border-radius: 20px;
+      background: rgba(245,158,11,.12);
+      color: #fbbf24;
+    }
+
+    /* ── Bullet list ── */
+    ul.styled {
+      padding-left: 1.5rem;
+      margin: .6rem 0 1rem;
+    }
+    ul.styled li {
+      color: var(--text);
+      margin-bottom: .4rem;
+      position: relative;
+    }
+    ul.styled li::marker { color: var(--accent); }
+
+    /* ── Callout boxes ── */
+    .callout {
+      border-left: 3px solid var(--accent);
+      background: var(--surface);
+      border-radius: 0 8px 8px 0;
+      padding: 1rem 1.2rem;
+      margin: 1.2rem 0;
+      font-size: 15px;
+      color: var(--text-muted);
+    }
+    .callout.warn {
+      border-color: var(--warn);
+    }
+    .callout.green {
+      border-color: var(--accent3);
+    }
+    .callout strong { color: var(--text); }
+
+    /* ── Timeline / risk list ── */
+    .timeline { margin: 1rem 0; }
+    .timeline-item {
+      display: flex;
+      gap: 1rem;
+      padding-bottom: 1.2rem;
+      position: relative;
+    }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: 15px;
+      top: 24px;
+      bottom: 0;
+      width: 1px;
+      background: var(--border);
+    }
+    .timeline-item:last-child::before { display: none; }
+    .tl-dot {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: var(--surface2);
+      border: 2px solid var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--accent);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .tl-body h4 {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: .3rem;
+    }
+    .tl-body p {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    /* ── Article part ── */
+    .article-header {
+      background: linear-gradient(135deg, var(--surface) 0%, #1a2040 100%);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2.5rem 2rem;
+      margin: 3.5rem 0 2.5rem;
+      text-align: center;
+    }
+    .article-header .eyebrow {
+      font-size: 11px;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+    .article-header h2 {
+      font-size: clamp(1.4rem, 3.5vw, 2rem);
+      font-weight: 900;
+      background: linear-gradient(135deg, #e2e8f0, #7bb3ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .article-section {
+      margin-bottom: 2.8rem;
+    }
+    .article-section .section-num {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--accent2);
+      margin-bottom: .5rem;
+    }
+    .article-section h3 {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 1rem;
+    }
+    .article-section p {
+      color: var(--text);
+      margin-bottom: .75rem;
+      line-height: 1.9;
+    }
+    .article-section p strong {
+      color: #93c5fd;
+    }
+
+    /* ── Three-layer investment box ── */
+    .layer-cards {
+      display: grid;
+      gap: .8rem;
+      margin: 1.2rem 0;
+    }
+    .layer-card {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1rem 1.1rem;
+    }
+    .layer-card .layer-num {
+      font-size: 11px;
+      font-weight: 800;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .layer-card:nth-child(1) .layer-num { background: rgba(79,142,247,.2); color: var(--accent); }
+    .layer-card:nth-child(2) .layer-num { background: rgba(124,58,237,.2); color: #a78bfa; }
+    .layer-card:nth-child(3) .layer-num { background: rgba(16,185,129,.2); color: #34d399; }
+    .layer-card .lc-body h4 {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: .3rem;
+    }
+    .layer-card .lc-body p {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin: 0;
+    }
+
+    /* ── Supply chain grid ── */
+    .chain-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+      gap: .6rem;
+      margin: 1rem 0;
+    }
+    .chain-item {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: .65rem .9rem;
+    }
+    .chain-item .ci-label {
+      font-size: 10px;
+      color: var(--text-dim);
+      letter-spacing: .05em;
+      margin-bottom: .25rem;
+    }
+    .chain-item .ci-names {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem;
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-dim);
+    }
+
+    /* ── Divider ── */
+    .hr { border: none; border-top: 1px solid var(--border); margin: 2.5rem 0; }
+
+    @media (max-width: 600px) {
+      .hero { padding: 3rem 1.2rem 2rem; }
+      .page { padding: 0 1.2rem 4rem; }
+      nav { padding: 0 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav>
+  <span class="logo">Bernstein · 2026</span>
+  <span class="sep"></span>
+  <span class="tag">AI Data Center Connectivity</span>
+  <span class="tag">Deep Dive Research</span>
+</nav>
+
+<!-- Hero -->
+<header class="hero">
+  <span class="kicker">Bernstein Whitepaper · May 2026</span>
+  <h1>Artificial Intelligence:<br/>Inside the War for AI Data Center Connectivity</h1>
+  <p class="subtitle">Deep Summary &amp; Article — The bottleneck in AI data centers is shifting from compute to connectivity. This is the story of an entire supply chain's value re-rating.</p>
+  <div class="meta">
+    <span>Bernstein May 2026</span>
+    <span>CPO · CPC · PCB · ABF · HDI</span>
+    <span>Scale-up · Scale-out</span>
+  </div>
+</header>
+
+<!-- ════════════════════════════════════
+     PART 1: Research Report Deep Summary
+═════════════════════════════════════ -->
+<main class="page">
+
+  <div class="part-label">
+    <div class="num">I</div>
+    <h2>Research Report Deep Summary</h2>
+  </div>
+
+  <!-- 1. Core Thesis -->
+  <div class="section-block">
+    <h3>1. Core Thesis: The Bottleneck in AI Data Centers Is Shifting from Compute to Connectivity</h3>
+    <p>The thesis of this Bernstein May 2026 white paper is clear: AI data centers are no longer just a GPU, CPU, and HBM story. How data moves within racks, between racks, and across clusters is becoming the new performance bottleneck and the primary battleground for capital expenditure.</p>
+    <p>The report breaks AI data center connectivity into two categories:</p>
+    <div class="data-grid">
+      <div class="data-card">
+        <div class="label">Scale-up</div>
+        <div class="value">Intra-rack Connectivity</div>
+        <div class="desc">Short-range, high-bandwidth interconnects — typical use case is short-distance connections between GPU/CPU/switch chips</div>
+      </div>
+      <div class="data-card">
+        <div class="label">Scale-out</div>
+        <div class="value">Inter-cluster Networking</div>
+        <div class="desc">Network interconnects between racks and clusters — typical use cases include InfiniBand, Ethernet, optical modules, and switches</div>
+      </div>
+    </div>
+    <div class="callout">
+      <strong>Key Judgment:</strong> Copper and optical will coexist, each occupying its niche based on distance, power, cost, and reliability. Near-term, copper remains dominant in scale-up; optical solutions will begin penetrating from the switch side of scale-out first.
+    </div>
+  </div>
+
+  <!-- 2. CPO -->
+  <div class="section-block">
+    <h3>2. CPO: Direction Is Clear, But Mass Ramp Is Not Imminent</h3>
+    <p>CPO, or co-packaged optics, brings the optical engine closer to the XPU or switch chip. Its core value proposition is reducing signal loss, lowering power consumption, and improving bandwidth density and network reliability.</p>
+    <p>The report provides several hard data points:</p>
+    <div class="data-grid">
+      <div class="data-card">
+        <div class="label">NVIDIA · Power Efficiency</div>
+        <div class="value">↑ 3.5×</div>
+        <div class="desc">CPO switch vs. traditional pluggable optical modules</div>
+      </div>
+      <div class="data-card">
+        <div class="label">NVIDIA · Signal Integrity</div>
+        <div class="value">↑ 63×</div>
+        <div class="desc">CPO switch vs. traditional pluggable optical modules</div>
+      </div>
+      <div class="data-card">
+        <div class="label">NVIDIA · Network Resiliency</div>
+        <div class="value">↑ 10×</div>
+        <div class="desc">Improvement in scaled-network resiliency</div>
+      </div>
+      <div class="data-card">
+        <div class="label">NVIDIA · Deployment Speed</div>
+        <div class="value">↑ 1.3×</div>
+        <div class="desc">Improvement in deployment speed</div>
+      </div>
+      <div class="data-card">
+        <div class="label">Traditional 1.6Tbps Optical Module Power</div>
+        <div class="value">~30W</div>
+        <div class="desc">Of which DSP accounts for more than half</div>
+      </div>
+      <div class="data-card">
+        <div class="label">Broadcom CPO · Cost</div>
+        <div class="value">↓ 40%</div>
+        <div class="desc">Lower per-bit optics cost vs. traditional solution</div>
+      </div>
+      <div class="data-card">
+        <div class="label">Meta Trial · Power Savings</div>
+        <div class="value">&gt;500W</div>
+        <div class="desc">Broadcom Bailly CPO switch, 51.2T system</div>
+      </div>
+      <div class="data-card">
+        <div class="label">Optical Engine in CPO BOM</div>
+        <div class="value">~45%</div>
+        <div class="desc">CPO total cost is at least 10% higher than traditional pluggables</div>
+      </div>
+    </div>
+    <p>Yet the report is very measured on CPO timing: small-volume shipments will begin in H2 2026, primarily for scale-out; true mass volume is not expected until 2028. CPO for scale-up will come even later — potentially H2 2028 — as high-value XPU platforms will not readily accept unproven reliability risks.</p>
+    <p>Four key reasons:</p>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="tl-dot">1</div>
+        <div class="tl-body">
+          <h4>Poor Serviceability</h4>
+          <p>Traditional pluggable optical modules can be hot-swapped when they fail; a CPO failure may require replacing the entire switch or returning it to the factory.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-dot">2</div>
+        <div class="tl-body">
+          <h4>Yield Challenges</h4>
+          <p>Electronic ICs, photonic ICs, FAUs, micro-lenses, and fiber coupling all demand extremely high precision.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-dot">3</div>
+        <div class="tl-body">
+          <h4>Complex Testing</h4>
+          <p>Multi-stage testing is required at the wafer, die, and package levels.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-dot">4</div>
+        <div class="tl-body">
+          <h4>Supply Chain Concentration</h4>
+          <p>CPO supply chains are more concentrated than traditional optical modules, reducing CSP bargaining power.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. TSMC COUPE -->
+  <div class="section-block">
+    <h3>3. TSMC COUPE: The Key Enabler of CPO Platformization</h3>
+    <p>Bernstein believes TSMC's COUPE could become the dominant CPO platform. COUPE combines the EIC and PIC via hybrid bonding and precisely integrates micro-lenses and FAUs on top.</p>
+    <p>The report expects both NVIDIA and Broadcom to migrate to the TSMC COUPE path. TSMC's direct CPO/silicon photonics revenue contribution may be modest, but it will reinforce TSMC's competitive advantages in front-end wafers, SoIC, CoWoS, and advanced packaging ecosystems.</p>
+    <p>The primary CPO beneficiary chain includes:</p>
+    <ul class="styled">
+      <li>Optical engine supply chain</li>
+      <li>CW laser</li>
+      <li>FAU fiber arrays</li>
+      <li>Test equipment</li>
+      <li>Advanced packaging platforms</li>
+      <li>Optical coupling and micro-optic components</li>
+    </ul>
+    <div class="callout green">
+      Beneficiary names highlighted in the report include Chroma ATE, Lumentum, Coherent, TFC, Senko, FOCI, and ficonTec. Among covered companies with explicit ratings: <strong>Chroma ATE: Outperform, price target NT$1,660</strong>.
+    </div>
+  </div>
+
+  <!-- 4. Copper Interconnects -->
+  <div class="section-block">
+    <h3>4. Copper Interconnects Will Not Exit Immediately — CPC Will Extend Their Lifecycle</h3>
+    <p>The report's view on copper interconnects is important: copper will not be immediately displaced by CPO, but will continue through solutions such as CPC.</p>
+    <p>Traditional copper interconnects' advantages are low power, low cost, and high reliability; the disadvantage is that higher bandwidth means shorter transmission range. At 224Gbps, the report notes:</p>
+    <div class="data-grid">
+      <div class="data-card">
+        <div class="label">Passive DAC</div>
+        <div class="value">~2 m</div>
+        <div class="desc">Typical range limit at 224Gbps</div>
+      </div>
+      <div class="data-card">
+        <div class="label">AEC</div>
+        <div class="value">~7 m</div>
+        <div class="desc">Active Electrical Cable reach</div>
+      </div>
+      <div class="data-card">
+        <div class="label">Optical Advantage Distance</div>
+        <div class="value">&gt;10 m</div>
+        <div class="desc">Dominant for rack-to-rack, intra-DC, and DCI</div>
+      </div>
+    </div>
+    <p>CPC, or co-packaged copper, directly integrates high-speed copper cable connectors into the ASIC or switch package, bypassing PCB trace losses and making 448Gbps-class copper links technically viable.</p>
+    <div class="callout">
+      This is the Luxshare thesis. The report identifies Luxshare as a new copper connectivity supplier for GB300, with potential participation in the Vera Rubin platform, rated <strong>Outperform, price target CNY86</strong>.
+    </div>
+  </div>
+
+  <!-- 5. PCB/HDI/ABF -->
+  <div class="section-block">
+    <h3>5. PCB/HDI/ABF: Connectivity Upgrades Put Boards and Materials in the Spotlight</h3>
+    <p>The report argues that AI server connectivity upgrades will significantly increase the value content of PCBs, HDI, ABF substrates, and upstream materials.</p>
+    <p>Key data points:</p>
+    <div class="data-grid">
+      <div class="data-card">
+        <div class="label">2025 Global PCB Market</div>
+        <div class="value">~$85B</div>
+        <div class="desc">AI-driven demand expected to continue double-digit growth in 2026</div>
+      </div>
+      <div class="data-card">
+        <div class="label">HDI Market Size</div>
+        <div class="value">~$16B</div>
+        <div class="desc">~18% of PCB market in 2025, up ~2pp YoY</div>
+      </div>
+      <div class="data-card">
+        <div class="label">Blackwell Rack · HDI+PCB Value per GPU</div>
+        <div class="value">~$300</div>
+        <div class="desc">~2x vs. Hopper</div>
+      </div>
+      <div class="data-card">
+        <div class="label">Vera Rubin Midplane Layer Count</div>
+        <div class="value">40+ Layers</div>
+        <div class="desc">Upgrading from mainstream 16+ layers to 40+ layers</div>
+      </div>
+      <div class="data-card">
+        <div class="label">Rubin Ultra Backplane</div>
+        <div class="value">70+ Layers</div>
+        <div class="desc">Potentially reaching 70+ layers</div>
+      </div>
+      <div class="data-card">
+        <div class="label">CCL as % of PCB Cost</div>
+        <div class="value">~30%</div>
+        <div class="desc">Copper foil 40%, resin 25%, glass cloth 20%</div>
+      </div>
+    </div>
+    <p>Material upgrades are a parallel theme. AI servers and high-speed switches require materials with lower Dk/Df to reduce signal loss. The industry is migrating from Megtron 6 to Megtron 8, with M8.5/M9 evaluation beginning in 2026. M9 may be adopted for 224Gbps AI servers, at a cost potentially 5–10x that of M6.</p>
+  </div>
+
+  <!-- 6. Supply Chain Bottlenecks -->
+  <div class="section-block">
+    <h3>6. T-Glass, ABF Film, and HVLP Copper Foil Emerge as Supply Chain Bottlenecks</h3>
+    <p>The report believes tightness in high-end material supply will underpin supply chain profitability in 2026.</p>
+    <div class="data-grid">
+      <div class="data-card">
+        <div class="label">Ajinomoto · ABF Film Market Share</div>
+        <div class="value">~95%</div>
+        <div class="desc">Near-monopoly; Functional Materials segment operating margin ~54%</div>
+      </div>
+      <div class="data-card">
+        <div class="label">ABF · AI End-Use Mix</div>
+        <div class="value">11% → 23%</div>
+        <div class="desc">Estimated increase from FY3/24 to FY3/27</div>
+      </div>
+      <div class="data-card">
+        <div class="label">Ajinomoto FM · Revenue Growth</div>
+        <div class="value">+38% / +26%</div>
+        <div class="desc">FY3/26Q4 / FY3/27 estimates</div>
+      </div>
+      <div class="data-card">
+        <div class="label">Unimicron ABF Substrate ASP</div>
+        <div class="value">+5–7%/Qtr</div>
+        <div class="desc">Estimated quarterly increase in 2026</div>
+      </div>
+    </div>
+    <div class="callout warn">
+      <strong>Supply Tightness:</strong> Nittobo is the key T-glass supplier, but new capacity will not come online until early 2027, meaning T-glass supply will remain tight throughout 2026. This will directly pass through to pricing for substrate manufacturers such as Unimicron and Ibiden.
+    </div>
+  </div>
+
+  <!-- 7. Vendor Positioning -->
+  <div class="section-block">
+    <h3>7. Vendor Positioning: Who Is Best Positioned to Capture AI Connectivity Upside</h3>
+    <p>The report maps key beneficiaries by segment:</p>
+    <div class="chain-grid">
+      <div class="chain-item">
+        <div class="ci-label">CPO / Silicon Photonics Platform</div>
+        <div class="ci-names">TSMC · NVIDIA · Broadcom</div>
+      </div>
+      <div class="chain-item">
+        <div class="ci-label">Optical Components &amp; Laser</div>
+        <div class="ci-names">Lumentum · Coherent</div>
+      </div>
+      <div class="chain-item">
+        <div class="ci-label">Test Equipment</div>
+        <div class="ci-names">Chroma ATE</div>
+      </div>
+      <div class="chain-item">
+        <div class="ci-label">Copper Connectivity / CPC</div>
+        <div class="ci-names">Luxshare</div>
+      </div>
+      <div class="chain-item">
+        <div class="ci-label">ABF Substrate</div>
+        <div class="ci-names">Ibiden · Unimicron</div>
+      </div>
+      <div class="chain-item">
+        <div class="ci-label">HDI</div>
+        <div class="ci-names">Victory Giant · Unimicron</div>
+      </div>
+      <div class="chain-item">
+        <div class="ci-label">MLPCB</div>
+        <div class="ci-names">WUS · Victory Giant · Unimicron · TTM · ISU · Gold Circuit · Shengyi</div>
+      </div>
+      <div class="chain-item">
+        <div class="ci-label">CCL</div>
+        <div class="ci-names">Doosan · EMC · Shengyi Tech</div>
+      </div>
+      <div class="chain-item">
+        <div class="ci-label">ABF Film</div>
+        <div class="ci-names">Ajinomoto</div>
+      </div>
+      <div class="chain-item">
+        <div class="ci-label">T-Glass</div>
+        <div class="ci-names">Nittobo</div>
+      </div>
+    </div>
+
+    <p style="margin-top:1.2rem;">Bernstein coverage ratings and price targets:</p>
+    <table class="rating-table">
+      <thead>
+        <tr>
+          <th>Company</th>
+          <th>Rating</th>
+          <th>Price Target</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Chroma ATE</td><td><span class="badge-op">Outperform</span></td><td>NT$1,660</td></tr>
+        <tr><td>Largan</td><td><span class="badge-mp">Market-Perform</span></td><td>NT$2,600</td></tr>
+        <tr><td>Luxshare</td><td><span class="badge-op">Outperform</span></td><td>CNY 86</td></tr>
+        <tr><td>Unimicron</td><td><span class="badge-op">Outperform</span></td><td>NT$610</td></tr>
+        <tr><td>NVIDIA</td><td><span class="badge-op">Outperform</span></td><td>$300</td></tr>
+        <tr><td>Broadcom</td><td><span class="badge-op">Outperform</span></td><td>$525</td></tr>
+        <tr><td>TSMC</td><td><span class="badge-op">Outperform</span></td><td>$351 / NT$2,200</td></tr>
+        <tr><td>Ajinomoto</td><td><span class="badge-mp">Market-Perform</span></td><td>JPY 5,100</td></tr>
+        <tr><td>Ibiden</td><td><span class="badge-op">Outperform</span></td><td>JPY 9,200</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 8. Investment Implications -->
+  <div class="section-block">
+    <h3>8. Investment Implications: Near-Term Boards &amp; Materials, Mid-Term CPO, Long-Term Platform Ecosystems</h3>
+    <p>The report's investment cadence can be distilled into three takeaways:</p>
+    <ul class="styled">
+      <li><strong>First,</strong> do not over-anticipate CPO fully displacing traditional optical modules or copper interconnects in 2026–2027. CPO is the direction, but mass adoption requires proven reliability, lower costs, and supply chain maturity.</li>
+      <li><strong>Second,</strong> the more immediately visible opportunity is the increased value content in PCB/HDI/ABF/materials, driven specifically by the expanded midplane, backplane, and ABF substrate area and layer counts of Rubin and Rubin Ultra.</li>
+      <li><strong>Third,</strong> the companies with genuine long-term moats are platform leaders and structural gatekeepers: TSMC in COUPE/CoWoS, NVIDIA/Broadcom in switching silicon and networking ecosystems, Ajinomoto in ABF film, Ibiden/Unimicron in high-end substrates, and Luxshare in copper connectivity upgrades.</li>
+    </ul>
+    <p style="margin-top:1rem;">Key risks are equally clear:</p>
+    <ul class="styled">
+      <li>CPO reliability qualification falls short of expectations</li>
+      <li>CSPs continue to favor pluggable optical modules, delaying CPO adoption</li>
+      <li>PCB/HDI/ABF capacity additions in 2026–2027 are too aggressive, causing gross margin compression post-2027</li>
+      <li>Rising prices of T-glass, ABF film, and copper foil erode downstream profitability</li>
+      <li>Rubin/Rubin Ultra ramp timing changes</li>
+      <li>AI capex slowdown</li>
+    </ul>
+  </div>
+
+  <hr class="hr" />
+
+  <!-- ════════════════════════════════════
+       PART 2: Article
+  ═════════════════════════════════════ -->
+
+  <div class="article-header">
+    <div class="eyebrow">Article</div>
+    <h2>AI Data Centers: The Real Bottleneck Has Shifted</h2>
+  </div>
+
+  <div class="callout green" style="margin-bottom:2rem;">
+    <strong>Bottom Line Up Front:</strong> Near-term: boards and materials. Mid-term: copper connectivity upgrades. Long-term: CPO. Stop fixating on GPUs alone.
+  </div>
+
+  <div class="article-section">
+    <div class="section-num">01</div>
+    <h3>Connectivity Is Becoming the New Main Theme for AI Data Centers</h3>
+    <p>This Bernstein May 2026 white paper has a very direct title:</p>
+    <p><em>Inside the War for AI Data Center Connectivity.</em></p>
+    <p>In plain terms: the AI data center connectivity battle.</p>
+    <p>Previously, when the market looked at AI hardware, the first things that came to mind were GPU, HBM, and advanced packaging.</p>
+    <p>But now the question is: as more GPUs are stacked and models grow larger, what happens when data can no longer move fast enough between GPUs, racks, and clusters?</p>
+    <p>That is the value of connectivity.</p>
+    <p>The report divides AI data center connectivity into two categories:</p>
+    <p>The first is <strong>scale-up</strong>: primarily intra-rack, short-range, high-bandwidth connections.</p>
+    <p>The second is <strong>scale-out</strong>: primarily inter-rack, inter-cluster, and network switching.</p>
+    <p>The core issue is not which one — copper or optical — wipes out the other.</p>
+    <p>The core is: copper and optical each occupy their own range, power, and cost niche.</p>
+    <p>Near-term, copper remains the dominant solution in scale-up.</p>
+    <p>Long-term, CPO and optical solutions will begin penetrating from the switch side of scale-out first.</p>
+    <p>Is the picture clear?</p>
+    <p>This is not a single-point technology substitution story — it is an entire supply chain value re-rating.</p>
+  </div>
+
+  <div class="article-section">
+    <div class="section-num">02</div>
+    <h3>CPO Is Powerful, But Don't Expect a Full-Scale 2026 Breakout</h3>
+    <p>What is CPO?</p>
+    <p>Simply put: placing the optical engine closer to the switch chip or XPU to reduce signal loss, lower power consumption, and improve bandwidth density.</p>
+    <p>Sounds impressive, right?</p>
+    <p>The data certainly is.</p>
+    <p>NVIDIA states that CPO switches vs. traditional pluggable optical modules deliver:</p>
+    <ul class="styled">
+      <li>3.5x improvement in power efficiency</li>
+      <li>63x improvement in signal integrity</li>
+      <li>10x improvement in network resiliency</li>
+      <li>1.3x improvement in deployment speed</li>
+    </ul>
+    <p>A traditional 1.6Tbps optical module consumes approximately 30W, of which DSP alone accounts for more than half.</p>
+    <p>Broadcom also reports that its CPO switch delivers 40% lower per-bit optics cost. Meta's testing of the Broadcom Bailly CPO switch demonstrated savings of over 500W in a 51.2T switch system.</p>
+    <p>So is CPO set for immediate liftoff?</p>
+    <p>Not yet.</p>
+    <p>Bernstein's assessment is measured: CPO will begin small-volume shipments in H2 2026, primarily for scale-out, to validate market response and supply chain readiness. True mass-volume shipments are not expected until 2028, per LightCounting.</p>
+    <p>Why the slow pace?</p>
+    <p>Because what hyperscalers fear most is not the power figures on a slide deck — it is real-world downtime in production data centers.</p>
+    <p>When a traditional optical module fails, you simply unplug and replace it.</p>
+    <p>When a CPO module fails, it may require replacing the entire switch, or even a factory return.</p>
+    <p>This is not a minor issue for CSPs.</p>
+    <div class="callout warn">
+      <strong>Near-Term Strategy:</strong> CPO is the direction, but not a full-scale replacement in 2026. Investors who chase the "CPO" headline without regard for timing risk will likely be punished by the ramp schedule.
+    </div>
+  </div>
+
+  <div class="article-section">
+    <div class="section-num">03</div>
+    <h3>The Real Near-Term Certainty: PCB, HDI, ABF, and Materials</h3>
+    <p>The most actionable insight in this report is not the CPO revolution narrative, but rather grounding AI connectivity upgrades in boards and materials.</p>
+    <p>That is the more realistic earnings story for 2026.</p>
+    <p>Bernstein's data is concrete:</p>
+    <ul class="styled">
+      <li>2025 global PCB market approximately $85 billion.</li>
+      <li>HDI market approximately $16 billion, representing ~18% of the PCB market.</li>
+      <li>In Blackwell racks, increased HDI usage means HDI+PCB value per GPU roughly doubles vs. Hopper, reaching ~$300.</li>
+      <li>Vera Rubin midplane layer count may increase from the mainstream 16+ layers to 40+ layers.</li>
+      <li>Rubin Ultra backplane may potentially reach 70+ layers.</li>
+    </ul>
+    <p>What does this mean?</p>
+    <p>AI servers are not just about adding more GPUs.</p>
+    <p>They also require higher layer-count PCBs, more advanced HDI, larger ABF substrate footprints, lower-loss CCL, premium copper foil, and increasingly scarce T-glass.</p>
+    <p>In plain terms: AI connectivity upgrades have put boards center stage.</p>
+    <p>PCBs may have seemed like a mundane, traditional component.</p>
+    <p>But in AI servers, PCBs are no longer ordinary boards — they are the infrastructure layer for high-speed signal transmission.</p>
+    <p>Faster signals demand more expensive materials. Higher bandwidth demands more layers. Each platform upgrade pushes unit value higher.</p>
+    <p>This is why WUS, Victory Giant, Unimicron, Ibiden, Ajinomoto, and Nittobo keep appearing in every AI hardware conversation.</p>
+  </div>
+
+  <div class="article-section">
+    <div class="section-num">04</div>
+    <h3>Upstream Materials: The Easier Choke Point</h3>
+    <p>This section is the key point.</p>
+    <p>In the PCB value chain, genuine pricing power typically belongs not to the most publicized assembly layer, but to upstream materials.</p>
+    <p>Take ABF film.</p>
+    <p>Ajinomoto holds approximately <strong>95%</strong> market share in ABF film — a near-monopoly position.</p>
+    <p>Its Functional Materials segment carries an operating margin of approximately <strong>54%</strong>, contributing close to one-third of total business profit.</p>
+    <p>The AI end-use mix within ABF volume is estimated to increase from approximately 11% in FY3/24 to approximately 23% in FY3/27.</p>
+    <div class="callout">
+      This is the classic "formerly a condiment company, now repriced by AI servers" thesis.
+    </div>
+    <p>Now consider T-glass.</p>
+    <p>Nittobo is the key supplier, but new capacity will not come online until early 2027, meaning T-glass will remain tight throughout 2026.</p>
+    <p>This will directly pass through to pricing for substrate manufacturers such as Unimicron and Ibiden.</p>
+    <p>The report forecasts Unimicron's ABF substrate ASP increasing 5–7% per quarter in 2026, with AI-related revenue potentially representing ~50% of total revenue by 2026.</p>
+    <p>This is the most attractive position in the value chain:</p>
+    <p>Demand rising, materials tight, prices increasing, earnings with upside leverage.</p>
+    <div class="callout warn">
+      Of course, capacity expansion will eventually arrive. Blind conviction is unwarranted. 2026 looks tight; post-2027, you need to monitor new capacity additions and depreciation pressures.
+    </div>
+  </div>
+
+  <div class="article-section">
+    <div class="section-num">05</div>
+    <h3>Copper Interconnects Are Not Dead — The Luxshare Angle Deserves Attention</h3>
+    <p>The market tends to interpret CPO as "optical replacing copper."</p>
+    <p>But that is not the report's view.</p>
+    <p>Copper interconnects have very tangible advantages: low power, low cost, high reliability.</p>
+    <p>The challenge is that higher bandwidth means shorter viable range for copper.</p>
+    <p>At 224Gbps, passive DAC is typically limited to ~2 meters; AEC reaches ~7 meters. Beyond 10 meters, optical connectivity has a clear advantage.</p>
+    <p>But this does not mean copper is exiting imminently.</p>
+    <p>CPC will extend copper's lifecycle.</p>
+    <p>CPC directly integrates high-speed copper cable connectors into the ASIC or switch package, bypassing PCB trace losses and keeping 448Gbps-class copper links technically viable.</p>
+    <p>This is exactly the Luxshare thesis.</p>
+    <p>The report identifies Luxshare as a new copper connectivity supplier for GB300, with potential participation in the Vera Rubin platform, rated <strong>Outperform, price target CNY86</strong>.</p>
+    <div class="callout green">
+      In one sentence: CPO is the long-term horizon; copper connectivity is the current order flow. These two are not mutually exclusive.
+    </div>
+  </div>
+
+  <div class="article-section">
+    <div class="section-num">06</div>
+    <h3>How to Trade This Theme?</h3>
+    <p>My read is that the AI connectivity theme can be viewed in three tiers.</p>
+    <div class="layer-cards">
+      <div class="layer-card">
+        <div class="layer-num">1</div>
+        <div class="lc-body">
+          <h4>Highest Conviction: PCB / HDI / ABF / Materials</h4>
+          <p>Rubin and Rubin Ultra hardware upgrades will directly drive up layer count, surface area, material grades, and unit value of boards.</p>
+        </div>
+      </div>
+      <div class="layer-card">
+        <div class="layer-num">2</div>
+        <div class="lc-body">
+          <h4>Medium Conviction: Copper Connectivity Upgrade</h4>
+          <p>Copper will remain the dominant scale-up solution through 2026–2028. CPC will continue to extend the lifecycle, giving suppliers like Luxshare an opportunity to capture platform migration tailwinds.</p>
+        </div>
+      </div>
+      <div class="layer-card">
+        <div class="layer-num">3</div>
+        <div class="lc-body">
+          <h4>Long-Term Trend: CPO</h4>
+          <p>The CPO direction is very clear, but the cadence skews toward small-volume validation in H2 2026 and mass ramp in 2028. The right focus is on technology platforms, test equipment, lasers, FAUs, and advanced packaging — not chasing the concept blindly.</p>
+        </div>
+      </div>
+    </div>
+
+    <p>Bernstein's key ratings include:</p>
+    <table class="rating-table">
+      <thead>
+        <tr>
+          <th>Company</th>
+          <th>Rating</th>
+          <th>Price Target</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>NVIDIA</td><td><span class="badge-op">Outperform</span></td><td>$300</td></tr>
+        <tr><td>Broadcom</td><td><span class="badge-op">Outperform</span></td><td>$525</td></tr>
+        <tr><td>TSMC</td><td><span class="badge-op">Outperform</span></td><td>$351 / NT$2,200</td></tr>
+        <tr><td>Chroma ATE</td><td><span class="badge-op">Outperform</span></td><td>NT$1,660</td></tr>
+        <tr><td>Luxshare</td><td><span class="badge-op">Outperform</span></td><td>CNY 86</td></tr>
+        <tr><td>Unimicron</td><td><span class="badge-op">Outperform</span></td><td>NT$610</td></tr>
+        <tr><td>Ibiden</td><td><span class="badge-op">Outperform</span></td><td>JPY 9,200</td></tr>
+        <tr><td>Ajinomoto</td><td><span class="badge-mp">Market-Perform</span></td><td>JPY 5,100</td></tr>
+      </tbody>
+    </table>
+
+    <p style="margin-top:1.5rem;">The strategy is straightforward:</p>
+    <p>For 2026 earnings realization, focus on PCB, HDI, ABF, T-glass, and copper connectivity.</p>
+    <p>For 2028 industry trajectory, focus on CPO, silicon photonics, test equipment, and the TSMC COUPE ecosystem.</p>
+    <p>But trading purely on sentiment, without regard for capacity addition timelines and valuation, is a recipe for getting hurt.</p>
+    <p>PCB/HDI in particular is a capex-intensive sector: 2026 may look very attractive, but post-2027 you need to watch new capacity additions, depreciation, and gross margin trajectories.</p>
+    <div class="callout green" style="margin-top:1.5rem;">
+      <strong>In one sentence:</strong> AI connectivity is not the next niche theme — it is the inevitable infrastructure pathway as AI shifts from stacking compute to competing on system efficiency. Those already positioned should continue monitoring earnings and order flow. Those not yet positioned should avoid chasing sentiment peaks and look for entry points where material tightness, platform transitions, and order fulfillment all converge.
+    </div>
+    <p style="margin-top:1.5rem; color: var(--text-dim); font-size:13px;">For industry research and investment framework reference only. This does not constitute investment advice.</p>
+  </div>
+
+</main>
+
+<footer>
+  Bernstein · Artificial Intelligence: Inside the War for AI Data Center Connectivity · May 2026 &nbsp;|&nbsp; For research reference only. Not investment advice.
+</footer>
+
+</body>
+</html>
