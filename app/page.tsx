@@ -1,5 +1,5 @@
-import VideoDigestApp from '@/components/VideoDigestApp'
+import { redirect } from 'next/navigation'
 
 export default function Page() {
-  return <VideoDigestApp />
+  redirect('/discord-intel/timeline')
 }
