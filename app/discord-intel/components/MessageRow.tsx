@@ -52,7 +52,6 @@ export function MessageRow({ message: msg, showDateSep }: MessageRowProps) {
   const color = avatarColor(msg.author_external_id)
   const initial = name ? name[0].toUpperCase() : '?'
   const hasBadges = msg.mention_everyone || msg.pinned || !!msg.edited_at_source
-
   return (
     <>
       {showDateSep && (
@@ -70,7 +69,7 @@ export function MessageRow({ message: msg, showDateSep }: MessageRowProps) {
 
         <div className="dc-msg-body">
           <div className="dc-msg-header">
-            <span className="dc-msg-author">{name}</span>
+            <span className="dc-msg-author">{msg.source.channel_name_clean}</span>
             <span className="dc-msg-time">{formatTime(msg.created_at_source)}</span>
           </div>
 

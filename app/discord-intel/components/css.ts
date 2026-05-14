@@ -415,7 +415,8 @@ export const CSS = `
   .dc-msg-time {
     font-family: 'JetBrains Mono', monospace;
     font-size: 10px;
-    color: #c4b89a;
+    font-weight:800;
+    color: #632b19;
     letter-spacing: 0.02em;
     flex-shrink: 0;
   }
