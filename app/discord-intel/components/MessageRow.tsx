@@ -69,7 +69,7 @@ export function MessageRow({ message: msg, showDateSep }: MessageRowProps) {
 
         <div className="dc-msg-body">
           <div className="dc-msg-header">
-            <span className="dc-msg-author">{msg.source.channel_name_clean}</span>
+            {/* <span className="dc-msg-author">{formatTime(msg.created_at_source)}</span> */}
             <span className="dc-msg-time">{formatTime(msg.created_at_source)}</span>
           </div>
 
