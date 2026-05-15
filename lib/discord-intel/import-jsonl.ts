@@ -2,7 +2,8 @@ import { createHash } from 'crypto'
 import { getSupabaseAdmin } from './supabase-admin'
 import { parseJsonlText } from './parse-jsonl'
 import { cleanServerName, cleanChannelName } from './clean-names'
-import type { DiscordRawMessage, DiscordRawAttachment, ImportSummary } from './types'
+import type { DiscordRawMessage, DiscordRawAttachment, DiscordRawEmbed, ImportSummary } from './types'
+
 
 const BATCH_SIZE = 500
 
@@ -72,6 +73,7 @@ export async function importDiscordJsonlText(text: string): Promise<ImportSummar
   let insertedOrUpdatedCount = 0
   let duplicateCount = 0
   let attachmentCount = 0
+  let embedCount = 0
 
   for (let i = 0; i < messages.length; i += BATCH_SIZE) {
     const batch = messages.slice(i, i + BATCH_SIZE)
@@ -134,6 +136,44 @@ export async function importDiscordJsonlText(text: string): Promise<ImportSummar
           attachmentCount += attRows.length
         }
       }
+
+      // 5b. Process embeds
+      for (const msg of batch) {
+        const embeds: DiscordRawEmbed[] = Array.isArray(msg.embeds) ? msg.embeds : []
+        if (embeds.length === 0) continue
+
+        const dbMessageId = messageIdMap.get(msg.id)
+        if (!dbMessageId) continue
+
+        await supabase.from('discord_embeds').delete().eq('message_id', dbMessageId)
+
+        const embedRows = embeds.map((emb, pos) => ({
+          message_id: dbMessageId,
+          position: pos,
+          embed_type: emb.type ?? null,
+          title: emb.title ?? null,
+          description: emb.description ?? null,
+          url: emb.url ?? null,
+          color: typeof emb.color === 'number' ? emb.color : null,
+          image_url: emb.image?.url ?? null,
+          image_proxy_url: emb.image?.proxy_url ?? null,
+          image_width: typeof emb.image?.width === 'number' ? emb.image.width : null,
+          image_height: typeof emb.image?.height === 'number' ? emb.image.height : null,
+          thumbnail_url: emb.thumbnail?.url ?? null,
+          thumbnail_proxy_url: emb.thumbnail?.proxy_url ?? null,
+          footer_text: emb.footer?.text ?? null,
+          author_name: emb.author?.name ?? null,
+          raw: emb,
+        }))
+
+        const { error: embError } = await supabase.from('discord_embeds').insert(embedRows)
+
+        if (embError) {
+          importErrors.push(`Embeds for message ${msg.id}: ${embError.message}`)
+        } else {
+          embedCount += embedRows.length
+        }
+      }
     }
   }
 
@@ -166,6 +206,7 @@ export async function importDiscordJsonlText(text: string): Promise<ImportSummar
     insertedOrUpdatedCount,
     duplicateCount,
     attachmentCount,
+    embedCount,
     errors: importErrors,
   }
 }

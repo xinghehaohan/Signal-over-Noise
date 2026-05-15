@@ -113,3 +113,32 @@ create index if not exists idx_discord_sources_channel_id
 
 create index if not exists idx_discord_attachments_message
   on discord_attachments(message_id);
+
+-- ─── discord_embeds ───────────────────────────────────────────────────────
+-- One row per embed object inside a message. Embeds carry rich content such as
+-- descriptions, images, and links that are not part of the plain-text content
+-- field. Deleted and re-inserted on each import so data stays current.
+-- Migration: run this block on an existing database.
+create table if not exists discord_embeds (
+  id                  uuid    primary key default gen_random_uuid(),
+  message_id          uuid    references discord_messages(id) on delete cascade,
+  position            integer not null default 0,
+  embed_type          text,
+  title               text,
+  description         text,
+  url                 text,
+  color               integer,
+  image_url           text,
+  image_proxy_url     text,
+  image_width         integer,
+  image_height        integer,
+  thumbnail_url       text,
+  thumbnail_proxy_url text,
+  footer_text         text,
+  author_name         text,
+  raw                 jsonb,
+  created_at          timestamptz default now()
+);
+
+create index if not exists idx_discord_embeds_message
+  on discord_embeds(message_id, position);

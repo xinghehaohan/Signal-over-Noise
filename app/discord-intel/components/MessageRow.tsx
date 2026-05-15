@@ -1,6 +1,7 @@
 import React from 'react'
 import type { DiscordMessageTimelineItem } from '@/lib/discord-intel/types'
 import { AttachmentPreview } from './AttachmentPreview'
+import { EmbedPreview } from './EmbedPreview'
 
 const AVATAR_COLORS = [
   '#8B1A1A', '#1A5C8B', '#1A8B45', '#7A5C1A',
@@ -93,6 +94,10 @@ export function MessageRow({ message: msg, showDateSep }: MessageRowProps) {
 
           {msg.attachments && msg.attachments.length > 0 && (
             <AttachmentPreview attachments={msg.attachments} />
+          )}
+
+          {msg.embeds && msg.embeds.length > 0 && (
+            <EmbedPreview embeds={msg.embeds} />
           )}
         </div>
       </div>

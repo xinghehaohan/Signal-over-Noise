@@ -89,6 +89,19 @@ interface RawAttachment {
   proxy_url?: string
 }
 
+interface RawEmbed {
+  type?: string
+  title?: string
+  description?: string
+  url?: string
+  color?: number
+  image?: { url?: string; proxy_url?: string; width?: number; height?: number; [k: string]: unknown }
+  thumbnail?: { url?: string; proxy_url?: string; [k: string]: unknown }
+  footer?: { text?: string; [k: string]: unknown }
+  author?: { name?: string; [k: string]: unknown }
+  [k: string]: unknown
+}
+
 // ── Helpers ───────────────────────────────────────────────────
 function cleanName(name: string | undefined | null): string | null {
   if (!name) return null
@@ -246,6 +259,7 @@ async function main() {
   const totalBatches = Math.ceil(messages.length / BATCH_SIZE)
   let inserted = 0
   let attachmentCount = 0
+  let embedCount = 0
   const importErrors: string[] = []
   const startTime = Date.now()
 
@@ -303,6 +317,39 @@ async function main() {
         if (attErr) importErrors.push(`Attachments msg ${msg.id}: ${attErr.message}`)
         else attachmentCount += attRows.length
       }
+
+      // Embeds
+      for (const msg of batch) {
+        const embs: RawEmbed[] = Array.isArray(msg.embeds) ? (msg.embeds as RawEmbed[]) : []
+        if (embs.length === 0) continue
+        const dbId = msgIdMap.get(msg.id)
+        if (!dbId) continue
+
+        await supabase.from('discord_embeds').delete().eq('message_id', dbId)
+
+        const embRows = embs.map((emb: RawEmbed, pos: number) => ({
+          message_id: dbId,
+          position: pos,
+          embed_type: emb.type ?? null,
+          title: emb.title ?? null,
+          description: emb.description ?? null,
+          url: emb.url ?? null,
+          color: typeof emb.color === 'number' ? emb.color : null,
+          image_url: emb.image?.url ?? null,
+          image_proxy_url: emb.image?.proxy_url ?? null,
+          image_width: typeof emb.image?.width === 'number' ? emb.image.width : null,
+          image_height: typeof emb.image?.height === 'number' ? emb.image.height : null,
+          thumbnail_url: emb.thumbnail?.url ?? null,
+          thumbnail_proxy_url: emb.thumbnail?.proxy_url ?? null,
+          footer_text: emb.footer?.text ?? null,
+          author_name: emb.author?.name ?? null,
+          raw: emb,
+        }))
+
+        const { error: embErr } = await supabase.from('discord_embeds').insert(embRows)
+        if (embErr) importErrors.push(`Embeds msg ${msg.id}: ${embErr.message}`)
+        else embedCount += embRows.length
+      }
     }
   }
 
@@ -322,8 +369,9 @@ async function main() {
 
   process.stdout.write('\n\n')
   console.log(`Done in ${totalTime}s`)
-  console.log(`  Messages  : ${inserted}`)
+  console.log(`  Messages   : ${inserted}`)
   console.log(`  Attachments: ${attachmentCount}`)
+  console.log(`  Embeds     : ${embedCount}`)
   if (importErrors.length > 0) {
     console.log(`  Errors (${importErrors.length}):`)
     importErrors.slice(0, 10).forEach(e => console.log(`    ${e}`))

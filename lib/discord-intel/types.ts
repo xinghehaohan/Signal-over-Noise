@@ -13,6 +13,40 @@ export interface DiscordIntelManifest {
   run_id?: string
 }
 
+export interface DiscordRawEmbed {
+  type?: string
+  title?: string
+  description?: string
+  url?: string
+  color?: number
+  image?: {
+    url?: string
+    proxy_url?: string
+    width?: number
+    height?: number
+    content_type?: string
+    [key: string]: unknown
+  }
+  thumbnail?: {
+    url?: string
+    proxy_url?: string
+    width?: number
+    height?: number
+    [key: string]: unknown
+  }
+  footer?: {
+    text?: string
+    [key: string]: unknown
+  }
+  author?: {
+    name?: string
+    url?: string
+    icon_url?: string
+    [key: string]: unknown
+  }
+  [key: string]: unknown
+}
+
 export interface DiscordRawAttachment {
   id: string
   filename: string
@@ -39,7 +73,7 @@ export interface DiscordRawMessage {
   tts: boolean
   flags: number
   attachments: DiscordRawAttachment[]
-  embeds: unknown[]
+  embeds: DiscordRawEmbed[]
   mentions: unknown[]
   mention_roles: unknown[]
   components: unknown[]
@@ -70,6 +104,7 @@ export interface ImportSummary {
   insertedOrUpdatedCount: number
   duplicateCount: number
   attachmentCount: number
+  embedCount: number
   errors: string[]
 }
 
@@ -86,6 +121,24 @@ export interface DiscordSource {
   message_count: number
   attachment_count: number
   last_message_at: string | null
+}
+
+export interface DiscordTimelineEmbed {
+  id: string
+  position: number
+  embed_type: string | null
+  title: string | null
+  description: string | null
+  url: string | null
+  color: number | null
+  image_url: string | null
+  image_proxy_url: string | null
+  image_width: number | null
+  image_height: number | null
+  thumbnail_url: string | null
+  thumbnail_proxy_url: string | null
+  footer_text: string | null
+  author_name: string | null
 }
 
 export interface DiscordTimelineAttachment {
@@ -120,4 +173,5 @@ export interface DiscordMessageTimelineItem {
     channel_name_clean: string | null
   } | null
   attachments: DiscordTimelineAttachment[]
+  embeds: DiscordTimelineEmbed[]
 }

@@ -52,6 +52,23 @@ export async function GET(req: NextRequest) {
           height,
           url,
           proxy_url
+        ),
+        embeds:discord_embeds (
+          id,
+          position,
+          embed_type,
+          title,
+          description,
+          url,
+          color,
+          image_url,
+          image_proxy_url,
+          image_width,
+          image_height,
+          thumbnail_url,
+          thumbnail_proxy_url,
+          footer_text,
+          author_name
         )
       `,
         { count: 'exact' }

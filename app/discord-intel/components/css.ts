@@ -451,6 +451,61 @@ export const CSS = `
   .dc-badge-pinned   { background: #f5ebd8; color: #7a4a0f; }
   .dc-badge-edited   { background: #f0ede6; color: #9b8e7a; }
 
+  /* ─── Embeds ────────────────────────────── */
+  .dc-embeds { margin-top: 4px; display: flex; flex-direction: column; gap: 6px; }
+
+  .dc-embed {
+    border-left: 3px solid #d4ccb6;
+    background: #fffdf7;
+    border-radius: 0 4px 4px 0;
+    padding: 8px 12px;
+    max-width: 480px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .dc-embed-author {
+    font-size: 11px;
+    font-weight: 600;
+    color: #8a7a65;
+  }
+  .dc-embed-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: #1a1814;
+    text-decoration: none;
+  }
+  a.dc-embed-title:hover { text-decoration: underline; }
+  .dc-embed-desc {
+    font-size: 13px;
+    line-height: 1.5;
+    color: #2a2520;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+  .dc-embed-img-wrap {
+    margin-top: 4px;
+    line-height: 0;
+    border-radius: 3px;
+    overflow: hidden;
+    display: inline-block;
+    background: #e5ddc8;
+    max-width: 420px;
+  }
+  .dc-embed-img {
+    display: block;
+    max-width: 420px;
+    max-height: 280px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+  }
+  .dc-embed-footer {
+    font-size: 11px;
+    color: #9b8e7a;
+    margin-top: 2px;
+  }
+
   /* ─── Attachments ────────────────────────── */
   .dc-atts { margin-top: 4px; display: flex; flex-direction: column; gap: 4px; }
 
